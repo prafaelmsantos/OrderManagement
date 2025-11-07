@@ -25,7 +25,8 @@
 
             entity.HasMany(p => p.ProductsOrders)
                 .WithOne(pto => pto.Product)
-                .HasForeignKey(pto => pto.ProductId);
+                .HasForeignKey(pto => pto.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

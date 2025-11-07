@@ -11,7 +11,7 @@
                 Description = product.Description,
                 UnitPrice = product.UnitPrice,
                 CreatedAt = product.CreatedAt,
-                ProductsOrders = [.. product.ProductsOrders.Select(o => o.ToProductOrderDTO())]
+                ProductsOrders = []
             };
         }
     }

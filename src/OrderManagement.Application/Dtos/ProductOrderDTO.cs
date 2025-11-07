@@ -11,8 +11,8 @@
         public string? Color { get; set; }
         public double UnitPrice { get; set; }
 
-        public int QuantityTotal { get; set; }
-        public double PriceTotal { get; set; }
+        public int TotalQuantity { get; set; }
+        public double TotalPrice { get; set; }
 
         public int OneMonth { get; set; }
         public int ThreeMonths { get; set; }

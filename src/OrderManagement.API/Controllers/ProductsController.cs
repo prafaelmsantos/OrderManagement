@@ -1,4 +1,4 @@
-﻿namespace ProductManagement.API.Controllers
+﻿namespace OrderManagement.API.Controllers
 {
     [ApiVersion("1.0", Deprecated = false)]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -26,7 +26,7 @@
         [Produces("application/json")]
         public async Task<IActionResult> GetAsync()
         {
-            List<ProductDTO> products = await _productService.GetAllProductsAsync();
+            var products = await _productService.GetAllProductsAsync();
             return Ok(products);
         }
 
@@ -40,7 +40,7 @@
         [Produces("application/json")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] long id)
         {
-            ProductDTO productDTO = await _productService.GetProductByIdAsync(id);
+            var productDTO = await _productService.GetProductByIdAsync(id);
 
             return Ok(productDTO);
         }
@@ -84,7 +84,7 @@
         [Produces("application/json")]
         public async Task<IActionResult> DeleteAsync([FromBody] List<long> productsIds)
         {
-            List<BaseResponseDTO> baseResponses =
+            var baseResponses =
                 await _productService.DeleteProductsAsync(productsIds);
 
             return Ok(baseResponses);

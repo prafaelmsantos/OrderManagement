@@ -1,4 +1,4 @@
-﻿namespace CustomerManagement.API.Controllers
+﻿namespace OrderManagement.API.Controllers
 {
     [ApiVersion("1.0", Deprecated = false)]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -26,7 +26,7 @@
         [Produces("application/json")]
         public async Task<IActionResult> GetAsync()
         {
-            List<CustomerDTO> customers = await _customerService.GetAllCustomersAsync();
+            var customers = await _customerService.GetAllCustomersAsync();
             return Ok(customers);
         }
 
@@ -40,7 +40,7 @@
         [Produces("application/json")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] long id)
         {
-            CustomerDTO customerDTO = await _customerService.GetCustomerByIdAsync(id);
+            var customerDTO = await _customerService.GetCustomerByIdAsync(id);
 
             return Ok(customerDTO);
         }
@@ -84,7 +84,7 @@
         [Produces("application/json")]
         public async Task<IActionResult> DeleteAsync([FromBody] List<long> customersIds)
         {
-            List<BaseResponseDTO> baseResponses =
+            var baseResponses =
                 await _customerService.DeleteCustomersAsync(customersIds);
 
             return Ok(baseResponses);

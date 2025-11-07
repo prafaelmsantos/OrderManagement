@@ -28,6 +28,8 @@
         public int TenYears { get; private set; }
         public int TwelveYears { get; private set; }
 
+        public int TotalQuantity { get; set; }
+
         protected ProductOrder() { }
 
         public ProductOrder(
@@ -70,6 +72,8 @@
             EightYears = eightYears;
             TenYears = tenYears;
             TwelveYears = twelveYears;
+
+            UpdateTotalQuantity();
         }
 
         public ProductOrder(
@@ -114,6 +118,16 @@
             EightYears = eightYears;
             TenYears = tenYears;
             TwelveYears = twelveYears;
+
+            UpdateTotalQuantity();
+        }
+
+        private void UpdateTotalQuantity()
+        {
+            TotalQuantity = OneMonth + ThreeMonths + SixMonths + TwelveMonths +
+                            EighteenMonths + TwentyFourMonths + ThirtySixMonths +
+                            OneYear + TwoYears + ThreeYears + FourYears +
+                            SixYears + EightYears + TenYears + TwelveYears;
         }
     }
 }

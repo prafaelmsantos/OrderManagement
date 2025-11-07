@@ -49,8 +49,8 @@
                 TenYears = productOrder.TenYears,
                 TwelveYears = productOrder.TwelveYears,
 
-                QuantityTotal = totalQuantity,
-                PriceTotal = totalQuantity * productOrder.UnitPrice
+                TotalQuantity = totalQuantity,
+                TotalPrice = totalQuantity * productOrder.UnitPrice
             };
         }
     }
