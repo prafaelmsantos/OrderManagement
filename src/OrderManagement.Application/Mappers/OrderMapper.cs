@@ -10,8 +10,8 @@
                 CustomerId = order.CustomerId,
                 Status = order.Status,
                 CreatedAt = order.CreatedAt,
-                QuantityTotal = order.ProductsOrders.Select(x => x.TotalQuantity).Sum(),
-                PriceTotal = order.ProductsOrders.Select(x => x.UnitPrice).Sum(),
+                TotalQuantity = order.ProductsOrders.Select(x => x.TotalQuantity).Sum(),
+                TotalPrice = order.ProductsOrders.Select(x => x.TotalPrice).Sum(),
                 ProductsOrders = [.. order.ProductsOrders.Select(productOrder => new ProductOrderDTO()
                 {
                     OrderId = productOrder.OrderId,
@@ -45,7 +45,7 @@
                     TwelveYears = productOrder.TwelveYears,
 
                     TotalQuantity = productOrder.TotalQuantity,
-                    TotalPrice = productOrder.TotalQuantity * productOrder.UnitPrice
+                    TotalPrice = productOrder.TotalPrice
                 })]
             };
         }

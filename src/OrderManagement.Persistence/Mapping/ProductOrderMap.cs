@@ -24,10 +24,6 @@
                 .HasColumnName("unit_price")
                 .IsRequired();
 
-            entity.Property(x => x.TotalQuantity)
-                .HasColumnName("total_quantity")
-                .IsRequired();
-
             entity.Property(x => x.OneMonth)
                 .HasColumnName("one_month")
                 .IsRequired();
@@ -86,6 +82,14 @@
 
             entity.Property(x => x.TwelveYears)
                 .HasColumnName("twelve_years")
+                .IsRequired();
+
+            entity.Property(x => x.TotalQuantity)
+                .HasColumnName("total_quantity")
+                .IsRequired();
+
+            entity.Property(x => x.TotalPrice)
+                .HasColumnName("total_price")
                 .IsRequired();
         }
     }
