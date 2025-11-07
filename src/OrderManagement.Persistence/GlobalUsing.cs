@@ -1,0 +1,16 @@
+﻿global using System.Linq.Expressions;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Microsoft.Extensions.DependencyInjection;
+global using OrderManagement.Application.Interfaces.Repositories;
+global using OrderManagement.Application.Interfaces.Repositories.Base;
+global using OrderManagement.Domain.Entities;
+global using OrderManagement.Domain.Entities.Base;
+global using OrderManagement.Domain.Entities.Enum;
+global using OrderManagement.Persistence.Context;
+global using OrderManagement.Persistence.Extentions;
+global using OrderManagement.Persistence.Mapping;
+global using OrderManagement.Persistence.Mapping.Base;
+global using OrderManagement.Persistence.Mapping.Seed;
+global using OrderManagement.Persistence.Repositories;
+global using OrderManagement.Persistence.Repositories.Base;
