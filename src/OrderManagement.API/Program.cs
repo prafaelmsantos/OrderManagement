@@ -1,51 +1,82 @@
-﻿using Microsoft.AspNetCore.Mvc.Versioning;
-
-const string CustomPolicy = "CustomPolicy";
-const string TokenExpiredHeader = "Token-Expired";
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddApplicationServices();
-builder.Services.AddPersistenceServices();
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-// Configura API Versioning
-builder.Services.AddApiVersioning(options =>
+﻿namespace OrderManagement.API
 {
-    options.AssumeDefaultVersionWhenUnspecified = true;
-    options.DefaultApiVersion = new ApiVersion(1, 0);
-    options.ReportApiVersions = true; // Retorna no header quais versões estão disponíveis
-    options.ApiVersionReader = new UrlSegmentApiVersionReader(); // Usar URL /v1/
-});
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public class Program
+    {
+        const string CustomPolicy = "CustomPolicy";
+        const string TokenExpiredHeader = "Token-Expired";
+        const int MajorVersion = 1;
 
-builder.Services.AddCors(o => o.AddPolicy(CustomPolicy, builder =>
-{
-    builder.AllowAnyOrigin()
-          .AllowAnyMethod()
-          .AllowAnyHeader()
-          .WithExposedHeaders(TokenExpiredHeader);
-}));
+        public static async Task Main(string[] args)
+        {
+            try
+            {
+                var builder = WebApplication.CreateBuilder(args);
+                ConfigureHost(builder);
+                ConfigureServices(builder);
 
-var app = builder.Build();
+                var app = builder.Build();
+                ConfigureApp(app);
 
-app.UseCors(CustomPolicy);
+                await app.RunAsync();
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+        }
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+        private static void ConfigureHost(WebApplicationBuilder builder)
+        {
+            builder.WebHost.KestrelConfig();
+
+            builder.Host.UseSerilog((context, configuration) =>
+            {
+                configuration.ReadFrom.Configuration(context.Configuration);
+            });
+        }
+
+        private static void ConfigureServices(WebApplicationBuilder builder)
+        {
+            builder.Services.AddApplicationServices();
+            builder.Services.AddPersistenceServices();
+
+
+            builder.Services.AddAPIControllerServices(MajorVersion);
+            builder.Services.AddSwaggerServices();
+
+            builder.Services.AddCors(o => o.AddPolicy(CustomPolicy, builder =>
+            {
+                builder.AllowAnyOrigin()
+                      .AllowAnyMethod()
+                      .AllowAnyHeader()
+                      .WithExposedHeaders(TokenExpiredHeader);
+            }));
+        }
+
+        private static void ConfigureApp(WebApplication app)
+        {
+            var host = GetHost(app);
+
+            app.UsePathBase(host);
+            app.UseCors(CustomPolicy);
+
+            app.AddErrorHandlerMiddleware();
+            app.UseSwaggerDocs(host);
+
+            app.UseRouting();
+            app.MapControllers();
+            app.MapGet($"{host}/", async context => await context.Response.WriteAsync("There is http communication endpoints."));
+        }
+
+        private static string GetHost(IApplicationBuilder app)
+        {
+            var appSettings = app.ApplicationServices
+                .GetRequiredService<IOptions<AppSettings>>().Value;
+
+            var host = "/" + appSettings.VirtualHost.BasePath;
+
+            return host;
+        }
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
