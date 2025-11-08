@@ -14,8 +14,7 @@
                 PostalCode = customer.PostalCode,
                 City = customer.City,
                 FullAddress = $"{customer.Address}, {customer.PostalCode} {customer.City}",
-                CreatedAt = customer.CreatedAt,
-                Orders = []
+                CreatedAt = customer.CreatedAt
             };
         }
     }

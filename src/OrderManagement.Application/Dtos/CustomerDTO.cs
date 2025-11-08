@@ -11,7 +11,5 @@
         public string City { get; set; } = null!;
         public string FullAddress { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
-
-        public List<OrderDTO> Orders { get; set; } = [];
     }
 }

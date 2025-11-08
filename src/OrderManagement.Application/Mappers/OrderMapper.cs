@@ -21,8 +21,7 @@
                         Reference = productOrder.Product.Reference,
                         Description = productOrder.Product.Description,
                         UnitPrice = productOrder.Product.UnitPrice,
-                        CreatedAt = productOrder.Product.CreatedAt,
-                        ProductsOrders = []
+                        CreatedAt = productOrder.Product.CreatedAt
                     },
                     UnitPrice = productOrder.UnitPrice,
                     Color = productOrder.Color,

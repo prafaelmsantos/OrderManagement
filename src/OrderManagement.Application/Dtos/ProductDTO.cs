@@ -7,7 +7,5 @@
         public string? Description { get; set; }
         public double UnitPrice { get; set; }
         public DateTime CreatedAt { get; set; }
-
-        public List<ProductOrderDTO> ProductsOrders { get; set; } = [];
     }
 }
