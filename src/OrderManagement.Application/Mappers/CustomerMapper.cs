@@ -12,9 +12,19 @@
                 Contact = customer.Contact,
                 Address = customer.Address,
                 PostalCode = customer.PostalCode,
-                City = customer.City,
-                FullAddress = $"{customer.Address}, {customer.PostalCode} {customer.City}",
-                CreatedAt = customer.CreatedAt
+                City = customer.City
+            };
+        }
+
+        public static CustomerTableDTO ToCustomerTableDTO(this Customer customer)
+        {
+            return new CustomerTableDTO()
+            {
+                Id = customer.Id,
+                FullName = customer.FullName,
+                TaxIdentificationNumber = customer.TaxIdentificationNumber,
+                Contact = customer.Contact,
+                FullAddress = $"{customer.Address}, {customer.PostalCode} {customer.City}"
             };
         }
     }

@@ -16,7 +16,7 @@
         #endregion
 
         #region Public methods
-        public async Task<List<OrderDTO>> GetAllOrdersAsync()
+        public async Task<List<OrderTableDTO>> GetAllOrdersAsync()
         {
             List<Order> orders = await _orderRepository
                 .GetAllQueryable()
@@ -24,7 +24,7 @@
                 .AsNoTracking()
                 .ToListAsync();
 
-            return [.. orders.Select(x => x.ToOrderDTO())];
+            return [.. orders.Select(x => x.ToOrderTableDTO())];
         }
 
         public async Task<OrderDTO> GetOrderByIdAsync(long orderId)

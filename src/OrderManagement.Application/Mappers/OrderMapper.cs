@@ -9,20 +9,19 @@
                 Id = order.Id,
                 CustomerId = order.CustomerId,
                 Status = order.Status,
-                CreatedAt = order.CreatedAt,
                 TotalQuantity = order.ProductsOrders.Select(x => x.TotalQuantity).Sum(),
                 TotalPrice = order.ProductsOrders.Select(x => x.TotalPrice).Sum(),
                 ProductsOrders = [.. order.ProductsOrders.Select(productOrder => new ProductOrderDTO()
                 {
                     OrderId = productOrder.OrderId,
                     ProductId = productOrder.ProductId,
-                    Product = new ProductDTO(){
-                        Id = productOrder.Product.Id,
-                        Reference = productOrder.Product.Reference,
-                        Description = productOrder.Product.Description,
-                        UnitPrice = productOrder.Product.UnitPrice,
-                        CreatedAt = productOrder.Product.CreatedAt
-                    },
+                   //Product = new ProductDTO(){
+                   //    Id = productOrder.Product.Id,
+                   //    Reference = productOrder.Product.Reference,
+                   //    Description = productOrder.Product.Description,
+                   //    UnitPrice = productOrder.Product.UnitPrice,
+                   //    CreatedDate = productOrder.Product.CreatedAt
+                   //},
                     UnitPrice = productOrder.UnitPrice,
                     Color = productOrder.Color,
 
@@ -46,6 +45,21 @@
                     TotalQuantity = productOrder.TotalQuantity,
                     TotalPrice = productOrder.TotalPrice
                 })]
+            };
+        }
+
+        public static OrderTableDTO ToOrderTableDTO(this Order order)
+        {
+            return new OrderTableDTO()
+            {
+                Id = order.Id,
+                CustomerId = order.CustomerId,
+                CustomerFullName = order.Customer.FullName,
+                CustomerTaxIdentificationNumber = order.Customer.TaxIdentificationNumber,
+                Status = order.Status,
+                CreatedDate = order.CreatedAt,
+                TotalQuantity = order.ProductsOrders.Select(x => x.TotalQuantity).Sum(),
+                TotalPrice = order.ProductsOrders.Select(x => x.TotalPrice).Sum()
             };
         }
     }

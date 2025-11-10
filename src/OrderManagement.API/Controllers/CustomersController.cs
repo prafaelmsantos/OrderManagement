@@ -26,7 +26,7 @@
         [Produces("application/json")]
         public async Task<IActionResult> GetAsync()
         {
-            var customers = await _customerService.GetAllCustomersAsync();
+            List<CustomerTableDTO> customers = await _customerService.GetAllCustomersAsync();
             return Ok(customers);
         }
 

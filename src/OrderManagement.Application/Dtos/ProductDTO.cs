@@ -6,6 +6,6 @@
         public string Reference { get; set; } = null!;
         public string? Description { get; set; }
         public double UnitPrice { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

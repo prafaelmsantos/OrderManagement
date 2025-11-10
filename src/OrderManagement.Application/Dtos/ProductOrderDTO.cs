@@ -3,10 +3,10 @@
     public sealed class ProductOrderDTO
     {
         public long ProductId { get; set; }
-        public ProductDTO Product { get; set; } = null!;
+        public ProductDTO? Product { get; set; }
 
         public long OrderId { get; set; }
-        public OrderDTO Order { get; set; } = null!;
+        public OrderDTO? Order { get; set; } = null!;
 
         public string? Color { get; set; }
         public double UnitPrice { get; set; }
