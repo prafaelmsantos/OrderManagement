@@ -43,9 +43,9 @@ namespace OrderManagement.Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("contact");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT")
-                        .HasColumnName("created_at");
+                        .HasColumnName("created_date");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -76,7 +76,7 @@ namespace OrderManagement.Persistence.Migrations
                             Address = "Rua das Flores 10",
                             City = "Lisboa",
                             Contact = "912345678",
-                            CreatedAt = new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8634),
+                            CreatedDate = new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(5829),
                             FullName = "João Silva",
                             PostalCode = "1000-001",
                             TaxIdentificationNumber = "123456789"
@@ -87,7 +87,7 @@ namespace OrderManagement.Persistence.Migrations
                             Address = "Avenida Central 25",
                             City = "Porto",
                             Contact = "913456789",
-                            CreatedAt = new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8639),
+                            CreatedDate = new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(5838),
                             FullName = "Maria Santos",
                             PostalCode = "4000-123",
                             TaxIdentificationNumber = "987654321"
@@ -98,7 +98,7 @@ namespace OrderManagement.Persistence.Migrations
                             Address = "Rua da Liberdade 8",
                             City = "Coimbra",
                             Contact = "914567890",
-                            CreatedAt = new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8640),
+                            CreatedDate = new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(5838),
                             FullName = "António Santos",
                             PostalCode = "3000-045",
                             TaxIdentificationNumber = "192837465"
@@ -109,7 +109,7 @@ namespace OrderManagement.Persistence.Migrations
                             Address = "Travessa do Sol 12",
                             City = "Leiria",
                             Contact = "915678901",
-                            CreatedAt = new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8641),
+                            CreatedDate = new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(5839),
                             FullName = "José Santos",
                             PostalCode = "2400-002",
                             TaxIdentificationNumber = "564738291"
@@ -123,13 +123,21 @@ namespace OrderManagement.Persistence.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT")
-                        .HasColumnName("created_at");
+                        .HasColumnName("created_date");
 
                     b.Property<long>("CustomerId")
                         .HasColumnType("INTEGER")
                         .HasColumnName("customer_id");
+
+                    b.Property<string>("Observations")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("observations");
+
+                    b.Property<string>("PaymentMethod")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("payment_method");
 
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER")
@@ -148,29 +156,37 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8791),
+                            CreatedDate = new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6122),
                             CustomerId = 1L,
+                            Observations = "Este documento não serve de fatura.",
+                            PaymentMethod = "A pronto pagamento.",
                             Status = 0
                         },
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8794),
+                            CreatedDate = new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6124),
                             CustomerId = 2L,
+                            Observations = "Este documento não serve de fatura.",
+                            PaymentMethod = "A pronto pagamento.",
                             Status = 4
                         },
                         new
                         {
                             Id = 3L,
-                            CreatedAt = new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8794),
+                            CreatedDate = new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6125),
                             CustomerId = 3L,
+                            Observations = "Este documento não serve de fatura.",
+                            PaymentMethod = "A pronto pagamento.",
                             Status = 1
                         },
                         new
                         {
                             Id = 4L,
-                            CreatedAt = new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8795),
+                            CreatedDate = new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6126),
                             CustomerId = 4L,
+                            Observations = "Este documento não serve de fatura.",
+                            PaymentMethod = "A pronto pagamento.",
                             Status = 3
                         });
                 });
@@ -182,9 +198,9 @@ namespace OrderManagement.Persistence.Migrations
                         .HasColumnType("INTEGER")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT")
-                        .HasColumnName("created_at");
+                        .HasColumnName("created_date");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT")
@@ -210,7 +226,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8766),
+                            CreatedDate = new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6090),
                             Description = "Camisola de algodão",
                             Reference = "P-1001",
                             UnitPrice = 19.989999999999998
@@ -218,7 +234,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 2L,
-                            CreatedAt = new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8769),
+                            CreatedDate = new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6094),
                             Description = "Calças de ganga",
                             Reference = "P-1002",
                             UnitPrice = 39.990000000000002
@@ -226,7 +242,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 3L,
-                            CreatedAt = new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8770),
+                            CreatedDate = new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6094),
                             Description = "Casaco de inverno",
                             Reference = "P-1003",
                             UnitPrice = 59.990000000000002
@@ -234,7 +250,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 4L,
-                            CreatedAt = new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8770),
+                            CreatedDate = new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6095),
                             Description = "T-shirt básica",
                             Reference = "P-1004",
                             UnitPrice = 9.9900000000000002
@@ -243,13 +259,10 @@ namespace OrderManagement.Persistence.Migrations
 
             modelBuilder.Entity("OrderManagement.Domain.Entities.ProductOrder", b =>
                 {
-                    b.Property<long>("ProductId")
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
-                        .HasColumnName("product_id");
-
-                    b.Property<long>("OrderId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("order_id");
+                        .HasColumnName("id");
 
                     b.Property<string>("Color")
                         .HasColumnType("TEXT")
@@ -274,6 +287,14 @@ namespace OrderManagement.Persistence.Migrations
                     b.Property<int>("OneYear")
                         .HasColumnType("INTEGER")
                         .HasColumnName("one_year");
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("order_id");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("product_id");
 
                     b.Property<int>("SixMonths")
                         .HasColumnType("INTEGER")
@@ -327,24 +348,33 @@ namespace OrderManagement.Persistence.Migrations
                         .HasColumnType("REAL")
                         .HasColumnName("unit_price");
 
-                    b.HasKey("ProductId", "OrderId")
-                        .HasName("PK_product_order");
+                    b.Property<int>("ZeroMonths")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("zero_months");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("product_order", (string)null);
 
                     b.HasData(
                         new
                         {
-                            ProductId = 1L,
-                            OrderId = 1L,
+                            Id = 1L,
                             Color = "Verde",
                             EightYears = 0,
                             EighteenMonths = 0,
                             FourYears = 0,
                             OneMonth = 2,
                             OneYear = 0,
+                            OrderId = 1L,
+                            ProductId = 1L,
                             SixMonths = 0,
                             SixYears = 0,
                             TenYears = 0,
@@ -357,18 +387,20 @@ namespace OrderManagement.Persistence.Migrations
                             TwelveYears = 0,
                             TwentyFourMonths = 0,
                             TwoYears = 0,
-                            UnitPrice = 19.989999999999998
+                            UnitPrice = 19.989999999999998,
+                            ZeroMonths = 0
                         },
                         new
                         {
-                            ProductId = 2L,
-                            OrderId = 1L,
+                            Id = 2L,
                             Color = "Azul",
                             EightYears = 0,
                             EighteenMonths = 0,
                             FourYears = 0,
                             OneMonth = 0,
                             OneYear = 0,
+                            OrderId = 1L,
+                            ProductId = 2L,
                             SixMonths = 1,
                             SixYears = 0,
                             TenYears = 0,
@@ -381,18 +413,20 @@ namespace OrderManagement.Persistence.Migrations
                             TwelveYears = 0,
                             TwentyFourMonths = 0,
                             TwoYears = 0,
-                            UnitPrice = 39.990000000000002
+                            UnitPrice = 39.990000000000002,
+                            ZeroMonths = 0
                         },
                         new
                         {
-                            ProductId = 3L,
-                            OrderId = 2L,
+                            Id = 3L,
                             Color = "Vermelho",
                             EightYears = 0,
                             EighteenMonths = 0,
                             FourYears = 0,
                             OneMonth = 0,
                             OneYear = 0,
+                            OrderId = 2L,
+                            ProductId = 3L,
                             SixMonths = 0,
                             SixYears = 0,
                             TenYears = 0,
@@ -405,18 +439,20 @@ namespace OrderManagement.Persistence.Migrations
                             TwelveYears = 0,
                             TwentyFourMonths = 0,
                             TwoYears = 0,
-                            UnitPrice = 59.990000000000002
+                            UnitPrice = 59.990000000000002,
+                            ZeroMonths = 0
                         },
                         new
                         {
-                            ProductId = 4L,
-                            OrderId = 2L,
+                            Id = 4L,
                             Color = "Preto",
                             EightYears = 0,
                             EighteenMonths = 0,
                             FourYears = 0,
                             OneMonth = 0,
                             OneYear = 0,
+                            OrderId = 2L,
+                            ProductId = 4L,
                             SixMonths = 0,
                             SixYears = 0,
                             TenYears = 0,
@@ -429,18 +465,20 @@ namespace OrderManagement.Persistence.Migrations
                             TwelveYears = 0,
                             TwentyFourMonths = 0,
                             TwoYears = 0,
-                            UnitPrice = 9.9900000000000002
+                            UnitPrice = 9.9900000000000002,
+                            ZeroMonths = 0
                         },
                         new
                         {
-                            ProductId = 3L,
-                            OrderId = 3L,
+                            Id = 5L,
                             Color = "Branco",
                             EightYears = 0,
                             EighteenMonths = 0,
                             FourYears = 0,
                             OneMonth = 0,
                             OneYear = 0,
+                            OrderId = 3L,
+                            ProductId = 3L,
                             SixMonths = 0,
                             SixYears = 0,
                             TenYears = 0,
@@ -453,18 +491,20 @@ namespace OrderManagement.Persistence.Migrations
                             TwelveYears = 0,
                             TwentyFourMonths = 0,
                             TwoYears = 0,
-                            UnitPrice = 59.990000000000002
+                            UnitPrice = 59.990000000000002,
+                            ZeroMonths = 0
                         },
                         new
                         {
-                            ProductId = 4L,
-                            OrderId = 4L,
+                            Id = 6L,
                             Color = "Cinza",
                             EightYears = 0,
                             EighteenMonths = 0,
                             FourYears = 0,
                             OneMonth = 0,
                             OneYear = 0,
+                            OrderId = 4L,
+                            ProductId = 4L,
                             SixMonths = 0,
                             SixYears = 0,
                             TenYears = 0,
@@ -477,7 +517,8 @@ namespace OrderManagement.Persistence.Migrations
                             TwelveYears = 0,
                             TwentyFourMonths = 0,
                             TwoYears = 0,
-                            UnitPrice = 9.9900000000000002
+                            UnitPrice = 9.9900000000000002,
+                            ZeroMonths = 0
                         });
                 });
 

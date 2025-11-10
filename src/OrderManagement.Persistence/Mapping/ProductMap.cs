@@ -19,8 +19,8 @@
                 .HasColumnName("unit_price")
                 .IsRequired();
 
-            entity.Property(x => x.CreatedAt)
-               .HasColumnName("created_at")
+            entity.Property(x => x.CreatedDate)
+               .HasColumnName("created_date")
                .IsRequired();
 
             entity.HasMany(p => p.ProductsOrders)

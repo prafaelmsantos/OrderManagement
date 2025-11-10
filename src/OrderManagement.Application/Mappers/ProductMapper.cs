@@ -10,7 +10,7 @@
                 Reference = product.Reference,
                 Description = product.Description,
                 UnitPrice = product.UnitPrice,
-                CreatedDate = product.CreatedAt
+                CreatedDate = product.CreatedDate
             };
         }
     }

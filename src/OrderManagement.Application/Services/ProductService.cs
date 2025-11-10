@@ -18,7 +18,7 @@
         {
             List<Product> products = await _productRepository
                 .GetAllQueryable()
-                .OrderByDescending(x => x.CreatedAt)
+                .OrderByDescending(x => x.CreatedDate)
                 .AsNoTracking()
                 .ToListAsync();
 

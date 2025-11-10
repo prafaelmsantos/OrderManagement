@@ -2,11 +2,12 @@
 {
     public sealed class ProductOrderDTO
     {
+        public long Id { get; set; }
         public long ProductId { get; set; }
         public ProductDTO? Product { get; set; }
 
         public long OrderId { get; set; }
-        public OrderDTO? Order { get; set; } = null!;
+        public OrderDTO? Order { get; set; }
 
         public string? Color { get; set; }
         public double UnitPrice { get; set; }
@@ -14,6 +15,7 @@
         public int TotalQuantity { get; set; }
         public double TotalPrice { get; set; }
 
+        public int ZeroMonths { get; set; }
         public int OneMonth { get; set; }
         public int ThreeMonths { get; set; }
         public int SixMonths { get; set; }

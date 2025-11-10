@@ -1,6 +1,6 @@
 ﻿namespace OrderManagement.Domain.Entities
 {
-    public class ProductOrder
+    public class ProductOrder : BaseEntity
     {
         public long ProductId { get; private set; }
         public virtual Product Product { get; private set; } = null!;
@@ -11,6 +11,7 @@
         public string? Color { get; private set; }
         public double UnitPrice { get; private set; }
 
+        public int ZeroMonths { get; private set; }
         public int OneMonth { get; private set; }
         public int ThreeMonths { get; private set; }
         public int SixMonths { get; private set; }
@@ -37,6 +38,7 @@
             long productId,
             string? color,
             double unitPrice,
+            int zeroMonths,
             int oneMonth,
             int threeMonths,
             int sixMonths,
@@ -57,6 +59,7 @@
             Color = color;
             UnitPrice = unitPrice;
 
+            ZeroMonths = zeroMonths;
             OneMonth = oneMonth;
             ThreeMonths = threeMonths;
             SixMonths = sixMonths;
@@ -78,10 +81,12 @@
         }
 
         public ProductOrder(
+            long id,
             long productId,
             long orderId,
             string? color,
             double unitPrice,
+            int zeroMonths = 0,
             int oneMonth = 0,
             int threeMonths = 0,
             int sixMonths = 0,
@@ -98,11 +103,13 @@
             int tenYears = 0,
             int twelveYears = 0)
         {
+            Id = id;
             ProductId = productId;
             OrderId = orderId;
             Color = color;
             UnitPrice = unitPrice;
 
+            ZeroMonths = zeroMonths;
             OneMonth = oneMonth;
             ThreeMonths = threeMonths;
             SixMonths = sixMonths;
@@ -125,7 +132,7 @@
 
         private void UpdateTotals()
         {
-            TotalQuantity = OneMonth + ThreeMonths + SixMonths + TwelveMonths +
+            TotalQuantity = ZeroMonths + OneMonth + ThreeMonths + SixMonths + TwelveMonths +
                             EighteenMonths + TwentyFourMonths + ThirtySixMonths +
                             OneYear + TwoYears + ThreeYears + FourYears +
                             SixYears + EightYears + TenYears + TwelveYears;

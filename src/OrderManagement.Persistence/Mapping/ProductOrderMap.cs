@@ -1,13 +1,12 @@
 ﻿namespace OrderManagement.Persistence.Mapping
 {
-    public class ProductOrderMap : EntityTypeConfiguration<ProductOrder>
+    public class ProductOrderMap : BaseEntityMap<ProductOrder>
     {
         public override void Map(EntityTypeBuilder<ProductOrder> entity)
         {
-            entity.ToTable("product_order");
+            base.Map(entity);
 
-            entity.HasKey(x => new { x.ProductId, x.OrderId })
-                .HasName("PK_product_order");
+            entity.ToTable("product_order");
 
             entity.Property(x => x.ProductId)
                 .HasColumnName("product_id")
@@ -22,6 +21,10 @@
 
             entity.Property(x => x.UnitPrice)
                 .HasColumnName("unit_price")
+                .IsRequired();
+
+            entity.Property(x => x.ZeroMonths)
+                .HasColumnName("zero_months")
                 .IsRequired();
 
             entity.Property(x => x.OneMonth)

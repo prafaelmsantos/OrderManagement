@@ -8,7 +8,7 @@
         public string Address { get; private set; } = null!;
         public string PostalCode { get; private set; } = null!;
         public string City { get; private set; } = null!;
-        public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+        public DateTime CreatedDate { get; private set; } = DateTime.UtcNow;
 
         public virtual ICollection<Order> Orders { get; private set; } = [];
 

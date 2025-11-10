@@ -27,10 +27,10 @@
             // =====================
             // Orders
             // =====================
-            var order1 = new Order(1, OrderStatus.Open, customer1.Id);
-            var order2 = new Order(2, OrderStatus.Cancelled, customer2.Id);
-            var order3 = new Order(3, OrderStatus.Pending, customer3.Id);
-            var order4 = new Order(4, OrderStatus.Delivered, customer4.Id);
+            var order1 = new Order(1, OrderStatus.Open, "Este documento não serve de fatura.", "A pronto pagamento.", customer1.Id);
+            var order2 = new Order(2, OrderStatus.Cancelled, "Este documento não serve de fatura.", "A pronto pagamento.", customer2.Id);
+            var order3 = new Order(3, OrderStatus.Pending, "Este documento não serve de fatura.", "A pronto pagamento.", customer3.Id);
+            var order4 = new Order(4, OrderStatus.Delivered, "Este documento não serve de fatura.", "A pronto pagamento.", customer4.Id);
 
             modelBuilder.Entity<Order>().HasData(order1, order2, order3, order4);
 
@@ -38,6 +38,7 @@
             // ProductOrders (flat, inicializando alguns tamanhos)
             // =====================
             var po1 = new ProductOrder(
+                1,
                 product1.Id,
                 order1.Id,
                 "Verde",
@@ -60,6 +61,7 @@
             );
 
             var po2 = new ProductOrder(
+                2,
                 product2.Id,
                 order1.Id,
                 "Azul",
@@ -81,10 +83,10 @@
                 twelveYears: 0
             );
 
-            var po3 = new ProductOrder(product3.Id, order2.Id, "Vermelho", 59.99);
-            var po4 = new ProductOrder(product4.Id, order2.Id, "Preto", 9.99);
-            var po5 = new ProductOrder(product3.Id, order3.Id, "Branco", 59.99);
-            var po6 = new ProductOrder(product4.Id, order4.Id, "Cinza", 9.99);
+            var po3 = new ProductOrder(3, product3.Id, order2.Id, "Vermelho", 59.99);
+            var po4 = new ProductOrder(4, product4.Id, order2.Id, "Preto", 9.99);
+            var po5 = new ProductOrder(5, product3.Id, order3.Id, "Branco", 59.99);
+            var po6 = new ProductOrder(6, product4.Id, order4.Id, "Cinza", 9.99);
 
             modelBuilder.Entity<ProductOrder>().HasData(po1, po2, po3, po4, po5, po6);
         }

@@ -5,7 +5,7 @@
         public string Reference { get; private set; } = null!;
         public string? Description { get; private set; }
         public double UnitPrice { get; private set; }
-        public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
+        public DateTime CreatedDate { get; private set; } = DateTime.UtcNow;
 
         public virtual ICollection<ProductOrder> ProductsOrders { get; private set; } = [];
 

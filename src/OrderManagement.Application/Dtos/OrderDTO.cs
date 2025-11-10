@@ -7,6 +7,10 @@
 
         public int TotalQuantity { get; set; }
         public double TotalPrice { get; set; }
+        public string? Observations { get; set; }
+        public string? PaymentMethod { get; set; }
+
+        public DateTime CreatedDate { get; set; }
 
         public long CustomerId { get; set; }
 

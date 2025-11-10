@@ -18,7 +18,7 @@
         {
             List<Customer> customers = await _customerRepository
                 .GetAllQueryable()
-                .OrderByDescending(x => x.CreatedAt)
+                .OrderByDescending(x => x.CreatedDate)
                 .AsNoTracking()
                 .ToListAsync();
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OrderManagement.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCreate0000000000 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,7 +25,7 @@ namespace OrderManagement.Persistence.Migrations
                     address = table.Column<string>(type: "TEXT", nullable: false),
                     postal_code = table.Column<string>(type: "TEXT", nullable: false),
                     city = table.Column<string>(type: "TEXT", nullable: false),
-                    created_at = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    created_date = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,7 +41,7 @@ namespace OrderManagement.Persistence.Migrations
                     reference = table.Column<string>(type: "TEXT", nullable: false),
                     description = table.Column<string>(type: "TEXT", nullable: true),
                     unit_price = table.Column<double>(type: "REAL", nullable: false),
-                    created_at = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    created_date = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,7 +55,9 @@ namespace OrderManagement.Persistence.Migrations
                     id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     status = table.Column<int>(type: "INTEGER", nullable: false),
-                    created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    observations = table.Column<string>(type: "TEXT", nullable: true),
+                    payment_method = table.Column<string>(type: "TEXT", nullable: true),
+                    created_date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     customer_id = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -73,10 +75,13 @@ namespace OrderManagement.Persistence.Migrations
                 name: "product_order",
                 columns: table => new
                 {
+                    id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     product_id = table.Column<long>(type: "INTEGER", nullable: false),
                     order_id = table.Column<long>(type: "INTEGER", nullable: false),
                     color = table.Column<string>(type: "TEXT", nullable: true),
                     unit_price = table.Column<double>(type: "REAL", nullable: false),
+                    zero_months = table.Column<int>(type: "INTEGER", nullable: false),
                     one_month = table.Column<int>(type: "INTEGER", nullable: false),
                     three_months = table.Column<int>(type: "INTEGER", nullable: false),
                     six_months = table.Column<int>(type: "INTEGER", nullable: false),
@@ -97,7 +102,7 @@ namespace OrderManagement.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_product_order", x => new { x.product_id, x.order_id });
+                    table.PrimaryKey("PK_product_order", x => x.id);
                     table.ForeignKey(
                         name: "FK_product_order_orders_order_id",
                         column: x => x.order_id,
@@ -114,48 +119,48 @@ namespace OrderManagement.Persistence.Migrations
 
             migrationBuilder.InsertData(
                 table: "customers",
-                columns: new[] { "id", "address", "city", "contact", "created_at", "full_name", "postal_code", "tax_identification_number" },
+                columns: new[] { "id", "address", "city", "contact", "created_date", "full_name", "postal_code", "tax_identification_number" },
                 values: new object[,]
                 {
-                    { 1L, "Rua das Flores 10", "Lisboa", "912345678", new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8634), "João Silva", "1000-001", "123456789" },
-                    { 2L, "Avenida Central 25", "Porto", "913456789", new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8639), "Maria Santos", "4000-123", "987654321" },
-                    { 3L, "Rua da Liberdade 8", "Coimbra", "914567890", new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8640), "António Santos", "3000-045", "192837465" },
-                    { 4L, "Travessa do Sol 12", "Leiria", "915678901", new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8641), "José Santos", "2400-002", "564738291" }
+                    { 1L, "Rua das Flores 10", "Lisboa", "912345678", new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(5829), "João Silva", "1000-001", "123456789" },
+                    { 2L, "Avenida Central 25", "Porto", "913456789", new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(5838), "Maria Santos", "4000-123", "987654321" },
+                    { 3L, "Rua da Liberdade 8", "Coimbra", "914567890", new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(5838), "António Santos", "3000-045", "192837465" },
+                    { 4L, "Travessa do Sol 12", "Leiria", "915678901", new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(5839), "José Santos", "2400-002", "564738291" }
                 });
 
             migrationBuilder.InsertData(
                 table: "products",
-                columns: new[] { "id", "created_at", "description", "reference", "unit_price" },
+                columns: new[] { "id", "created_date", "description", "reference", "unit_price" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8766), "Camisola de algodão", "P-1001", 19.989999999999998 },
-                    { 2L, new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8769), "Calças de ganga", "P-1002", 39.990000000000002 },
-                    { 3L, new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8770), "Casaco de inverno", "P-1003", 59.990000000000002 },
-                    { 4L, new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8770), "T-shirt básica", "P-1004", 9.9900000000000002 }
+                    { 1L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6090), "Camisola de algodão", "P-1001", 19.989999999999998 },
+                    { 2L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6094), "Calças de ganga", "P-1002", 39.990000000000002 },
+                    { 3L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6094), "Casaco de inverno", "P-1003", 59.990000000000002 },
+                    { 4L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6095), "T-shirt básica", "P-1004", 9.9900000000000002 }
                 });
 
             migrationBuilder.InsertData(
                 table: "orders",
-                columns: new[] { "id", "created_at", "customer_id", "status" },
+                columns: new[] { "id", "created_date", "customer_id", "observations", "payment_method", "status" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8791), 1L, 0 },
-                    { 2L, new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8794), 2L, 4 },
-                    { 3L, new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8794), 3L, 1 },
-                    { 4L, new DateTime(2025, 11, 7, 23, 34, 50, 860, DateTimeKind.Utc).AddTicks(8795), 4L, 3 }
+                    { 1L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6122), 1L, "Este documento não serve de fatura.", "A pronto pagamento.", 0 },
+                    { 2L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6124), 2L, "Este documento não serve de fatura.", "A pronto pagamento.", 4 },
+                    { 3L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6125), 3L, "Este documento não serve de fatura.", "A pronto pagamento.", 1 },
+                    { 4L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6126), 4L, "Este documento não serve de fatura.", "A pronto pagamento.", 3 }
                 });
 
             migrationBuilder.InsertData(
                 table: "product_order",
-                columns: new[] { "order_id", "product_id", "color", "eight_years", "eighteen_months", "four_years", "one_month", "one_year", "six_months", "six_years", "ten_years", "thirty_six_months", "three_months", "three_years", "total_price", "total_quantity", "twelve_months", "twelve_years", "twenty_four_months", "two_years", "unit_price" },
+                columns: new[] { "id", "color", "eight_years", "eighteen_months", "four_years", "one_month", "one_year", "order_id", "product_id", "six_months", "six_years", "ten_years", "thirty_six_months", "three_months", "three_years", "total_price", "total_quantity", "twelve_months", "twelve_years", "twenty_four_months", "two_years", "unit_price", "zero_months" },
                 values: new object[,]
                 {
-                    { 1L, 1L, "Verde", 0, 0, 0, 2, 0, 0, 0, 0, 0, 1, 0, 59.969999999999999, 3, 0, 0, 0, 0, 19.989999999999998 },
-                    { 1L, 2L, "Azul", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 119.97, 3, 2, 0, 0, 0, 39.990000000000002 },
-                    { 2L, 3L, "Vermelho", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0, 0, 59.990000000000002 },
-                    { 3L, 3L, "Branco", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0, 0, 59.990000000000002 },
-                    { 2L, 4L, "Preto", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0, 0, 9.9900000000000002 },
-                    { 4L, 4L, "Cinza", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0, 0, 9.9900000000000002 }
+                    { 1L, "Verde", 0, 0, 0, 2, 0, 1L, 1L, 0, 0, 0, 0, 1, 0, 59.969999999999999, 3, 0, 0, 0, 0, 19.989999999999998, 0 },
+                    { 2L, "Azul", 0, 0, 0, 0, 0, 1L, 2L, 1, 0, 0, 0, 0, 0, 119.97, 3, 2, 0, 0, 0, 39.990000000000002, 0 },
+                    { 3L, "Vermelho", 0, 0, 0, 0, 0, 2L, 3L, 0, 0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0, 0, 59.990000000000002, 0 },
+                    { 4L, "Preto", 0, 0, 0, 0, 0, 2L, 4L, 0, 0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0, 0, 9.9900000000000002, 0 },
+                    { 5L, "Branco", 0, 0, 0, 0, 0, 3L, 3L, 0, 0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0, 0, 59.990000000000002, 0 },
+                    { 6L, "Cinza", 0, 0, 0, 0, 0, 4L, 4L, 0, 0, 0, 0, 0, 0, 0.0, 0, 0, 0, 0, 0, 9.9900000000000002, 0 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -176,9 +181,20 @@ namespace OrderManagement.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_product_order_id",
+                table: "product_order",
+                column: "id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_product_order_order_id",
                 table: "product_order",
                 column: "order_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_product_order_product_id",
+                table: "product_order",
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_products_id",

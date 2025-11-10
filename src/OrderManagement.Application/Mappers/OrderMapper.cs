@@ -9,6 +9,9 @@
                 Id = order.Id,
                 CustomerId = order.CustomerId,
                 Status = order.Status,
+                Observations = order.Observations,
+                PaymentMethod = order.PaymentMethod,
+                CreatedDate = order.CreatedDate,
                 TotalQuantity = order.ProductsOrders.Select(x => x.TotalQuantity).Sum(),
                 TotalPrice = order.ProductsOrders.Select(x => x.TotalPrice).Sum(),
                 ProductsOrders = [.. order.ProductsOrders.Select(productOrder => new ProductOrderDTO()
@@ -57,7 +60,7 @@
                 CustomerFullName = order.Customer.FullName,
                 CustomerTaxIdentificationNumber = order.Customer.TaxIdentificationNumber,
                 Status = order.Status,
-                CreatedDate = order.CreatedAt,
+                CreatedDate = order.CreatedDate,
                 TotalQuantity = order.ProductsOrders.Select(x => x.TotalQuantity).Sum(),
                 TotalPrice = order.ProductsOrders.Select(x => x.TotalPrice).Sum()
             };

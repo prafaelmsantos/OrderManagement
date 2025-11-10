@@ -20,7 +20,7 @@
         {
             List<Order> orders = await _orderRepository
                 .GetAllQueryable()
-                .OrderByDescending(x => x.CreatedAt)
+                .OrderByDescending(x => x.CreatedDate)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -38,7 +38,7 @@
         {
             List<ProductOrder> productsOrders = await GetProductsAsync(orderDTO.ProductsOrders);
 
-            Order order = new(orderDTO.Status, orderDTO.CustomerId);
+            Order order = new(orderDTO.Status, orderDTO.Observations, orderDTO.PaymentMethod, orderDTO.CustomerId);
 
             order.SetProductsOrders(productsOrders);
 
@@ -54,7 +54,7 @@
 
             List<ProductOrder> productsOrders = await GetProductsAsync(orderDTO.ProductsOrders);
 
-            order.Update(orderDTO.Status, orderDTO.CustomerId);
+            order.Update(orderDTO.Status, orderDTO.Observations, orderDTO.PaymentMethod, orderDTO.CustomerId);
 
             order.SetProductsOrders(productsOrders);
 
@@ -98,6 +98,7 @@
                 product.Id,
                 productOrderDTOMap[product.Id].Color,
                 product.UnitPrice,
+                productOrderDTOMap[product.Id].ZeroMonths,
                 productOrderDTOMap[product.Id].OneMonth,
                 productOrderDTOMap[product.Id].ThreeMonths,
                 productOrderDTOMap[product.Id].SixMonths,
