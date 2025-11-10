@@ -2,7 +2,7 @@
 {
     public interface IProductService
     {
-        Task<List<ProductDTO>> GetAllProductsAsync();
+        Task<List<ProductTableDTO>> GetAllProductsAsync();
         Task<ProductDTO> GetProductByIdAsync(long productId);
         Task<ProductDTO> AddProductAsync(ProductDTO productDTO);
         Task<ProductDTO> UpdateProductAsync(ProductDTO productDTO);

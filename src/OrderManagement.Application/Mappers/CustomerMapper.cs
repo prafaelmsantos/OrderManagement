@@ -24,7 +24,8 @@
                 FullName = customer.FullName,
                 TaxIdentificationNumber = customer.TaxIdentificationNumber,
                 Contact = customer.Contact,
-                FullAddress = $"{customer.Address}, {customer.PostalCode} {customer.City}"
+                FullAddress = $"{customer.Address}, {customer.PostalCode} {customer.City}",
+                TotalOrders = customer.Orders.Count,
             };
         }
     }

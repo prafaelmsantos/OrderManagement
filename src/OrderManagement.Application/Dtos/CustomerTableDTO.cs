@@ -7,5 +7,6 @@
         public string TaxIdentificationNumber { get; set; } = null!;
         public string Contact { get; set; } = null!;
         public string FullAddress { get; set; } = null!;
+        public int TotalOrders { get; set; }
     }
 }

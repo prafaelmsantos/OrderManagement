@@ -17,7 +17,7 @@
                 .IsRequired();
 
             entity.Property(x => x.Color)
-               .HasColumnName("color");
+                .HasColumnName("color");
 
             entity.Property(x => x.UnitPrice)
                 .HasColumnName("unit_price")

@@ -92,28 +92,28 @@
                 .Where(x => productIds.Contains(x.Id))
                 .ToListAsync();
 
-            var productOrderDTOMap = productOrderDTOs.ToDictionary(x => x.ProductId, x => x);
+            //var productOrderDTOMap = productOrderDTOs.ToDictionary(x => x.ProductId + x.Color, x => x);
 
-            List<ProductOrder> productOrders = [.. products.Select(product => new ProductOrder(
-                product.Id,
-                productOrderDTOMap[product.Id].Color,
-                product.UnitPrice,
-                productOrderDTOMap[product.Id].ZeroMonths,
-                productOrderDTOMap[product.Id].OneMonth,
-                productOrderDTOMap[product.Id].ThreeMonths,
-                productOrderDTOMap[product.Id].SixMonths,
-                productOrderDTOMap[product.Id].TwelveMonths,
-                productOrderDTOMap[product.Id].EighteenMonths,
-                productOrderDTOMap[product.Id].TwentyFourMonths,
-                productOrderDTOMap[product.Id].ThirtySixMonths,
-                productOrderDTOMap[product.Id].OneYear,
-                productOrderDTOMap[product.Id].TwoYears,
-                productOrderDTOMap[product.Id].ThreeYears,
-                productOrderDTOMap[product.Id].FourYears,
-                productOrderDTOMap[product.Id].SixYears,
-                productOrderDTOMap[product.Id].EightYears,
-                productOrderDTOMap[product.Id].TenYears,
-                productOrderDTOMap[product.Id].TwelveYears))];
+            List<ProductOrder> productOrders = [.. productOrderDTOs.Select(productOrderDTO => new ProductOrder(
+                productOrderDTO.ProductId,
+                productOrderDTO.Color,
+                productOrderDTO.UnitPrice,
+                productOrderDTO.ZeroMonths,
+                productOrderDTO.OneMonth,
+                productOrderDTO.ThreeMonths,
+                productOrderDTO.SixMonths,
+                productOrderDTO.TwelveMonths,
+                productOrderDTO.EighteenMonths,
+                productOrderDTO.TwentyFourMonths,
+                productOrderDTO.ThirtySixMonths,
+                productOrderDTO.OneYear,
+                productOrderDTO.TwoYears,
+                productOrderDTO.ThreeYears,
+                productOrderDTO.FourYears,
+                productOrderDTO.SixYears,
+                productOrderDTO.EightYears,
+                productOrderDTO.TenYears,
+                productOrderDTO.TwelveYears))];
 
             return productOrders;
         }

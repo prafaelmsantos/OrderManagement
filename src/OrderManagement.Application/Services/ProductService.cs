@@ -14,7 +14,7 @@
         #endregion
 
         #region Public methods
-        public async Task<List<ProductDTO>> GetAllProductsAsync()
+        public async Task<List<ProductTableDTO>> GetAllProductsAsync()
         {
             List<Product> products = await _productRepository
                 .GetAllQueryable()
@@ -22,7 +22,7 @@
                 .AsNoTracking()
                 .ToListAsync();
 
-            return [.. products.Select(x => x.ToProductDTO())];
+            return [.. products.Select(x => x.ToProductTableDTO())];
         }
 
         public async Task<ProductDTO> GetProductByIdAsync(long productId)
