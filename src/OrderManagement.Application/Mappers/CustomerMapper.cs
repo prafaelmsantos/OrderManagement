@@ -4,6 +4,11 @@
     {
         public static CustomerDTO ToCustomerDTO(this Customer customer)
         {
+            if (customer is null)
+            {
+                return null!;
+            }
+
             return new CustomerDTO
             {
                 Id = customer.Id,

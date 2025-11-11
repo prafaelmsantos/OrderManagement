@@ -14,7 +14,7 @@
         #endregion
 
         #region Public methods
-        public async Task<List<CustomerTableDTO>> GetAllCustomersAsync()
+        public async Task<List<CustomerTableDTO>> GetAllCustomersTableAsync()
         {
             List<Customer> customers = await _customerRepository
                 .GetAllQueryable()
@@ -23,6 +23,17 @@
                 .ToListAsync();
 
             return [.. customers.Select(x => x.ToCustomerTableDTO())];
+        }
+
+        public async Task<List<CustomerDTO>> GetAllCustomersAsync()
+        {
+            List<Customer> customers = await _customerRepository
+                .GetAllQueryable()
+                .OrderByDescending(x => x.CreatedDate)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return [.. customers.Select(x => x.ToCustomerDTO())];
         }
 
         public async Task<CustomerDTO> GetCustomerByIdAsync(long customerId)

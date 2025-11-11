@@ -8,6 +8,7 @@
             {
                 Id = order.Id,
                 CustomerId = order.CustomerId,
+                Customer = order.Customer.ToCustomerDTO(),
                 Status = order.Status,
                 Observations = order.Observations,
                 PaymentMethod = order.PaymentMethod,
@@ -16,15 +17,10 @@
                 TotalPrice = order.ProductsOrders.Select(x => x.TotalPrice).Sum(),
                 ProductsOrders = [.. order.ProductsOrders.Select(productOrder => new ProductOrderDTO()
                 {
+                    Id = productOrder.Id,
                     OrderId = productOrder.OrderId,
                     ProductId = productOrder.ProductId,
-                   //Product = new ProductDTO(){
-                   //    Id = productOrder.Product.Id,
-                   //    Reference = productOrder.Product.Reference,
-                   //    Description = productOrder.Product.Description,
-                   //    UnitPrice = productOrder.Product.UnitPrice,
-                   //    CreatedDate = productOrder.Product.CreatedAt
-                   //},
+                    Product = productOrder.Product.ToProductDTO(),
                     UnitPrice = productOrder.UnitPrice,
                     Color = productOrder.Color,
 

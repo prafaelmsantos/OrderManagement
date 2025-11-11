@@ -72,7 +72,13 @@
         #region Private methods
         private async Task<Order> GetOrderAsync(long id)
         {
-            Order? order = await _orderRepository.GetByIdAsync(id) ??
+            Order? order = await _orderRepository
+                .GetAllQueryable()
+                .Where(x => x.Id == id)
+                .Include(x => x.ProductsOrders)
+                .ThenInclude(x => x.Product)
+                .Include(x => x.Customer)
+                .FirstOrDefaultAsync() ??
                 throw new Exception("Erro ao tentar encontrar a encomenda por id.");
 
             return order;

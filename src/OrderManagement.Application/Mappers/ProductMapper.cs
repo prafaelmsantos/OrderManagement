@@ -4,6 +4,11 @@
     {
         public static ProductDTO ToProductDTO(this Product product)
         {
+            if (product is null)
+            {
+                return null!;
+            }
+
             return new ProductDTO
             {
                 Id = product.Id,

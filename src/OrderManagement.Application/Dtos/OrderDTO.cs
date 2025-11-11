@@ -13,6 +13,7 @@
         public DateTime CreatedDate { get; set; }
 
         public long CustomerId { get; set; }
+        public CustomerDTO? Customer { get; set; }
 
         public List<ProductOrderDTO> ProductsOrders { get; set; } = [];
     }

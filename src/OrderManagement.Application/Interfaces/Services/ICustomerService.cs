@@ -2,7 +2,8 @@
 {
     public interface ICustomerService
     {
-        Task<List<CustomerTableDTO>> GetAllCustomersAsync();
+        Task<List<CustomerTableDTO>> GetAllCustomersTableAsync();
+        Task<List<CustomerDTO>> GetAllCustomersAsync();
         Task<CustomerDTO> GetCustomerByIdAsync(long customerId);
         Task<CustomerDTO> AddCustomerAsync(CustomerDTO customerDTO);
         Task<CustomerDTO> UpdateCustomerAsync(CustomerDTO customerDTO);
