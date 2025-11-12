@@ -39,7 +39,6 @@
             return Ok(customers);
         }
 
-
         /// <summary>
         /// Get Customer
         /// </summary>
@@ -49,11 +48,14 @@
         [Produces("application/json")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] long id)
         {
+            Validator.New()
+              .When(id <= 0, "O Id do cliente é invalido.")
+              .TriggerBadRequestExceptionIfExist();
+
             var customerDTO = await _customerService.GetCustomerByIdAsync(id);
 
             return Ok(customerDTO);
         }
-
 
         /// <summary>
         /// Create Customer
@@ -79,6 +81,10 @@
         [Produces("application/json")]
         public async Task<IActionResult> PutAsync([FromRoute] long id, [FromBody] CustomerDTO customerDTO)
         {
+            Validator.New()
+                .When(id <= 0, "O Id do cliente é invalido.")
+                .TriggerBadRequestExceptionIfExist();
+
             customerDTO.Id = id;
             customerDTO = await _customerService.UpdateCustomerAsync(customerDTO);
             return Ok(customerDTO);

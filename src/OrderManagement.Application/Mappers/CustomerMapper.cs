@@ -9,7 +9,7 @@
                 return null!;
             }
 
-            return new CustomerDTO
+            return new CustomerDTO()
             {
                 Id = customer.Id,
                 FullName = customer.FullName,
@@ -17,7 +17,8 @@
                 Contact = customer.Contact,
                 Address = customer.Address,
                 PostalCode = customer.PostalCode,
-                City = customer.City
+                City = customer.City,
+                CreatedDate = customer.CreatedDate
             };
         }
 
@@ -31,6 +32,7 @@
                 Contact = customer.Contact,
                 FullAddress = $"{customer.Address}, {customer.PostalCode} {customer.City}",
                 TotalOrders = customer.Orders.Count,
+                CreatedDate = customer.CreatedDate.ToString("dd/MM/yyyy")
             };
         }
     }

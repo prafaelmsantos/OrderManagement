@@ -28,7 +28,7 @@
                 Description = product.Description,
                 UnitPrice = product.UnitPrice,
                 TotalOrders = product.ProductsOrders.Select(x => x.TotalQuantity).Sum(),
-                CreatedDate = product.CreatedDate
+                CreatedDate = product.CreatedDate.ToString("dd/MM/yyyy")
             };
         }
     }

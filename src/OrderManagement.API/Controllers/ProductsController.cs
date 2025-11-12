@@ -30,6 +30,18 @@
             return Ok(products);
         }
 
+        /// <summary>
+        /// Get All Products
+        /// </summary>
+        [HttpGet("table")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetTableAsync()
+        {
+            var products = await _productService.GetAllProductsTableAsync();
+            return Ok(products);
+        }
+
 
         /// <summary>
         /// Get Product
@@ -40,11 +52,14 @@
         [Produces("application/json")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] long id)
         {
+            Validator.New()
+                .When(id <= 0, "O Id do produto é invalido.")
+                .TriggerBadRequestExceptionIfExist();
+
             var productDTO = await _productService.GetProductByIdAsync(id);
 
             return Ok(productDTO);
         }
-
 
         /// <summary>
         /// Create Product
@@ -70,6 +85,10 @@
         [Produces("application/json")]
         public async Task<IActionResult> PutAsync([FromRoute] long id, [FromBody] ProductDTO productDTO)
         {
+            Validator.New()
+                .When(id <= 0, "O Id do produto é invalido.")
+                .TriggerBadRequestExceptionIfExist();
+
             productDTO.Id = id;
             productDTO = await _productService.UpdateProductAsync(productDTO);
             return Ok(productDTO);

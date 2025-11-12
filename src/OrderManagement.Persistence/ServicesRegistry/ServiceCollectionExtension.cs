@@ -6,6 +6,7 @@
         {
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductOrderRepository, ProductOrderRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddDbContext<AppDbContext>(options => options

@@ -23,6 +23,16 @@
             string postalCode,
             string city)
         {
+            Validator.New()
+                .When(id <= 0, "O id do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(fullName), "O nome completo do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(taxIdentificationNumber), "O número de identificação fiscal é inválido.")
+                .When(string.IsNullOrWhiteSpace(contact), "O contacto do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(address), "O endereço do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(postalCode), "O código postal do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(city), "A cidade do cliente é inválida.")
+                .TriggerBadRequestExceptionIfExist();
+
             Id = id;
             FullName = fullName;
             TaxIdentificationNumber = taxIdentificationNumber;
@@ -40,6 +50,15 @@
             string postalCode,
             string city)
         {
+            Validator.New()
+                .When(string.IsNullOrWhiteSpace(fullName), "O nome completo do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(taxIdentificationNumber), "O número de identificação fiscal é inválido.")
+                .When(string.IsNullOrWhiteSpace(contact), "O contacto do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(address), "O endereço do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(postalCode), "O código postal do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(city), "A cidade do cliente é inválida.")
+                .TriggerBadRequestExceptionIfExist();
+
             FullName = fullName;
             TaxIdentificationNumber = taxIdentificationNumber;
             Contact = contact;
@@ -56,6 +75,15 @@
             string postalCode,
             string city)
         {
+            Validator.New()
+                .When(string.IsNullOrWhiteSpace(fullName), "O nome completo do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(taxIdentificationNumber), "O número de identificação fiscal é inválido.")
+                .When(string.IsNullOrWhiteSpace(contact), "O contacto do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(address), "O endereço do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(postalCode), "O código postal do cliente é inválido.")
+                .When(string.IsNullOrWhiteSpace(city), "A cidade do cliente é inválida.")
+                .TriggerBadRequestExceptionIfExist();
+
             FullName = fullName;
             TaxIdentificationNumber = taxIdentificationNumber;
             Contact = contact;

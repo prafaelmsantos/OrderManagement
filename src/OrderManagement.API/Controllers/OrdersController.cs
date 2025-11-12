@@ -40,6 +40,10 @@
         [Produces("application/json")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] long id)
         {
+            Validator.New()
+                .When(id <= 0, "O Id da encomenda é invalido.")
+                .TriggerBadRequestExceptionIfExist();
+
             OrderDTO orderDTO = await _orderService.GetOrderByIdAsync(id);
 
             return Ok(orderDTO);
@@ -70,6 +74,10 @@
         [Produces("application/json")]
         public async Task<IActionResult> PutAsync([FromRoute] long id, [FromBody] OrderDTO orderDTO)
         {
+            Validator.New()
+                .When(id <= 0, "O Id da encomenda é invalido.")
+                .TriggerBadRequestExceptionIfExist();
+
             orderDTO.Id = id;
             orderDTO = await _orderService.UpdateOrderAsync(orderDTO);
             return Ok(orderDTO);

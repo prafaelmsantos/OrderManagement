@@ -23,6 +23,7 @@ global using OrderManagement.Application.Interfaces.Services;
 global using OrderManagement.Application.Options.App;
 global using OrderManagement.Application.ServicesRegistry;
 global using OrderManagement.Domain.Exceptions;
+global using OrderManagement.Domain.Validators;
 global using OrderManagement.Persistence.ServicesRegistry;
 global using Serilog;
 global using Swashbuckle.AspNetCore.SwaggerGen;

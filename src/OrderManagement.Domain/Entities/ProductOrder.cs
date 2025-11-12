@@ -55,6 +55,27 @@
             int tenYears,
             int twelveYears)
         {
+            Validator.New()
+                .When(productId <= 0, "O id do produto é inválido.")
+                .When(unitPrice <= 0, "O preço unitário é inválido.")
+                .When(zeroMonths < 0, "A quantidade de 0 meses não pode ser menor que 0.")
+                .When(oneMonth < 0, "A quantidade de 1 mês não pode ser menor que 0.")
+                .When(threeMonths < 0, "A quantidade de 3 meses não pode ser menor que 0.")
+                .When(sixMonths < 0, "A quantidade de 6 meses não pode ser menor que 0.")
+                .When(twelveMonths < 0, "A quantidade de 12 meses não pode ser menor que 0.")
+                .When(eighteenMonths < 0, "A quantidade de 18 meses não pode ser menor que 0.")
+                .When(twentyFourMonths < 0, "A quantidade de 24 meses não pode ser menor que 0.")
+                .When(thirtySixMonths < 0, "A quantidade de 36 meses não pode ser menor que 0.")
+                .When(oneYear < 0, "A quantidade de 1 ano não pode ser menor que 0.")
+                .When(twoYears < 0, "A quantidade de 2 anos não pode ser menor que 0.")
+                .When(threeYears < 0, "A quantidade de 3 anos não pode ser menor que 0.")
+                .When(fourYears < 0, "A quantidade de 4 anos não pode ser menor que 0.")
+                .When(sixYears < 0, "A quantidade de 6 anos não pode ser menor que 0.")
+                .When(eightYears < 0, "A quantidade de 8 anos não pode ser menor que 0.")
+                .When(tenYears < 0, "A quantidade de 10 anos não pode ser menor que 0.")
+                .When(twelveYears < 0, "A quantidade de 12 anos não pode ser menor que 0.")
+                .TriggerBadRequestExceptionIfExist();
+
             ProductId = productId;
             Color = color;
             UnitPrice = unitPrice;
@@ -103,6 +124,29 @@
             int tenYears = 0,
             int twelveYears = 0)
         {
+            Validator.New()
+                .When(id <= 0, "O id do registo produto-pedido é inválido.")
+                .When(productId <= 0, "O id do produto é inválido.")
+                .When(orderId <= 0, "O id do pedido é inválido.")
+                .When(unitPrice <= 0, "O preço unitário é inválido.")
+                .When(zeroMonths < 0, "A quantidade de 0 meses não pode ser menor que 0.")
+                .When(oneMonth < 0, "A quantidade de 1 mês não pode ser menor que 0.")
+                .When(threeMonths < 0, "A quantidade de 3 meses não pode ser menor que 0.")
+                .When(sixMonths < 0, "A quantidade de 6 meses não pode ser menor que 0.")
+                .When(twelveMonths < 0, "A quantidade de 12 meses não pode ser menor que 0.")
+                .When(eighteenMonths < 0, "A quantidade de 18 meses não pode ser menor que 0.")
+                .When(twentyFourMonths < 0, "A quantidade de 24 meses não pode ser menor que 0.")
+                .When(thirtySixMonths < 0, "A quantidade de 36 meses não pode ser menor que 0.")
+                .When(oneYear < 0, "A quantidade de 1 ano não pode ser menor que 0.")
+                .When(twoYears < 0, "A quantidade de 2 anos não pode ser menor que 0.")
+                .When(threeYears < 0, "A quantidade de 3 anos não pode ser menor que 0.")
+                .When(fourYears < 0, "A quantidade de 4 anos não pode ser menor que 0.")
+                .When(sixYears < 0, "A quantidade de 6 anos não pode ser menor que 0.")
+                .When(eightYears < 0, "A quantidade de 8 anos não pode ser menor que 0.")
+                .When(tenYears < 0, "A quantidade de 10 anos não pode ser menor que 0.")
+                .When(twelveYears < 0, "A quantidade de 12 anos não pode ser menor que 0.")
+                .TriggerBadRequestExceptionIfExist();
+
             Id = id;
             ProductId = productId;
             OrderId = orderId;

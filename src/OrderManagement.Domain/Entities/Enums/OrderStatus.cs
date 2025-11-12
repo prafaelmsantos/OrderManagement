@@ -1,4 +1,4 @@
-﻿namespace OrderManagement.Domain.Entities.Enum
+﻿namespace OrderManagement.Domain.Entities.Enums
 {
     public enum OrderStatus
     {

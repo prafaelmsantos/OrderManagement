@@ -14,7 +14,7 @@
         #endregion
 
         #region Public methods
-        public async Task<List<ProductTableDTO>> GetAllProductsAsync()
+        public async Task<List<ProductTableDTO>> GetAllProductsTableAsync()
         {
             List<Product> products = await _productRepository
                 .GetAllQueryable()
@@ -25,11 +25,30 @@
             return [.. products.Select(x => x.ToProductTableDTO())];
         }
 
+        public async Task<List<ProductDTO>> GetAllProductsAsync()
+        {
+            List<Product> products = await _productRepository
+                .GetAllQueryable()
+                .OrderByDescending(x => x.CreatedDate)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return [.. products.Select(x => x.ToProductDTO())];
+        }
+
         public async Task<ProductDTO> GetProductByIdAsync(long productId)
         {
-            Product product = await GetProductAsync(productId);
+            Product? product = await _productRepository
+                .GetAllQueryable()
+                .Where(x => x.Id == productId)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
 
-            return product.ToProductDTO();
+            Validator.New()
+                .When(product is null, "Produto não encontrado.")
+                .TriggerBadRequestExceptionIfExist();
+
+            return product!.ToProductDTO();
         }
 
         public async Task<ProductDTO> AddProductAsync(ProductDTO productDTO)
@@ -49,11 +68,15 @@
 
         public async Task<ProductDTO> UpdateProductAsync(ProductDTO productDTO)
         {
-            Product product = await GetProductAsync(productDTO.Id);
+            Product? product = await _productRepository.GetByIdAsync(productDTO.Id);
+
+            Validator.New()
+               .When(product is null, "Produto não encontrado.")
+               .TriggerBadRequestExceptionIfExist();
 
             await ExistsAsync(productDTO);
 
-            product.Update(productDTO.Reference, productDTO.Description, productDTO.UnitPrice);
+            product!.Update(productDTO.Reference, productDTO.Description, productDTO.UnitPrice);
 
             product = await _productRepository.UpdateAsync(product);
 
@@ -67,25 +90,16 @@
         #endregion
 
         #region Private methods
-        private async Task<Product> GetProductAsync(long id)
-        {
-            Product? product = await _productRepository.GetByIdAsync(id) ??
-                throw new Exception("Erro ao tentar encontrar o produto por id.");
-
-            return product!;
-        }
-
         private async Task ExistsAsync(ProductDTO productDTO)
         {
             bool exists = await _productRepository
                 .GetAllQueryable()
                 .AnyAsync(x => x.Id != productDTO.Id &&
-                    x.Reference.Trim().ToLower() == productDTO.Reference.Trim().ToLower());
+                    x.Reference.Trim().Equals(productDTO.Reference.Trim(), StringComparison.CurrentCultureIgnoreCase));
 
-            if (exists)
-            {
-                throw new Exception("O produto já existe.");
-            }
+            Validator.New()
+               .When(exists, "Produto com a mesma referência já existe.")
+               .TriggerBadRequestExceptionIfExist();
         }
 
         private async Task<List<BaseResponseDTO>> DeleteAsync(List<long> productsIds)

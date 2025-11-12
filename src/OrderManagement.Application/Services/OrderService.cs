@@ -29,14 +29,25 @@
 
         public async Task<OrderDTO> GetOrderByIdAsync(long orderId)
         {
-            Order order = await GetOrderAsync(orderId);
+            Order? order = await _orderRepository
+               .GetAllQueryable()
+               .Where(x => x.Id == orderId)
+               .Include(x => x.ProductsOrders)
+               .ThenInclude(x => x.Product)
+               .Include(x => x.Customer)
+               .AsNoTracking()
+               .FirstOrDefaultAsync();
 
-            return order.ToOrderDTO();
+            Validator.New()
+                .When(order is null, "Encomenda não encontrada.")
+                .TriggerBadRequestExceptionIfExist();
+
+            return order!.ToOrderDTO();
         }
 
         public async Task<OrderDTO> AddOrderAsync(OrderDTO orderDTO)
         {
-            List<ProductOrder> productsOrders = await GetProductsAsync(orderDTO.ProductsOrders);
+            List<ProductOrder> productsOrders = GetProducts(orderDTO.ProductsOrders);
 
             Order order = new(orderDTO.Status, orderDTO.Observations, orderDTO.PaymentMethod, orderDTO.CustomerId);
 
@@ -50,11 +61,15 @@
 
         public async Task<OrderDTO> UpdateOrderAsync(OrderDTO orderDTO)
         {
-            Order order = await GetOrderAsync(orderDTO.Id);
+            Order? order = await _orderRepository.GetByIdAsync(orderDTO.Id);
 
-            List<ProductOrder> productsOrders = await GetProductsAsync(orderDTO.ProductsOrders);
+            Validator.New()
+               .When(order is null, "Encomenda não encontrada.")
+               .TriggerBadRequestExceptionIfExist();
 
-            order.Update(orderDTO.Status, orderDTO.Observations, orderDTO.PaymentMethod, orderDTO.CustomerId);
+            List<ProductOrder> productsOrders = GetProducts(orderDTO.ProductsOrders);
+
+            order!.Update(orderDTO.Status, orderDTO.Observations, orderDTO.PaymentMethod, orderDTO.CustomerId);
 
             order.SetProductsOrders(productsOrders);
 
@@ -70,21 +85,8 @@
         #endregion
 
         #region Private methods
-        private async Task<Order> GetOrderAsync(long id)
-        {
-            Order? order = await _orderRepository
-                .GetAllQueryable()
-                .Where(x => x.Id == id)
-                .Include(x => x.ProductsOrders)
-                .ThenInclude(x => x.Product)
-                .Include(x => x.Customer)
-                .FirstOrDefaultAsync() ??
-                throw new Exception("Erro ao tentar encontrar a encomenda por id.");
 
-            return order;
-        }
-
-        private async Task<List<ProductOrder>> GetProductsAsync(List<ProductOrderDTO> productOrderDTOs)
+        private static List<ProductOrder> GetProducts(List<ProductOrderDTO> productOrderDTOs)
         {
             if (productOrderDTOs.Count == 0)
             {
@@ -93,10 +95,10 @@
 
             List<long> productIds = [.. productOrderDTOs.Select(x => x.ProductId)];
 
-            List<Product> products = await _productRepository
-                .GetAllQueryable()
-                .Where(x => productIds.Contains(x.Id))
-                .ToListAsync();
+            //List<Product> products = await _productRepository
+            //    .GetAllQueryable()
+            //    .Where(x => productIds.Contains(x.Id))
+            //    .ToListAsync();
 
             //var productOrderDTOMap = productOrderDTOs.ToDictionary(x => x.ProductId + x.Color, x => x);
 

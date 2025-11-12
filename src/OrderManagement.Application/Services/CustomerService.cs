@@ -38,9 +38,16 @@
 
         public async Task<CustomerDTO> GetCustomerByIdAsync(long customerId)
         {
-            Customer customer = await GetCustomerAsync(customerId);
+            Customer? customer = await _customerRepository.GetAllQueryable()
+                .Where(x => x.Id == customerId)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
 
-            return customer.ToCustomerDTO();
+            Validator.New()
+                .When(customer is null, "Cliente não encontrado.")
+                .TriggerBadRequestExceptionIfExist();
+
+            return customer!.ToCustomerDTO();
         }
 
         public async Task<CustomerDTO> AddCustomerAsync(CustomerDTO customerDTO)
@@ -63,11 +70,15 @@
 
         public async Task<CustomerDTO> UpdateCustomerAsync(CustomerDTO customerDTO)
         {
-            Customer customer = await GetCustomerAsync(customerDTO.Id);
+            Customer? customer = await _customerRepository.GetByIdAsync(customerDTO.Id);
+
+            Validator.New()
+                .When(customer is null, "Cliente não encontrado.")
+                .TriggerBadRequestExceptionIfExist();
 
             await ExistsAsync(customerDTO);
 
-            customer.Update(
+            customer!.Update(
                 customerDTO.FullName,
                 customerDTO.TaxIdentificationNumber,
                 customerDTO.Contact,
@@ -87,14 +98,6 @@
         #endregion
 
         #region Private methods
-        private async Task<Customer> GetCustomerAsync(long id)
-        {
-            Customer? customer = await _customerRepository.GetByIdAsync(id) ??
-                throw new Exception("Erro ao tentar encontrar o cliente por id.");
-
-            return customer!;
-        }
-
         private async Task ExistsAsync(CustomerDTO customerDTO)
         {
             bool exists = await _customerRepository
@@ -102,10 +105,9 @@
                 .AnyAsync(x => x.Id != customerDTO.Id &&
                     x.TaxIdentificationNumber.Trim() == customerDTO.TaxIdentificationNumber.Trim());
 
-            if (exists)
-            {
-                throw new Exception("O cliente já existe.");
-            }
+            Validator.New()
+                .When(exists, "Um cliente o mesmo NIF já existe.")
+                .TriggerBadRequestExceptionIfExist();
         }
 
         private async Task<List<BaseResponseDTO>> DeleteAsync(List<long> customersIds)

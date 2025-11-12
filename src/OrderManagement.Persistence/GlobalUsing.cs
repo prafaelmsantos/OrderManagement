@@ -6,7 +6,7 @@ global using OrderManagement.Application.Interfaces.Repositories;
 global using OrderManagement.Application.Interfaces.Repositories.Base;
 global using OrderManagement.Domain.Entities;
 global using OrderManagement.Domain.Entities.Base;
-global using OrderManagement.Domain.Entities.Enum;
+global using OrderManagement.Domain.Entities.Enums;
 global using OrderManagement.Persistence.Context;
 global using OrderManagement.Persistence.Extentions;
 global using OrderManagement.Persistence.Mapping;

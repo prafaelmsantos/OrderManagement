@@ -16,6 +16,12 @@
 
         public Order(long id, OrderStatus status, string? observations, string? paymentMethod, long customerId)
         {
+            Validator.New()
+                .When(id <= 0, "O id do pedido é inválido.")
+                .When(!Enum.IsDefined(typeof(OrderStatus), status), "O status do pedido é inválido.")
+                .When(customerId <= 0, "O id do cliente associado ao pedido é inválido.")
+                .TriggerBadRequestExceptionIfExist();
+
             Id = id;
             Status = status;
             Observations = observations;
@@ -25,6 +31,11 @@
 
         public Order(OrderStatus status, string? observations, string? paymentMethod, long customerId)
         {
+            Validator.New()
+                .When(!Enum.IsDefined(typeof(OrderStatus), status), "O status do pedido é inválido.")
+                .When(customerId <= 0, "O id do cliente associado ao pedido é inválido.")
+                .TriggerBadRequestExceptionIfExist();
+
             Status = status;
             Observations = observations;
             PaymentMethod = paymentMethod;
@@ -33,6 +44,11 @@
 
         public void Update(OrderStatus status, string? observations, string? paymentMethod, long customerId)
         {
+            Validator.New()
+                .When(!Enum.IsDefined(typeof(OrderStatus), status), "O status do pedido é inválido.")
+                .When(customerId <= 0, "O id do cliente associado ao pedido é inválido.")
+                .TriggerBadRequestExceptionIfExist();
+
             Status = status;
             Observations = observations;
             PaymentMethod = paymentMethod;

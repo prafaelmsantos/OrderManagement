@@ -1,6 +1,6 @@
 ﻿namespace OrderManagement.Application.Dtos
 {
-    public sealed class OrderTableDTO
+    public sealed record OrderTableDTO
     {
         public long Id { get; set; }
         public OrderStatus Status { get; set; }
