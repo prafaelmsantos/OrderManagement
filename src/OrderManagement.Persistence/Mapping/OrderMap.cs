@@ -8,10 +8,6 @@
 
             entity.ToTable("orders");
 
-            entity.Property(x => x.Status)
-                .HasColumnName("status")
-                .IsRequired();
-
             entity.Property(x => x.Observations)
                 .HasColumnName("observations");
 

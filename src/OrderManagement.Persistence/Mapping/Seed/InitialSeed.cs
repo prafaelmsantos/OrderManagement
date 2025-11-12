@@ -27,10 +27,10 @@
             // =====================
             // Orders
             // =====================
-            var order1 = new Order(1, OrderStatus.Open, "Este documento não serve de fatura.", "A pronto pagamento.", customer1.Id);
-            var order2 = new Order(2, OrderStatus.Cancelled, "Este documento não serve de fatura.", "A pronto pagamento.", customer2.Id);
-            var order3 = new Order(3, OrderStatus.Pending, "Este documento não serve de fatura.", "A pronto pagamento.", customer3.Id);
-            var order4 = new Order(4, OrderStatus.Delivered, "Este documento não serve de fatura.", "A pronto pagamento.", customer4.Id);
+            var order1 = new Order(1, "Este documento não serve de fatura.", "A pronto pagamento.", customer1.Id);
+            var order2 = new Order(2, "Este documento não serve de fatura.", "A pronto pagamento.", customer2.Id);
+            var order3 = new Order(3, "Este documento não serve de fatura.", "A pronto pagamento.", customer3.Id);
+            var order4 = new Order(4, "Este documento não serve de fatura.", "A pronto pagamento.", customer4.Id);
 
             modelBuilder.Entity<Order>().HasData(order1, order2, order3, order4);
 

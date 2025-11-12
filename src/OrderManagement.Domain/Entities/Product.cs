@@ -5,7 +5,7 @@
         public string Reference { get; private set; } = null!;
         public string? Description { get; private set; }
         public double UnitPrice { get; private set; }
-        public DateTime CreatedDate { get; private set; } = DateTime.UtcNow;
+        public DateTime CreatedDate { get; private set; }
 
         public virtual ICollection<ProductOrder> ProductsOrders { get; private set; } = [];
 
@@ -23,6 +23,8 @@
             Reference = reference;
             Description = description;
             UnitPrice = unitPrice;
+
+            CreatedDate = DateTime.UtcNow;
         }
 
         public Product(string reference, string? description, double unitPrice)
@@ -35,6 +37,8 @@
             Reference = reference;
             Description = description;
             UnitPrice = unitPrice;
+
+            CreatedDate = DateTime.UtcNow;
         }
 
         public void Update(string reference, string? description, double unitPrice)

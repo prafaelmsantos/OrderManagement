@@ -8,7 +8,7 @@
         public string Address { get; private set; } = null!;
         public string PostalCode { get; private set; } = null!;
         public string City { get; private set; } = null!;
-        public DateTime CreatedDate { get; private set; } = DateTime.UtcNow;
+        public DateTime CreatedDate { get; private set; }
 
         public virtual ICollection<Order> Orders { get; private set; } = [];
 
@@ -40,6 +40,7 @@
             Address = address;
             PostalCode = postalCode;
             City = city;
+            CreatedDate = DateTime.UtcNow;
         }
 
         public Customer(
@@ -65,6 +66,8 @@
             Address = address;
             PostalCode = postalCode;
             City = city;
+
+            CreatedDate = DateTime.UtcNow;
         }
 
         public void Update(
