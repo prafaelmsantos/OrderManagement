@@ -45,6 +45,17 @@
             return order!.ToOrderDTO();
         }
 
+        public async Task<List<OrderTableDTO>> GetAllByCustomerIdAsync(long customerId)
+        {
+            List<Order> orders = await _orderRepository
+               .GetAllQueryable()
+               .AsNoTracking()
+               .Where(x => x.CustomerId == customerId)
+               .ToListAsync();
+
+            return orders.Select(x => x.ToOrderTableDTO()).ToList();
+        }
+
         public async Task<OrderDTO> AddOrderAsync(OrderDTO orderDTO)
         {
             List<ProductOrder> productsOrders = GetProducts(orderDTO.ProductsOrders);

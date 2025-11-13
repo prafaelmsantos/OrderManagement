@@ -49,6 +49,23 @@
             return Ok(orderDTO);
         }
 
+        /// <summary>
+        /// Get Order
+        /// </summary>
+        /// <param name="id"></param>
+        [HttpGet("customer/{id}")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetAllByCustomerIdAsync([FromRoute] long id)
+        {
+            Validator.New()
+                .When(id <= 0, "O Id da encomenda é invalido.")
+                .TriggerBadRequestExceptionIfExist();
+
+            List<OrderTableDTO> orders = await _orderService.GetAllByCustomerIdAsync(id);
+
+            return Ok(orders);
+        }
 
         /// <summary>
         /// Create Order

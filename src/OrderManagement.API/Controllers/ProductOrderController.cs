@@ -3,14 +3,14 @@
     [ApiVersion("1.0", Deprecated = false)]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class ProductOrdersController : ControllerBase
+    public class ProductOrderController : ControllerBase
     {
         #region Properties
         private readonly IProductOrderService _productOrderService;
         #endregion
 
         #region Constructors
-        public ProductOrdersController(IProductOrderService productOrderService)
+        public ProductOrderController(IProductOrderService productOrderService)
         {
             _productOrderService = productOrderService;
         }
@@ -22,16 +22,16 @@
         /// Get Product
         /// </summary>
         /// <param name="id"></param>
-        [HttpGet("{id}")]
+        [HttpGet("sales/{id}")]
         [Consumes("application/json")]
         [Produces("application/json")]
-        public async Task<IActionResult> GetByIdAsync([FromRoute] long id)
+        public async Task<IActionResult> GetProductSalesAsync([FromRoute] long id)
         {
             Validator.New()
                 .When(id <= 0, "O Id do produto é invalido.")
                 .TriggerBadRequestExceptionIfExist();
 
-            var products = await _productOrderService.GetAllMetrics(id);
+            var products = await _productOrderService.GetProductSalesByProductIdAsync(id);
             return Ok(products);
         }
 

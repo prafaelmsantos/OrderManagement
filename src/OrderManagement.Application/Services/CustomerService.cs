@@ -42,6 +42,7 @@
                 .GetAllQueryable()
                 .AsNoTracking()
                 .Where(x => x.Id == customerId)
+                .Include(x => x.Orders)
                 .FirstOrDefaultAsync();
 
             Validator.New()

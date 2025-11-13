@@ -18,7 +18,22 @@
                 Address = customer.Address,
                 PostalCode = customer.PostalCode,
                 City = customer.City,
-                CreatedDate = customer.CreatedDate
+                CreatedDate = customer.CreatedDate,
+            };
+        }
+
+        public static CustomerOrdersTableDTO ToCustomerOrdersTableDTO(this Customer customer)
+        {
+            if (customer is null)
+            {
+                return null!;
+            }
+
+            return new CustomerOrdersTableDTO()
+            {
+                Id = customer.Id,
+                FullName = customer.FullName,
+                Orders = customer.Orders.Select(x => x.ToOrderTableDTO()).ToList()
             };
         }
 

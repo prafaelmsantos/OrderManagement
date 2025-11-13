@@ -3,7 +3,6 @@
     public sealed record OrderDTO
     {
         public long Id { get; set; }
-        public OrderStatus Status { get; set; }
 
         public int TotalQuantity { get; set; }
         public double TotalPrice { get; set; }
