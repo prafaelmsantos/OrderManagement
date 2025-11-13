@@ -18,8 +18,8 @@
         {
             List<Customer> customers = await _customerRepository
                 .GetAllQueryable()
-                .OrderByDescending(x => x.CreatedDate)
                 .AsNoTracking()
+                .OrderByDescending(x => x.CreatedDate)
                 .ToListAsync();
 
             return [.. customers.Select(x => x.ToCustomerTableDTO())];
@@ -29,8 +29,8 @@
         {
             List<Customer> customers = await _customerRepository
                 .GetAllQueryable()
-                .OrderByDescending(x => x.CreatedDate)
                 .AsNoTracking()
+                .OrderByDescending(x => x.CreatedDate)
                 .ToListAsync();
 
             return [.. customers.Select(x => x.ToCustomerDTO())];
@@ -38,9 +38,10 @@
 
         public async Task<CustomerDTO> GetCustomerByIdAsync(long customerId)
         {
-            Customer? customer = await _customerRepository.GetAllQueryable()
-                .Where(x => x.Id == customerId)
+            Customer? customer = await _customerRepository
+                .GetAllQueryable()
                 .AsNoTracking()
+                .Where(x => x.Id == customerId)
                 .FirstOrDefaultAsync();
 
             Validator.New()
@@ -102,6 +103,7 @@
         {
             bool exists = await _customerRepository
                 .GetAllQueryable()
+                .AsNoTracking()
                 .AnyAsync(x => x.Id != customerDTO.Id &&
                     x.TaxIdentificationNumber.Trim() == customerDTO.TaxIdentificationNumber.Trim());
 

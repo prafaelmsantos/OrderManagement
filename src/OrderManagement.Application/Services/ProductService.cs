@@ -18,8 +18,8 @@
         {
             List<Product> products = await _productRepository
                 .GetAllQueryable()
-                .OrderByDescending(x => x.CreatedDate)
                 .AsNoTracking()
+                .OrderByDescending(x => x.CreatedDate)
                 .ToListAsync();
 
             return [.. products.Select(x => x.ToProductTableDTO())];
@@ -29,8 +29,8 @@
         {
             List<Product> products = await _productRepository
                 .GetAllQueryable()
-                .OrderByDescending(x => x.CreatedDate)
                 .AsNoTracking()
+                .OrderByDescending(x => x.CreatedDate)
                 .ToListAsync();
 
             return [.. products.Select(x => x.ToProductDTO())];
@@ -40,8 +40,8 @@
         {
             Product? product = await _productRepository
                 .GetAllQueryable()
-                .Where(x => x.Id == productId)
                 .AsNoTracking()
+                .Where(x => x.Id == productId)
                 .FirstOrDefaultAsync();
 
             Validator.New()
@@ -55,11 +55,7 @@
         {
             await ExistsAsync(productDTO);
 
-            Product product = new(
-                productDTO.Reference,
-                productDTO.Description,
-                productDTO.UnitPrice
-            );
+            Product product = new(productDTO.Reference, productDTO.Description, productDTO.UnitPrice);
 
             product = await _productRepository.AddAsync(product);
 
@@ -94,8 +90,9 @@
         {
             bool exists = await _productRepository
                 .GetAllQueryable()
+                .AsNoTracking()
                 .AnyAsync(x => x.Id != productDTO.Id &&
-                    x.Reference.Trim().Equals(productDTO.Reference.Trim(), StringComparison.CurrentCultureIgnoreCase));
+                    x.Reference.Trim().ToLower() == productDTO.Reference.Trim().ToLower());
 
             Validator.New()
                .When(exists, "Produto com a mesma referência já existe.")

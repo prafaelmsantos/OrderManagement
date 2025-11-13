@@ -20,8 +20,8 @@
         {
             List<Order> orders = await _orderRepository
                 .GetAllQueryable()
-                .OrderByDescending(x => x.CreatedDate)
                 .AsNoTracking()
+                .OrderByDescending(x => x.CreatedDate)
                 .ToListAsync();
 
             return [.. orders.Select(x => x.ToOrderTableDTO())];
@@ -31,11 +31,11 @@
         {
             Order? order = await _orderRepository
                .GetAllQueryable()
+               .AsNoTracking()
                .Where(x => x.Id == orderId)
                .Include(x => x.ProductsOrders)
                .ThenInclude(x => x.Product)
                .Include(x => x.Customer)
-               .AsNoTracking()
                .FirstOrDefaultAsync();
 
             Validator.New()
@@ -92,15 +92,6 @@
             {
                 return [];
             }
-
-            List<long> productIds = [.. productOrderDTOs.Select(x => x.ProductId)];
-
-            //List<Product> products = await _productRepository
-            //    .GetAllQueryable()
-            //    .Where(x => productIds.Contains(x.Id))
-            //    .ToListAsync();
-
-            //var productOrderDTOMap = productOrderDTOs.ToDictionary(x => x.ProductId + x.Color, x => x);
 
             List<ProductOrder> productOrders = [.. productOrderDTOs.Select(productOrderDTO => new ProductOrder(
                 productOrderDTO.ProductId,
