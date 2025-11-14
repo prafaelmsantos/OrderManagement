@@ -1,7 +1,4 @@
-﻿using QuestPDF;
-using QuestPDF.Infrastructure;
-
-namespace OrderManagement.API
+﻿namespace OrderManagement.API
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class Program
@@ -25,7 +22,6 @@ namespace OrderManagement.API
 
                 // For documentation and implementation details, please visit:
                 // https://www.questpdf.com/getting-started.html
-
 
                 await app.RunAsync();
             }
@@ -71,6 +67,7 @@ namespace OrderManagement.API
             app.UseCors(CustomPolicy);
 
             app.AddErrorHandlerMiddleware();
+            app.UseMiddleware<TrialMiddleware>();
             app.UseSwaggerDocs(host);
 
             app.UseRouting();
