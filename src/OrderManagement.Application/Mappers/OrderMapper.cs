@@ -23,6 +23,7 @@
                     UnitPrice = productOrder.UnitPrice,
                     Color = productOrder.Color,
 
+                    ZeroMonths = productOrder.ZeroMonths,
                     OneMonth = productOrder.OneMonth,
                     ThreeMonths = productOrder.ThreeMonths,
                     SixMonths = productOrder.SixMonths,

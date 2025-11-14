@@ -34,23 +34,6 @@
             var products = await _productOrderService.GetProductSalesByProductIdAsync(id);
             return Ok(products);
         }
-
-        /// <summary>
-        /// Get Product
-        /// </summary>
-        /// <param name="id"></param>
-        [HttpGet("top/{id}")]
-        [Consumes("application/json")]
-        [Produces("application/json")]
-        public async Task<IActionResult> GetByIdTopAsync([FromRoute] long id)
-        {
-            Validator.New()
-                .When(id <= 0, "O Id do produto é invalido.")
-                .TriggerBadRequestExceptionIfExist();
-
-            var products = await _productOrderService.GetAllMetricsTop(id);
-            return Ok(products);
-        }
         #endregion
     }
 }

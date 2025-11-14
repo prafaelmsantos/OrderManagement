@@ -1,11 +1,8 @@
 ﻿namespace OrderManagement.Application.Dtos
 {
-    public class ProductSalesBySizeDTO
+    public sealed record ProductSalesBySizeDTO
     {
-        public string? Color { get; set; }
-        public string Size { get; set; } = null!;
-        public int Index { get; set; }
-        public int TotalQuantity { get; set; }
-        public double TotalPrice { get; set; }
+        public string Color { get; set; } = string.Empty;
+        public List<ProductSalesBySizeValuesDTO> Values { get; set; } = [];
     }
 }

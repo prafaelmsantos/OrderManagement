@@ -51,6 +51,48 @@
             return product!.ToProductDTO();
         }
 
+        public async Task<List<ProductSalesBySizeDTO>> GetProductSalesByIdAsync(long productId)
+        {
+            Product? product = await _productRepository
+                .GetAllQueryable()
+                .AsNoTracking()
+                .Where(po => po.Id == productId)
+                .FirstOrDefaultAsync();
+
+            Validator.New()
+                .When(product is null, "Produto não encontrado.")
+                .TriggerBadRequestExceptionIfExist();
+
+            List<ProductSize> allSizes = [.. Enum.GetValues<ProductSize>().Cast<ProductSize>()];
+
+            List<ProductSalesBySizeDTO> result = [.. product!.ProductsOrders
+                .GroupBy(po => po.Color?? string.Empty)
+                .Select(g =>
+                {
+                    List<ProductSalesBySizeValuesDTO> productSalesBySizeValues = [.. allSizes.Select(sz =>
+                    {
+                        int totalQuantity = g.Sum(po => GetQuantity(po, sz));
+                        double totalPrice = g.Sum(po => GetQuantity(po, sz) * po.UnitPrice);
+
+                        return new ProductSalesBySizeValuesDTO()
+                        {
+                            Id = (int)sz,
+                            Size = sz.ToString(),
+                            TotalQuantity = totalQuantity,
+                            TotalPrice = totalPrice
+                        };
+                    }).OrderBy(x => x.Id)];
+
+                    return new ProductSalesBySizeDTO
+                    {
+                        Color = g.Key ,
+                        Values = productSalesBySizeValues
+                    };
+                })];
+
+            return result;
+        }
+
         public async Task<ProductDTO> AddProductAsync(ProductDTO productDTO)
         {
             await ExistsAsync(productDTO);
@@ -137,6 +179,27 @@
 
             return internalBaseResponseDTOs;
         }
+
+        private static int GetQuantity(ProductOrder po, ProductSize size) => size switch
+        {
+            ProductSize.ZeroMonths => po.ZeroMonths,
+            ProductSize.OneMonth => po.OneMonth,
+            ProductSize.ThreeMonths => po.ThreeMonths,
+            ProductSize.SixMonths => po.SixMonths,
+            ProductSize.TwelveMonths => po.TwelveMonths,
+            ProductSize.EighteenMonths => po.EighteenMonths,
+            ProductSize.TwentyFourMonths => po.TwentyFourMonths,
+            ProductSize.ThirtySixMonths => po.ThirtySixMonths,
+            ProductSize.OneYear => po.OneYear,
+            ProductSize.TwoYears => po.TwoYears,
+            ProductSize.ThreeYears => po.ThreeYears,
+            ProductSize.FourYears => po.FourYears,
+            ProductSize.SixYears => po.SixYears,
+            ProductSize.EightYears => po.EightYears,
+            ProductSize.TenYears => po.TenYears,
+            ProductSize.TwelveYears => po.TwelveYears,
+            _ => 0
+        };
         #endregion
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace OrderManagement.API.Controllers
+﻿using OrderManagement.API.Pdf;
+using QuestPDF.Fluent;
+
+namespace OrderManagement.API.Controllers
 {
     [ApiVersion("1.0", Deprecated = false)]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -29,6 +32,28 @@
             List<OrderTableDTO> orders = await _orderService.GetAllOrdersAsync();
             return Ok(orders);
         }
+        /// </summary>
+        [HttpGet("pdf")]
+        public async Task<IActionResult> GetPdf()
+        {
+            var model = await _orderService.GetOrderByIdAsync(4);
+            // Retornar PDF para o cliente
+            var document = new InvoiceDocument(model); // ou InvoiceDocument se estiveres a usar o antigo
+
+            // Gerar PDF em memória
+            byte[] pdfBytes;
+            using (var ms = new MemoryStream())
+            {
+                document.GeneratePdf(ms);
+                pdfBytes = ms.ToArray();
+            }
+
+            // Retornar PDF para o cliente
+            return File(pdfBytes, "application/pdf", $"nota_encomenda_{model.Id}.pdf");
+        }
+
+
+
 
 
         /// <summary>

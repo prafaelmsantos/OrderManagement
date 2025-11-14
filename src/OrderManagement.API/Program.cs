@@ -1,4 +1,7 @@
-﻿namespace OrderManagement.API
+﻿using QuestPDF;
+using QuestPDF.Infrastructure;
+
+namespace OrderManagement.API
 {
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class Program
@@ -17,6 +20,12 @@
 
                 var app = builder.Build();
                 ConfigureApp(app);
+
+                Settings.License = LicenseType.Community;
+
+                // For documentation and implementation details, please visit:
+                // https://www.questpdf.com/getting-started.html
+
 
                 await app.RunAsync();
             }

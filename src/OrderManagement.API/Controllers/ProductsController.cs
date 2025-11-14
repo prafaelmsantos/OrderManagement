@@ -62,6 +62,24 @@
         }
 
         /// <summary>
+        /// Get Product
+        /// </summary>
+        /// <param name="id"></param>
+        [HttpGet("sales/{id}")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetSalesByIdAsync([FromRoute] long id)
+        {
+            Validator.New()
+                .When(id <= 0, "O Id do produto é invalido.")
+                .TriggerBadRequestExceptionIfExist();
+
+            var productDTO = await _productService.GetProductSalesByIdAsync(id);
+
+            return Ok(productDTO);
+        }
+
+        /// <summary>
         /// Create Product
         /// </summary>
         /// <param name="productDTO"></param>
