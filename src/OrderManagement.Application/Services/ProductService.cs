@@ -51,7 +51,7 @@
             return product!.ToProductDTO();
         }
 
-        public async Task<ProductReportDTO> GetProductSalesByIdAsync(long productId)
+        public async Task<ProductReportDTO> GetProducReportByIdAsync(long productId)
         {
             Product? product = await _productRepository
                 .GetAllQueryable()
@@ -71,23 +71,17 @@
                 {
                     List<ProductSalesBySizeValuesDTO> productSalesBySizeValues = [.. allSizes.Select(sz =>
                     {
-                        int totalQuantity = g.Sum(po => GetQuantity(po, sz));
-                        double totalPrice = g.Sum(po => GetQuantity(po, sz) * po.UnitPrice);
-
                         return new ProductSalesBySizeValuesDTO()
                         {
-                            Id = (int)sz,
                             Size = sz,
-                            TotalQuantity = totalQuantity,
-                            TotalPrice = totalPrice
+                            TotalQuantity = g.Sum(po => GetQuantity(po, sz))
                         };
-                    }).OrderBy(x => x.Id)];
+                    }).OrderBy(x => x.Size)];
 
                     return new ProductSalesBySizeDTO
                     {
                         Color = g.Key,
                         TotalQuantity = productSalesBySizeValues.Sum(x=> x.TotalQuantity),
-                        TotalPrice = productSalesBySizeValues.Sum(x=> x.TotalPrice),
                         Values = productSalesBySizeValues
                     };
                 })];
@@ -165,7 +159,7 @@
                     {
                         if (product.ProductsOrders.Count != 0)
                         {
-                            internalBaseResponseDTO.Message = $"Produto {product.Reference} contém encomendas.";
+                            internalBaseResponseDTO.Message = $"Produto {product.Reference} está presente em encomendas. Por favor apague as encomendas e tente novamente.";
                         }
                         else
                         {

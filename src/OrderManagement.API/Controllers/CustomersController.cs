@@ -94,7 +94,7 @@
         /// Delete Customers
         /// </summary>
         /// <param name="customersIds"></param>
-        [HttpPost("Delete")]
+        [HttpPost("delete")]
         [Consumes("application/json")]
         [Produces("application/json")]
         public async Task<IActionResult> DeleteAsync([FromBody] List<long> customersIds)

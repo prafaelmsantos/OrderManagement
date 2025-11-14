@@ -65,16 +65,16 @@
         /// Get Product
         /// </summary>
         /// <param name="id"></param>
-        [HttpGet("sales/{id}")]
+        [HttpGet("report/{id}")]
         [Consumes("application/json")]
-        [Produces("application/json")]
-        public async Task<IActionResult> GetSalesByIdAsync([FromRoute] long id)
+        [Produces("application/pdf")]
+        public async Task<IActionResult> GetProducReportByIdAsync([FromRoute] long id)
         {
             Validator.New()
                 .When(id <= 0, "O Id do produto é invalido.")
                 .TriggerBadRequestExceptionIfExist();
 
-            ProductReportDTO productSalesBySize = await _productService.GetProductSalesByIdAsync(id);
+            ProductReportDTO productSalesBySize = await _productService.GetProducReportByIdAsync(id);
 
             var document = new ProductReportsDocument(productSalesBySize);
 
@@ -125,7 +125,7 @@
         /// Delete Products
         /// </summary>
         /// <param name="productsIds"></param>
-        [HttpPost("Delete")]
+        [HttpPost("delete")]
         [Consumes("application/json")]
         [Produces("application/json")]
         public async Task<IActionResult> DeleteAsync([FromBody] List<long> productsIds)

@@ -65,8 +65,6 @@
                     column.Item().Text($"Método de Pagamento: {_order.PaymentMethod}");
                 });
             });
-
-
         }
 
         void ComposeContent(IContainer container)

@@ -71,9 +71,9 @@
         /// Get Order
         /// </summary>
         /// <param name="id"></param>
-        [HttpGet("pdf/{id}")]
+        [HttpGet("doc/{id}")]
         [Consumes("application/json")]
-        public async Task<IActionResult> GetOrderPdfAsync([FromRoute] long id)
+        public async Task<IActionResult> GetOrderDocAsync([FromRoute] long id)
         {
             OrderDTO orderDTO = await _orderService.GetOrderByIdAsync(id);
             var document = new OrderDocument(orderDTO);
@@ -125,7 +125,7 @@
         /// Delete Orders
         /// </summary>
         /// <param name="ordersIds"></param>
-        [HttpPost("Delete")]
+        [HttpPost("delete")]
         [Consumes("application/json")]
         [Produces("application/json")]
         public async Task<IActionResult> DeleteAsync([FromBody] List<long> ordersIds)

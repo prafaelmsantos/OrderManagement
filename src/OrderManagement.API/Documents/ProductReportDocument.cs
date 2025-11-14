@@ -57,10 +57,14 @@
                 {
                     column.Item().Text("Report").FontSize(20).SemiBold();
 
+
                     column.Item().Text($"Produto {_productReportDTO.Product.Reference}")
                         .FontSize(16).SemiBold();
 
                     column.Item().Text($"Descrição: {_productReportDTO.Product.Description}");
+                    column.Spacing(5);
+                    column.Item().Text($"Data: {DateTime.UtcNow:G}")
+                        .FontSize(9).SemiBold();
                 });
             });
         }
@@ -93,17 +97,15 @@
                         // Colunas
                         table.ColumnsDefinition(columns =>
                         {
-                            columns.RelativeColumn(4);
-                            columns.RelativeColumn(4);
-                            columns.RelativeColumn(4);
+                            columns.RelativeColumn(6);
+                            columns.RelativeColumn(6);
                         });
 
                         // Cabeçalho
                         table.Header(header =>
                         {
                             header.Cell().Element(CellStyle).AlignCenter().AlignMiddle().Text("Tamanho").Style(headerStyle);
-                            header.Cell().Element(CellStyle).AlignCenter().AlignMiddle().Text("Quantidade Total").Style(headerStyle);
-                            header.Cell().Element(CellStyle).AlignCenter().AlignMiddle().Text("Preço Total").Style(headerStyle);
+                            header.Cell().Element(CellStyle).AlignCenter().AlignMiddle().Text("Quantidades Vendidas").Style(headerStyle);
                         });
 
                         // Linhas de dados
@@ -111,13 +113,11 @@
                         {
                             table.Cell().Element(CellStyle).Text(item.Size.ToProductSizeString());
                             table.Cell().Element(CellStyle).Text(item.TotalQuantity.ToString());
-                            table.Cell().Element(CellStyle).Text(item.TotalPrice.ToString("C2"));
                         }
 
                         // Linha de totais
                         table.Cell().Element(CellStyle).Text("Total").SemiBold();
                         table.Cell().Element(CellStyle).Text(report.TotalQuantity.ToString()).SemiBold();
-                        table.Cell().Element(CellStyle).Text(report.TotalPrice.ToString("C2")).SemiBold();
 
                         // Função de estilo das células
                         static IContainer CellStyle(IContainer c) => c
