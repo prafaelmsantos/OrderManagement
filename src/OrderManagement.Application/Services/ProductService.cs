@@ -51,7 +51,7 @@
             return product!.ToProductDTO();
         }
 
-        public async Task<List<ProductSalesBySizeDTO>> GetProductSalesByIdAsync(long productId)
+        public async Task<ProductReportDTO> GetProductSalesByIdAsync(long productId)
         {
             Product? product = await _productRepository
                 .GetAllQueryable()
@@ -65,8 +65,8 @@
 
             List<ProductSize> allSizes = [.. Enum.GetValues<ProductSize>().Cast<ProductSize>()];
 
-            List<ProductSalesBySizeDTO> result = [.. product!.ProductsOrders
-                .GroupBy(po => po.Color?? string.Empty)
+            List<ProductSalesBySizeDTO> productSalesBySizes = [.. product!.ProductsOrders
+                .GroupBy(po => po.Color)
                 .Select(g =>
                 {
                     List<ProductSalesBySizeValuesDTO> productSalesBySizeValues = [.. allSizes.Select(sz =>
@@ -77,7 +77,7 @@
                         return new ProductSalesBySizeValuesDTO()
                         {
                             Id = (int)sz,
-                            Size = sz.ToString(),
+                            Size = sz,
                             TotalQuantity = totalQuantity,
                             TotalPrice = totalPrice
                         };
@@ -85,12 +85,21 @@
 
                     return new ProductSalesBySizeDTO
                     {
-                        Color = g.Key ,
+                        Color = g.Key,
+                        TotalQuantity = productSalesBySizeValues.Sum(x=> x.TotalQuantity),
+                        TotalPrice = productSalesBySizeValues.Sum(x=> x.TotalPrice),
                         Values = productSalesBySizeValues
                     };
                 })];
 
-            return result;
+            ProductReportDTO productReportDTO = new()
+            {
+                ProductId = product.Id,
+                Product = product.ToProductDTO(),
+                ProductSalesBySizes = productSalesBySizes
+            };
+
+            return productReportDTO;
         }
 
         public async Task<ProductDTO> AddProductAsync(ProductDTO productDTO)

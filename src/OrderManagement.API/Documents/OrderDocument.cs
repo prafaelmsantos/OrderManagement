@@ -1,17 +1,13 @@
-﻿using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-
-namespace OrderManagement.API.Pdf
+﻿namespace OrderManagement.API.Documents
 {
 
     // Documento PDF
-    public class InvoiceDocument : IDocument
+    public class OrderDocument : IDocument
     {
         public static Image LogoImage { get; } = Image.FromFile("logo.png");
         public OrderDTO Model { get; }
 
-        public InvoiceDocument(OrderDTO model)
+        public OrderDocument(OrderDTO model)
         {
             Model = model;
         }
@@ -38,149 +34,109 @@ namespace OrderManagement.API.Pdf
 
         void ComposeHeader(IContainer container)
         {
+
             container.Row(row =>
             {
-                row.RelativeItem().Column(column =>
-                {
-                    column.Item().Text($"Invoice #{Model.Id}")
-                        .FontSize(20).SemiBold().FontColor(Colors.Blue.Medium);
+                // ─────────────── Logotipo ───────────────
+                row.ConstantItem(80).AlignLeft().AlignMiddle().Image(LogoImage);
 
-                    column.Item().Text($"Issue date: {Model.CreatedDate:dd/MM/yyyy}");
-                    column.Item().Text($"Payment: {Model.PaymentMethod}");
+                // ─────────────── Informação da Empresa ───────────────
+                row.RelativeItem(7).Column(column =>
+                {
+                    column.Item().PaddingLeft(10).Text("Raith – Exportação de Têxteis, S.A.")
+                        .FontSize(12).SemiBold();
+
+                    column.Item().PaddingLeft(10).Text("NIF: 123456789");
+                    column.Item().PaddingLeft(10).Text("Rua Um da Zona Industrial, 205");
+                    column.Item().PaddingLeft(10).Text("4630-488 Marco de Canaveses");
+                    column.Item().PaddingLeft(10).Text("Tel: 255 534 211 / 939 587 886");
+                    column.Item().PaddingLeft(10).Text("Email: geral@raithsa.com");
                 });
 
-                row.ConstantItem(175).Image(LogoImage);
+                // ─────────────── Informações da Encomenda ───────────────
+                row.RelativeItem(5).Column(column =>
+                {
+                    column.Item().Text($"Encomenda Nº {Model.Id}")
+                        .FontSize(20).SemiBold();
+
+                    column.Item().Text($"Data de criação: {Model.CreatedDate:dd/MM/yyyy}");
+                    column.Item().Text($"Método de Pagamento: {Model.PaymentMethod}");
+                });
             });
+
+
         }
 
         void ComposeContent(IContainer container)
         {
-            container.PaddingVertical(40).Column(column =>
+            container.PaddingTop(40).Column(column =>
             {
-                column.Spacing(20);
+                column.Spacing(30);
 
                 column.Item().Element(c =>
                 {
                     c.Column(cc =>
                     {
-                        cc.Item().Text("Customer").SemiBold();
-                        cc.Item().Text(Model.Customer.FullName);
-                        cc.Item().Text(Model.Customer.TaxIdentificationNumber);
-                        cc.Item().Text(Model.Customer.Address);
-                        cc.Item().Text(Model.Customer.PostalCode);
-                        cc.Item().Text(Model.Customer.City);
-                        cc.Item().Text(Model.Customer.Contact);
+                        cc.Item().Text("Dados do cliente:").Bold();
+                        cc.Spacing(10);
+                        cc.Item().Row(row =>
+                        {
+                            row.RelativeItem(8).Text(text =>
+                            {
+                                text.Span("Nome: ").Bold();
+                                text.Span(Model.Customer?.FullName ?? string.Empty);
+                            });
+
+                            row.RelativeItem(4).Text(text =>
+                            {
+                                text.Span("NIF: ").Bold();
+                                text.Span(Model.Customer?.TaxIdentificationNumber ?? string.Empty);
+                            });
+                        });
+                        cc.Spacing(10);
+                        cc.Item().Row(row =>
+                        {
+                            row.RelativeItem(8).Text(text =>
+                            {
+                                text.Span("Morada: ").Bold();
+                                text.Span(Model.Customer?.Address ?? string.Empty);
+                            });
+
+                            row.RelativeItem(4).Text(text =>
+                            {
+                                text.Span("Código-Postal: ").Bold();
+                                text.Span(Model.Customer?.PostalCode ?? string.Empty);
+                            });
+                        });
+                        cc.Spacing(10);
+                        cc.Item().Row(row =>
+                        {
+                            row.RelativeItem(8).Text(text =>
+                            {
+                                text.Span("Cidade: ").Bold();
+                                text.Span(Model.Customer?.City ?? string.Empty);
+                            });
+
+                            row.RelativeItem(4).Text(text =>
+                            {
+                                text.Span("Contacto: ").Bold();
+                                text.Span(Model.Customer?.Contact ?? string.Empty);
+                            });
+                        });
                     });
                 });
 
-                column.Item().Element(ComposeTable);
+                column.Item().PaddingTop(20).Element(ComposeObservations);
 
-                column.Item().AlignRight().Text($"Grand total: {Model.TotalPrice:C}").SemiBold();
-
-                if (!string.IsNullOrWhiteSpace(Model.Observations))
-                    column.Item().PaddingTop(25).Element(ComposeObservations);
+                column.Item().PaddingTop(20).Element(ComposeTable);
             });
         }
-
-        void ComposeTableNew(IContainer container)
-        {
-            var headerStyle = TextStyle.Default.ExtraBold().FontSize(10);
-            string[] sizes = { "0M", "1M", "3M", "6M", "12M", "18M", "24M", "36M",
-                       "1Y", "2Y", "3Y", "4Y", "6Y", "8Y", "10Y", "12Y" };
-
-            container.Row(row =>
-            {
-                // Parte esquerda (Produto, Descrição, Cor)
-                row.RelativeItem(3).Column(left =>
-                {
-                    left.Spacing(0);
-                    left.Item().Table(table =>
-                    {
-                        table.ColumnsDefinition(columns =>
-                        {
-                            columns.RelativeColumn(3);  // Produto
-                            columns.RelativeColumn(5);  // Descrição
-                            columns.RelativeColumn(2);  // Cor
-                        });
-
-                        // Cabeçalho
-                        table.Header(header =>
-                        {
-                            header.Cell().AlignLeft().Text("Ref.").Style(headerStyle);
-                            header.Cell().AlignLeft().Text("Descrição").Style(headerStyle);
-                            header.Cell().AlignLeft().Text("Cor").Style(headerStyle);
-
-                            header.Cell().ColumnSpan(3).PaddingTop(3).BorderBottom(1).BorderColor(Colors.Grey.Lighten2);
-                        });
-
-                        // Corpo
-                        foreach (var item in Model.ProductsOrders)
-                        {
-                            table.Cell().AlignLeft().Element(CellStyle).Text(item.Product.Reference);
-                            table.Cell().AlignLeft().Element(CellStyle).Text(item.Product.Description ?? "-");
-                            table.Cell().AlignLeft().Element(CellStyle).Text(string.IsNullOrWhiteSpace(item.Color) ? "-" : item.Color);
-                        }
-
-                        static IContainer CellStyle(IContainer container) =>
-                            container.BorderBottom(1).BorderRight(1).BorderColor(Colors.Grey.Lighten2)
-                                     .PaddingVertical(3).PaddingHorizontal(2);
-                    });
-                });
-
-                // Parte direita (tamanhos + Preço Unit.)
-                row.RelativeItem(7).Column(right =>
-                {
-
-                    right.Item().Table(table =>
-                    {
-                        table.ColumnsDefinition(columns =>
-                        {
-                            foreach (var _ in sizes)
-                                columns.RelativeColumn(2); // tamanhos iguais
-
-                            columns.RelativeColumn(4); // Preço Unitário
-                        });
-
-                        // Cabeçalho
-                        table.Header(header =>
-                        {
-                            foreach (var size in sizes)
-                                header.Cell().AlignCenter().Text(size).Style(headerStyle);
-
-                            header.Cell().AlignRight().Text("Preço Unit.").Style(headerStyle);
-                            header.Cell().ColumnSpan(17).PaddingTop(3);
-                        });
-
-                        // Corpo
-                        foreach (var item in Model.ProductsOrders)
-                        {
-                            var values = new int[] {
-                        item.ZeroMonths, item.OneMonth, item.ThreeMonths, item.SixMonths,
-                        item.TwelveMonths, item.EighteenMonths, item.TwentyFourMonths, item.ThirtySixMonths,
-                        item.OneYear, item.TwoYears, item.ThreeYears, item.FourYears,
-                        item.SixYears, item.EightYears, item.TenYears, item.TwelveYears
-                    };
-
-                            foreach (var val in values)
-                                table.Cell().AlignCenter().Element(CellStyle).Text(val);
-
-                            table.Cell().AlignRight().Element(CellStyle).Text($"{item.UnitPrice:C}");
-                        }
-
-                        static IContainer CellStyle(IContainer container) =>
-                            container.BorderBottom(1).BorderRight(1).BorderColor(Colors.Grey.Lighten2)
-                                     .PaddingVertical(3).PaddingHorizontal(2);
-                    });
-                });
-            });
-        }
-
 
         void ComposeTable(IContainer container)
         {
             var headerStyle = TextStyle.Default.ExtraBold().FontSize(9);
 
-            container.Table(table =>
+            container.PaddingTop(10).Table(table =>
             {
                 table.ColumnsDefinition(columns =>
                 {
@@ -266,10 +222,9 @@ namespace OrderManagement.API.Pdf
 
         void ComposeObservations(IContainer container)
         {
-            container.ShowEntire().Background(Colors.Grey.Lighten3).Padding(10).Column(column =>
+            container.ShowEntire().Column(column =>
             {
-                column.Spacing(5);
-                column.Item().Text("Observations").FontSize(14).SemiBold();
+                column.Item().Text("Observações: ").FontSize(12).Bold();
                 column.Item().Text(Model.Observations);
             });
         }

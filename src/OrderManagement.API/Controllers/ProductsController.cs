@@ -74,9 +74,18 @@
                 .When(id <= 0, "O Id do produto é invalido.")
                 .TriggerBadRequestExceptionIfExist();
 
-            var productDTO = await _productService.GetProductSalesByIdAsync(id);
+            ProductReportDTO productSalesBySize = await _productService.GetProductSalesByIdAsync(id);
 
-            return Ok(productDTO);
+            var document = new ProductReportsDocument(productSalesBySize);
+
+            // Gerar PDF em memória
+            byte[] pdfBytes;
+            using (var ms = new MemoryStream())
+            {
+                document.GeneratePdf(ms);
+                pdfBytes = ms.ToArray();
+            }
+            return File(pdfBytes, "application/pdf", $"report_Product_{productSalesBySize.Product.Reference.Trim()}.pdf");
         }
 
         /// <summary>

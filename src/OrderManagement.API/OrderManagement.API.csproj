@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
     <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
@@ -24,6 +28,11 @@
   <ItemGroup>
     <ProjectReference Include="..\OrderManagement.Application\OrderManagement.Application.csproj" />
     <ProjectReference Include="..\OrderManagement.Persistence\OrderManagement.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="images\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

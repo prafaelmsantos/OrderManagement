@@ -2,7 +2,7 @@
 {
     public sealed record ProductSalesBySizeValuesDTO
     {
-        public string Size { get; set; } = string.Empty;
+        public ProductSize Size { get; set; }
         public int Id { get; set; }
         public int TotalQuantity { get; set; }
         public double TotalPrice { get; set; }
