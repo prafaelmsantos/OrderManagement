@@ -1,18 +1,20 @@
 ﻿namespace OrderManagement.API.Documents
 {
-
-    // Documento PDF
     public class OrderDocument : IDocument
     {
         public static Image LogoImage { get; } = Image.FromFile("logo.png");
-        public OrderDTO Model { get; }
 
-        public OrderDocument(OrderDTO model)
+        private readonly OrderDTO _order;
+
+        public OrderDocument(OrderDTO orderDTO)
         {
-            Model = model;
+            _order = orderDTO;
         }
 
-        public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
+        public DocumentMetadata GetMetadata() => new()
+        {
+            Title = $"Nota de Encomenda Nº {_order.Customer?.Id ?? 0}"
+        };
 
         public void Compose(IDocumentContainer container)
         {
@@ -56,11 +58,11 @@
                 // ─────────────── Informações da Encomenda ───────────────
                 row.RelativeItem(5).Column(column =>
                 {
-                    column.Item().Text($"Encomenda Nº {Model.Id}")
+                    column.Item().Text($"Note de Encomenda Nº {_order.Id}")
                         .FontSize(20).SemiBold();
 
-                    column.Item().Text($"Data de criação: {Model.CreatedDate:dd/MM/yyyy}");
-                    column.Item().Text($"Método de Pagamento: {Model.PaymentMethod}");
+                    column.Item().Text($"Data de criação: {_order.CreatedDate:dd/MM/yyyy}");
+                    column.Item().Text($"Método de Pagamento: {_order.PaymentMethod}");
                 });
             });
 
@@ -84,13 +86,13 @@
                             row.RelativeItem(8).Text(text =>
                             {
                                 text.Span("Nome: ").Bold();
-                                text.Span(Model.Customer?.FullName ?? string.Empty);
+                                text.Span(_order.Customer?.FullName ?? string.Empty);
                             });
 
                             row.RelativeItem(4).Text(text =>
                             {
                                 text.Span("NIF: ").Bold();
-                                text.Span(Model.Customer?.TaxIdentificationNumber ?? string.Empty);
+                                text.Span(_order.Customer?.TaxIdentificationNumber ?? string.Empty);
                             });
                         });
                         cc.Spacing(10);
@@ -99,13 +101,13 @@
                             row.RelativeItem(8).Text(text =>
                             {
                                 text.Span("Morada: ").Bold();
-                                text.Span(Model.Customer?.Address ?? string.Empty);
+                                text.Span(_order.Customer?.Address ?? string.Empty);
                             });
 
                             row.RelativeItem(4).Text(text =>
                             {
                                 text.Span("Código-Postal: ").Bold();
-                                text.Span(Model.Customer?.PostalCode ?? string.Empty);
+                                text.Span(_order.Customer?.PostalCode ?? string.Empty);
                             });
                         });
                         cc.Spacing(10);
@@ -114,13 +116,13 @@
                             row.RelativeItem(8).Text(text =>
                             {
                                 text.Span("Cidade: ").Bold();
-                                text.Span(Model.Customer?.City ?? string.Empty);
+                                text.Span(_order.Customer?.City ?? string.Empty);
                             });
 
                             row.RelativeItem(4).Text(text =>
                             {
                                 text.Span("Contacto: ").Bold();
-                                text.Span(Model.Customer?.Contact ?? string.Empty);
+                                text.Span(_order.Customer?.Contact ?? string.Empty);
                             });
                         });
                     });
@@ -190,7 +192,7 @@
                     header.Cell().ColumnSpan(20).PaddingTop(3).BorderColor(Colors.Black);
                 });
 
-                foreach (var item in Model.ProductsOrders)
+                foreach (var item in _order.ProductsOrders)
                 {
                     table.Cell().AlignLeft().Element(CellStyle).Text(item.Product?.Reference ?? string.Empty);
                     table.Cell().AlignLeft().Element(CellStyle).Text(item.Product?.Description ?? string.Empty);
@@ -219,13 +221,12 @@
             });
         }
 
-
         void ComposeObservations(IContainer container)
         {
             container.ShowEntire().Column(column =>
             {
                 column.Item().Text("Observações: ").FontSize(12).Bold();
-                column.Item().Text(Model.Observations);
+                column.Item().Text(_order.Observations);
             });
         }
     }
