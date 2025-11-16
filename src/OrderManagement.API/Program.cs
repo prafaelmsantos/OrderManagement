@@ -81,6 +81,24 @@
             app.UseRouting();
             app.MapControllers();
             app.MapFallbackToFile("index.html");
+
+            // Abre o navegador automaticamente (opcional)
+            try
+            {
+                var url = "http://localhost:5006"; // ou a porta do backend
+                var psi = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                };
+                System.Diagnostics.Process.Start(psi);
+            }
+            catch
+            {
+                // Se não conseguir abrir, ignora
+            }
+
+
             app.MapGet($"{host}/", async context => await context.Response.WriteAsync("There is http communication endpoints."));
             app.Run();
         }
