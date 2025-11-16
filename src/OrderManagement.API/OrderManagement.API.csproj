@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="images\**" />
+    <Content Remove="images\**" />
+    <EmbeddedResource Remove="images\**" />
+    <None Remove="images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="logo.png" />
   </ItemGroup>
 
@@ -31,7 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="images\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

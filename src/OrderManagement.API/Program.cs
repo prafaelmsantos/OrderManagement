@@ -75,7 +75,7 @@
 
             app.AddErrorHandlerMiddleware();
             app.UseMiddleware<TrialMiddleware>();
-            //app.UseSwaggerDocs();
+            //app.UseSwaggerDocs(host);
 
             // app.UseHttpsRedirection();
             app.UseRouting();
