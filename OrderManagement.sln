@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Persistence
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.API", "src\OrderManagement.API\OrderManagement.API.csproj", "{7704BED4-363A-29C3-46C0-4D4684F7DAF9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4_Client", "4_Client", "{DED93F9C-B3A5-4B97-905E-ACDE6CA08262}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "order-management-app", "src\order-management-app\order-management-app.esproj", "{57ADEEF1-7FC9-5A33-0AD1-E9488757271E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +45,12 @@ Global
 		{7704BED4-363A-29C3-46C0-4D4684F7DAF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7704BED4-363A-29C3-46C0-4D4684F7DAF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7704BED4-363A-29C3-46C0-4D4684F7DAF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57ADEEF1-7FC9-5A33-0AD1-E9488757271E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57ADEEF1-7FC9-5A33-0AD1-E9488757271E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57ADEEF1-7FC9-5A33-0AD1-E9488757271E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{57ADEEF1-7FC9-5A33-0AD1-E9488757271E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57ADEEF1-7FC9-5A33-0AD1-E9488757271E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57ADEEF1-7FC9-5A33-0AD1-E9488757271E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +60,7 @@ Global
 		{E9C65A33-2D01-43FA-CDF8-F05A8605E181} = {A8B951A8-468A-4204-9755-4BAD6B05AA79}
 		{44337CEE-61A7-3151-E235-CC92533F3FA0} = {D8D30A5D-029E-40DC-8B17-3845A1DC120C}
 		{7704BED4-363A-29C3-46C0-4D4684F7DAF9} = {857634A8-E37D-43EF-9663-53FA94CF5F0A}
+		{57ADEEF1-7FC9-5A33-0AD1-E9488757271E} = {DED93F9C-B3A5-4B97-905E-ACDE6CA08262}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F8DDF981-9909-4749-A813-6F365EC74515}
