@@ -1,4 +1,7 @@
-﻿namespace OrderManagement.API.Controllers
+﻿using OrderManagement.Application.Interfaces.Repositories;
+using OrderManagement.Domain.Entities;
+
+namespace OrderManagement.API.Controllers
 {
     [ApiVersion("1.0", Deprecated = false)]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -7,12 +10,14 @@
     {
         #region Properties
         private readonly IProductService _productService;
+        private readonly IProductRepository _productRepository;
         #endregion
 
         #region Constructors
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, IProductRepository productRepository)
         {
             _productService = productService;
+            _productRepository = productRepository;
         }
         #endregion
 
@@ -40,6 +45,66 @@
         {
             var products = await _productService.GetAllProductsTableAsync();
             return Ok(products);
+        }
+
+        // <summary>
+        /// Get All Products
+        /// </summary>
+        [HttpGet("newtable")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        public async Task<IActionResult> GetTableAsync([FromQuery] PageParams pageParams)
+        {
+            var query = _productRepository.GetAllQueryable();
+
+            // --- Aplicar filtro manual ---
+            if (!string.IsNullOrWhiteSpace(pageParams.Filter))
+            {
+                var filterLower = pageParams.Filter.ToLower();
+                query = query.Where(p =>
+                    p.Reference.ToLower().Contains(filterLower)
+                );
+            }
+
+            // --- Aplicar sort manual ---
+            if (!string.IsNullOrWhiteSpace(pageParams.Sort))
+            {
+                // Exemplo: "Nome asc" ou "Preco desc"
+                var parts = pageParams.Sort.Split(' ');
+                var field = parts[0];
+                var direction = parts.Length > 1 ? parts[1].ToLower() : "asc";
+
+                query = field switch
+                {
+                    "reference" => direction == "asc" ? query.OrderBy(p => p.Reference) : query.OrderByDescending(p => p.Reference),
+                    "price" => direction == "asc" ? query.OrderBy(p => p.UnitPrice) : query.OrderByDescending(p => p.UnitPrice),
+                    "id" => direction == "asc" ? query.OrderBy(p => p.Id) : query.OrderByDescending(p => p.Id),
+                    _ => query.OrderByDescending(p => p.Id)
+                };
+            }
+            else
+            {
+                query = query.OrderBy(p => p.Id); // sort padrão
+            }
+
+            // --- Paginar ---
+            var itemsPaged = await PageList<Product>.CreateAsync(
+                query,
+                pageParams.PageNumber,
+                pageParams.PageSize
+            );
+
+            // --- Montar DTO para frontend ---
+            var result = new PagedResult<Product>
+            {
+                Items = itemsPaged.ToList(),
+                CurrentPage = itemsPaged.CurrentPage,
+                TotalPages = itemsPaged.TotalPages,
+                PageSize = itemsPaged.PageSize,
+                TotalCount = itemsPaged.TotalCount
+            };
+
+            return Ok(result);
         }
 
 
