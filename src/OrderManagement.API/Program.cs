@@ -11,17 +11,14 @@
         {
             try
             {
+                Settings.License = LicenseType.Community;
+
                 var builder = WebApplication.CreateBuilder(args);
                 ConfigureHost(builder);
                 ConfigureServices(builder);
 
                 var app = builder.Build();
                 ConfigureApp(app);
-
-                Settings.License = LicenseType.Community;
-
-                // For documentation and implementation details, please visit:
-                // https://www.questpdf.com/getting-started.html
 
                 await app.RunAsync();
             }
@@ -85,19 +82,18 @@
             // Abre o navegador automaticamente (opcional)
             try
             {
-                var url = "http://localhost:5006"; // ou a porta do backend
                 var psi = new System.Diagnostics.ProcessStartInfo
                 {
-                    FileName = url,
+                    FileName = "http://localhost:5006",
                     UseShellExecute = true
                 };
+
                 System.Diagnostics.Process.Start(psi);
             }
-            catch
+            catch (Exception ex)
             {
-                // Se não conseguir abrir, ignora
+                Console.WriteLine(ex.ToString());
             }
-
 
             app.MapGet($"{host}/", async context => await context.Response.WriteAsync("There is http communication endpoints."));
             app.Run();
