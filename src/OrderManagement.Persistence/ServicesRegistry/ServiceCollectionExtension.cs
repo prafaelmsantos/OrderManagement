@@ -9,9 +9,21 @@
             services.AddScoped<IProductOrderRepository, ProductOrderRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
-            services.AddDbContext<AppDbContext>(options => options
-                .UseLazyLoadingProxies()
-                .UseSqlite("Data Source=OrderManagement.db"));
+            string dbFolder = Path.Combine(AppContext.BaseDirectory, "SQLite");
+            if (!Directory.Exists(dbFolder))
+            {
+                Directory.CreateDirectory(dbFolder);
+            }
+
+
+            string dbPath = Path.Combine(dbFolder, "OrderManagement.db");
+
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseLazyLoadingProxies()
+                       .UseSqlite($"Data Source={dbPath}"));
+
+
+
 
             return services;
         }

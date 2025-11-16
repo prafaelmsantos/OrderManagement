@@ -46,7 +46,6 @@
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistenceServices();
 
-
             builder.Services.AddAPIControllerServices(MajorVersion);
             builder.Services.AddSwaggerServices();
 
@@ -61,28 +60,29 @@
 
         private static void ConfigureApp(WebApplication app)
         {
-            var host = GetHost(app);
+            string host = "/ordermanagement";
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                db.Database.Migrate();
+            }
 
             app.UsePathBase(host);
             app.UseCors(CustomPolicy);
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.AddErrorHandlerMiddleware();
             app.UseMiddleware<TrialMiddleware>();
-            app.UseSwaggerDocs(host);
+            //app.UseSwaggerDocs();
 
+            // app.UseHttpsRedirection();
             app.UseRouting();
             app.MapControllers();
+            app.MapFallbackToFile("index.html");
             app.MapGet($"{host}/", async context => await context.Response.WriteAsync("There is http communication endpoints."));
-        }
-
-        private static string GetHost(IApplicationBuilder app)
-        {
-            var appSettings = app.ApplicationServices
-                .GetRequiredService<IOptions<AppSettings>>().Value;
-
-            var host = "/" + appSettings.VirtualHost.BasePath;
-
-            return host;
+            app.Run();
         }
     }
 }

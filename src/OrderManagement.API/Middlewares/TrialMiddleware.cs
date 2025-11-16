@@ -4,7 +4,7 @@
     {
         private readonly RequestDelegate _next;
         private static readonly DateTime trialStart = new(2025, 11, 10); // início do trial
-        private const int TrialDays = 2;
+        private const int TrialDays = 30;
 
         public TrialMiddleware(RequestDelegate next)
         {

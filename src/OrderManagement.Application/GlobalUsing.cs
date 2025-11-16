@@ -1,15 +1,12 @@
 ﻿global using System.Linq.Expressions;
 global using Microsoft.EntityFrameworkCore;
-global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
-global using Microsoft.Extensions.Options;
 global using OrderManagement.Application.Dtos;
 global using OrderManagement.Application.Dtos.Response;
 global using OrderManagement.Application.Interfaces.Repositories;
 global using OrderManagement.Application.Interfaces.Repositories.Base;
 global using OrderManagement.Application.Interfaces.Services;
 global using OrderManagement.Application.Mappers;
-global using OrderManagement.Application.Options.App;
 global using OrderManagement.Application.Services;
 global using OrderManagement.Domain.Entities;
 global using OrderManagement.Domain.Entities.Base;
