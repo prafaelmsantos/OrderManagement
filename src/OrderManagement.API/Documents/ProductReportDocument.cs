@@ -2,12 +2,21 @@
 {
     public class ProductReportsDocument : IDocument
     {
-        public static Image LogoImage { get; } = Image.FromFile("logo.png");
+        private readonly Image? _logoImage;
         private readonly ProductReportDTO _productReportDTO;
 
         public ProductReportsDocument(ProductReportDTO productReportDTO)
         {
             _productReportDTO = productReportDTO;
+            string path = Path.Combine(AppContext.BaseDirectory, "logo.png");
+            if (File.Exists(path))
+            {
+                _logoImage = Image.FromFile(path);
+            }
+            else
+            {
+                _logoImage = null;
+            }
         }
 
         public DocumentMetadata GetMetadata() => new()
@@ -38,7 +47,10 @@
             container.Row(row =>
             {
                 // ─────────────── Logotipo ───────────────
-                row.ConstantItem(80).AlignLeft().AlignMiddle().Image(LogoImage);
+                if (_logoImage is not null)
+                {
+                    row.ConstantItem(80).AlignLeft().AlignMiddle().Image(_logoImage);
+                }
 
                 // ─────────────── Informação da Empresa ───────────────
                 row.RelativeItem(7).Column(column =>

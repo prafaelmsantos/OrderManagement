@@ -10,8 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="logo.png" />
+    <Content Include="logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
