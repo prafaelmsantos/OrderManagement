@@ -22,9 +22,6 @@
                 options.UseLazyLoadingProxies()
                        .UseSqlite($"Data Source={dbPath}"));
 
-
-
-
             return services;
         }
     }
