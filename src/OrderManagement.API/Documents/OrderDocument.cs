@@ -55,7 +55,6 @@
                     row.ConstantItem(80).AlignLeft().AlignMiddle().Image(_logoImage);
                 }
 
-
                 // ─────────────── Informação da Empresa ───────────────
                 row.RelativeItem(7).Column(column =>
                 {
@@ -72,11 +71,11 @@
                 // ─────────────── Informações da Encomenda ───────────────
                 row.RelativeItem(5).Column(column =>
                 {
-                    column.Item().Text($"Note de Encomenda Nº {_order.Id}")
+                    column.Item().Text($"Nota de Encomenda Nº {_order.Id}")
                         .FontSize(20).SemiBold();
-
-                    column.Item().Text($"Data de criação: {_order.CreatedDate:dd/MM/yyyy}");
+                    column.Spacing(5);
                     column.Item().Text($"Método de Pagamento: {_order.PaymentMethod}");
+                    column.Item().Text($"Data: {_order.CreatedDate:G}").FontSize(9);
                 });
             });
         }
@@ -148,7 +147,7 @@
 
         void ComposeTable(IContainer container)
         {
-            var headerStyle = TextStyle.Default.ExtraBold().FontSize(9);
+            TextStyle headerStyle = TextStyle.Default.ExtraBold().FontSize(9);
 
             container.PaddingTop(10).Table(table =>
             {
@@ -204,28 +203,30 @@
                     header.Cell().ColumnSpan(20).PaddingTop(3).BorderColor(Colors.Black);
                 });
 
+                TextStyle cellStyle = TextStyle.Default.FontSize(9);
+
                 foreach (var item in _order.ProductsOrders)
                 {
-                    table.Cell().AlignLeft().Element(CellStyle).Text(item.Product?.Reference ?? string.Empty);
-                    table.Cell().AlignLeft().Element(CellStyle).Text(item.Product?.Description ?? string.Empty);
-                    table.Cell().AlignLeft().Element(CellStyle).Text(item.Color);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ZeroMonths > 0 ? item.ZeroMonths.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.OneMonth > 0 ? item.OneMonth.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ThreeMonths > 0 ? item.ThreeMonths.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.SixMonths > 0 ? item.SixMonths.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwelveMonths > 0 ? item.TwelveMonths.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.EighteenMonths > 0 ? item.EighteenMonths.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwentyFourMonths > 0 ? item.TwentyFourMonths.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ThirtySixMonths > 0 ? item.ThirtySixMonths.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.OneYear > 0 ? item.OneYear.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwoYears > 0 ? item.TwoYears.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ThreeYears > 0 ? item.ThreeYears.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.FourYears > 0 ? item.FourYears.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.SixYears > 0 ? item.SixYears.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.EightYears > 0 ? item.EightYears.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TenYears > 0 ? item.TenYears.ToString() : string.Empty);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwelveYears > 0 ? item.TwelveYears.ToString() : string.Empty);
-                    table.Cell().AlignRight().Element(CellStyle).Text(item.UnitPrice.ToString());
+                    table.Cell().AlignLeft().Element(CellStyle).Text(item.Product?.Reference ?? string.Empty).Style(cellStyle);
+                    table.Cell().AlignLeft().Element(CellStyle).Text(item.Product?.Description ?? string.Empty).Style(cellStyle);
+                    table.Cell().AlignLeft().Element(CellStyle).Text(item.Color).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ZeroMonths > 0 ? item.ZeroMonths.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.OneMonth > 0 ? item.OneMonth.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ThreeMonths > 0 ? item.ThreeMonths.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.SixMonths > 0 ? item.SixMonths.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwelveMonths > 0 ? item.TwelveMonths.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.EighteenMonths > 0 ? item.EighteenMonths.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwentyFourMonths > 0 ? item.TwentyFourMonths.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ThirtySixMonths > 0 ? item.ThirtySixMonths.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.OneYear > 0 ? item.OneYear.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwoYears > 0 ? item.TwoYears.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ThreeYears > 0 ? item.ThreeYears.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.FourYears > 0 ? item.FourYears.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.SixYears > 0 ? item.SixYears.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.EightYears > 0 ? item.EightYears.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TenYears > 0 ? item.TenYears.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwelveYears > 0 ? item.TwelveYears.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignRight().Element(CellStyle).Text(item.UnitPrice.ToString()).Style(cellStyle);
 
                     static IContainer CellStyle(IContainer container) =>
                         container.PaddingVertical(5);

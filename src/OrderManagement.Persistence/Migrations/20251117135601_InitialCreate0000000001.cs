@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OrderManagement.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate0000000000 : Migration
+    public partial class InitialCreate0000000001 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,7 +54,6 @@ namespace OrderManagement.Persistence.Migrations
                 {
                     id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    status = table.Column<int>(type: "INTEGER", nullable: false),
                     observations = table.Column<string>(type: "TEXT", nullable: true),
                     payment_method = table.Column<string>(type: "TEXT", nullable: true),
                     created_date = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -122,10 +121,10 @@ namespace OrderManagement.Persistence.Migrations
                 columns: new[] { "id", "address", "city", "contact", "created_date", "full_name", "postal_code", "tax_identification_number" },
                 values: new object[,]
                 {
-                    { 1L, "Rua das Flores 10", "Lisboa", "912345678", new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(5829), "João Silva", "1000-001", "123456789" },
-                    { 2L, "Avenida Central 25", "Porto", "913456789", new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(5838), "Maria Santos", "4000-123", "987654321" },
-                    { 3L, "Rua da Liberdade 8", "Coimbra", "914567890", new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(5838), "António Santos", "3000-045", "192837465" },
-                    { 4L, "Travessa do Sol 12", "Leiria", "915678901", new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(5839), "José Santos", "2400-002", "564738291" }
+                    { 1L, "Rua das Flores 10", "Lisboa", "912345678", new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9670), "João Silva", "1000-001", "123456789" },
+                    { 2L, "Avenida Central 25", "Porto", "913456789", new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9675), "Maria Santos", "4000-123", "987654321" },
+                    { 3L, "Rua da Liberdade 8", "Coimbra", "914567890", new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9678), "António Santos", "3000-045", "192837465" },
+                    { 4L, "Travessa do Sol 12", "Leiria", "915678901", new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9680), "José Santos", "2400-002", "564738291" }
                 });
 
             migrationBuilder.InsertData(
@@ -133,21 +132,21 @@ namespace OrderManagement.Persistence.Migrations
                 columns: new[] { "id", "created_date", "description", "reference", "unit_price" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6090), "Camisola de algodão", "P-1001", 19.989999999999998 },
-                    { 2L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6094), "Calças de ganga", "P-1002", 39.990000000000002 },
-                    { 3L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6094), "Casaco de inverno", "P-1003", 59.990000000000002 },
-                    { 4L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6095), "T-shirt básica", "P-1004", 9.9900000000000002 }
+                    { 1L, new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9833), "Camisola de algodão", "P-1001", 19.989999999999998 },
+                    { 2L, new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9835), "Calças de ganga", "P-1002", 39.990000000000002 },
+                    { 3L, new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9837), "Casaco de inverno", "P-1003", 59.990000000000002 },
+                    { 4L, new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9839), "T-shirt básica", "P-1004", 9.9900000000000002 }
                 });
 
             migrationBuilder.InsertData(
                 table: "orders",
-                columns: new[] { "id", "created_date", "customer_id", "observations", "payment_method", "status" },
+                columns: new[] { "id", "created_date", "customer_id", "observations", "payment_method" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6122), 1L, "Este documento não serve de fatura.", "A pronto pagamento.", 0 },
-                    { 2L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6124), 2L, "Este documento não serve de fatura.", "A pronto pagamento.", 4 },
-                    { 3L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6125), 3L, "Este documento não serve de fatura.", "A pronto pagamento.", 1 },
-                    { 4L, new DateTime(2025, 11, 10, 13, 57, 1, 980, DateTimeKind.Utc).AddTicks(6126), 4L, "Este documento não serve de fatura.", "A pronto pagamento.", 3 }
+                    { 1L, new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9865), 1L, "Este documento não serve de fatura.", "A pronto pagamento." },
+                    { 2L, new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9866), 2L, "Este documento não serve de fatura.", "A pronto pagamento." },
+                    { 3L, new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9868), 3L, "Este documento não serve de fatura.", "A pronto pagamento." },
+                    { 4L, new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9869), 4L, "Este documento não serve de fatura.", "A pronto pagamento." }
                 });
 
             migrationBuilder.InsertData(

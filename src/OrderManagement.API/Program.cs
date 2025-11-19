@@ -60,8 +60,12 @@
             string host = "/ordermanagement";
             using (var scope = app.Services.CreateScope())
             {
-                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                db.Database.Migrate();
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<AppDbContext>();
+                Console.WriteLine("Update database started");
+                context.Database.SetCommandTimeout(TimeSpan.FromHours(2));
+                context.Database.EnsureCreated();
+                Console.WriteLine("Update database ended");
             }
 
             app.UsePathBase(host);

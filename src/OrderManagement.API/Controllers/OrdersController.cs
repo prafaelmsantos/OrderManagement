@@ -73,6 +73,7 @@
         /// <param name="id"></param>
         [HttpGet("doc/{id}")]
         [Consumes("application/json")]
+        [Produces("application/pdf")]
         public async Task<IActionResult> GetOrderDocAsync([FromRoute] long id)
         {
             OrderDTO orderDTO = await _orderService.GetOrderByIdAsync(id);

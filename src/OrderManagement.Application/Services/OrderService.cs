@@ -53,7 +53,7 @@
                .Where(x => x.CustomerId == customerId)
                .ToListAsync();
 
-            return orders.Select(x => x.ToOrderTableDTO()).ToList();
+            return [.. orders.Select(x => x.ToOrderTableDTO())];
         }
 
         public async Task<OrderDTO> AddOrderAsync(OrderDTO orderDTO)

@@ -69,7 +69,6 @@
                 {
                     column.Item().Text("Report").FontSize(20).SemiBold();
 
-
                     column.Item().Text($"Produto {_productReportDTO.Product.Reference}")
                         .FontSize(16).SemiBold();
 
@@ -93,48 +92,72 @@
 
         void ComposeTable(IContainer container)
         {
-            var headerStyle = TextStyle.Default.ExtraBold().FontSize(10);
+            TextStyle headerStyle = TextStyle.Default.ExtraBold().FontSize(9);
 
-            container.Column(col =>
+            container.PaddingTop(10).Table(table =>
             {
-                foreach (var report in _productReportDTO.ProductSalesBySizes)
+                table.ColumnsDefinition(columns =>
                 {
-                    col.Spacing(20);
-                    // Título do produto
-                    col.Item().AlignCenter().Text($"Cor: {report.Color}").SemiBold().FontSize(14);
+                    columns.RelativeColumn(4);        // Cor
+                    columns.RelativeColumn(2);        // 0M
+                    columns.RelativeColumn(2);        // 1M
+                    columns.RelativeColumn(2);        // 3M
+                    columns.RelativeColumn(2);        // 6M
+                    columns.RelativeColumn(2);        // 12M
+                    columns.RelativeColumn(2);        // 18M
+                    columns.RelativeColumn(2);        // 24M
+                    columns.RelativeColumn(2);        // 36M
+                    columns.RelativeColumn(2);        // 1Y
+                    columns.RelativeColumn(2);        // 2Y
+                    columns.RelativeColumn(2);        // 3Y
+                    columns.RelativeColumn(2);        // 4Y
+                    columns.RelativeColumn(2);        // 6Y
+                    columns.RelativeColumn(2);        // 8Y
+                    columns.RelativeColumn(2);        // 10Y
+                    columns.RelativeColumn(2);        // 12Y
+                    columns.RelativeColumn(2);        //Qt Total
+                });
 
-                    // Tabela de tamanhos
-                    col.Item().Table(table =>
+                // Cabeçalho
+                table.Header(header =>
+                {
+                    header.Cell().AlignLeft().Text("Cor").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("00 M").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("01 M").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("03 M").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("06 M").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("12 M").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("18 M").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("24 M").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("36 M").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("01 Y").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("02 Y").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("03 Y").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("04 Y").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("06 Y").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("08 Y").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("10 Y").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("12 Y").Style(headerStyle);
+                    header.Cell().AlignRight().Text("Qt. Total").Style(headerStyle);
+
+                    header.Cell().ColumnSpan(18).PaddingTop(3).BorderColor(Colors.Black);
+                });
+
+                TextStyle cellStyle = TextStyle.Default.FontSize(9);
+
+                foreach (var size in _productReportDTO.ProductSalesBySizes)
+                {
+                    table.Cell().AlignLeft().Element(CellStyle).Text(size.Color).Style(cellStyle);
+
+                    foreach (var sizeValue in size.Values)
                     {
-                        // Colunas
-                        table.ColumnsDefinition(columns =>
-                        {
-                            columns.RelativeColumn(6);
-                            columns.RelativeColumn(6);
-                        });
+                        table.Cell().AlignCenter().Element(CellStyle).Text(sizeValue.TotalQuantity > 0 ? sizeValue.TotalQuantity.ToString() : string.Empty).Style(cellStyle);
+                    }
 
-                        // Cabeçalho
-                        table.Header(header =>
-                        {
-                            header.Cell().Element(CellStyle).AlignCenter().AlignMiddle().Text("Tamanho").Style(headerStyle);
-                            header.Cell().Element(CellStyle).AlignCenter().AlignMiddle().Text("Quantidades Vendidas").Style(headerStyle);
-                        });
+                    table.Cell().AlignRight().Element(CellStyle).Text(size.TotalQuantity > 0 ? size.TotalQuantity.ToString() : string.Empty).Style(cellStyle);
 
-                        // Linhas de dados
-                        foreach (var item in report.Values)
-                        {
-                            table.Cell().Element(CellStyle).Text(item.Size.ToProductSizeString());
-                            table.Cell().Element(CellStyle).Text(item.TotalQuantity.ToString());
-                        }
-
-                        // Linha de totais
-                        table.Cell().Element(CellStyle).Text("Total").SemiBold();
-                        table.Cell().Element(CellStyle).Text(report.TotalQuantity.ToString()).SemiBold();
-
-                        // Função de estilo das células
-                        static IContainer CellStyle(IContainer c) => c
-                            .Padding(5).AlignCenter();
-                    });
+                    static IContainer CellStyle(IContainer container) =>
+                        container.PaddingVertical(5);
                 }
             });
         }

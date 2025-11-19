@@ -76,7 +76,7 @@ namespace OrderManagement.Persistence.Migrations
                             Address = "Rua das Flores 10",
                             City = "Lisboa",
                             Contact = "912345678",
-                            CreatedDate = new DateTime(2025, 11, 12, 23, 28, 15, 570, DateTimeKind.Utc).AddTicks(6263),
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9670),
                             FullName = "João Silva",
                             PostalCode = "1000-001",
                             TaxIdentificationNumber = "123456789"
@@ -87,7 +87,7 @@ namespace OrderManagement.Persistence.Migrations
                             Address = "Avenida Central 25",
                             City = "Porto",
                             Contact = "913456789",
-                            CreatedDate = new DateTime(2025, 11, 12, 23, 28, 15, 570, DateTimeKind.Utc).AddTicks(6296),
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9675),
                             FullName = "Maria Santos",
                             PostalCode = "4000-123",
                             TaxIdentificationNumber = "987654321"
@@ -98,7 +98,7 @@ namespace OrderManagement.Persistence.Migrations
                             Address = "Rua da Liberdade 8",
                             City = "Coimbra",
                             Contact = "914567890",
-                            CreatedDate = new DateTime(2025, 11, 12, 23, 28, 15, 570, DateTimeKind.Utc).AddTicks(6299),
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9678),
                             FullName = "António Santos",
                             PostalCode = "3000-045",
                             TaxIdentificationNumber = "192837465"
@@ -109,7 +109,7 @@ namespace OrderManagement.Persistence.Migrations
                             Address = "Travessa do Sol 12",
                             City = "Leiria",
                             Contact = "915678901",
-                            CreatedDate = new DateTime(2025, 11, 12, 23, 28, 15, 570, DateTimeKind.Utc).AddTicks(6302),
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9680),
                             FullName = "José Santos",
                             PostalCode = "2400-002",
                             TaxIdentificationNumber = "564738291"
@@ -152,7 +152,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2025, 11, 12, 23, 28, 15, 570, DateTimeKind.Utc).AddTicks(6558),
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9865),
                             CustomerId = 1L,
                             Observations = "Este documento não serve de fatura.",
                             PaymentMethod = "A pronto pagamento."
@@ -160,7 +160,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2025, 11, 12, 23, 28, 15, 570, DateTimeKind.Utc).AddTicks(6564),
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9866),
                             CustomerId = 2L,
                             Observations = "Este documento não serve de fatura.",
                             PaymentMethod = "A pronto pagamento."
@@ -168,7 +168,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTime(2025, 11, 12, 23, 28, 15, 570, DateTimeKind.Utc).AddTicks(6637),
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9868),
                             CustomerId = 3L,
                             Observations = "Este documento não serve de fatura.",
                             PaymentMethod = "A pronto pagamento."
@@ -176,7 +176,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 4L,
-                            CreatedDate = new DateTime(2025, 11, 12, 23, 28, 15, 570, DateTimeKind.Utc).AddTicks(6638),
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9869),
                             CustomerId = 4L,
                             Observations = "Este documento não serve de fatura.",
                             PaymentMethod = "A pronto pagamento."
@@ -218,7 +218,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedDate = new DateTime(2025, 11, 12, 23, 28, 15, 570, DateTimeKind.Utc).AddTicks(6516),
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9833),
                             Description = "Camisola de algodão",
                             Reference = "P-1001",
                             UnitPrice = 19.989999999999998
@@ -226,7 +226,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 2L,
-                            CreatedDate = new DateTime(2025, 11, 12, 23, 28, 15, 570, DateTimeKind.Utc).AddTicks(6528),
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9835),
                             Description = "Calças de ganga",
                             Reference = "P-1002",
                             UnitPrice = 39.990000000000002
@@ -234,7 +234,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 3L,
-                            CreatedDate = new DateTime(2025, 11, 12, 23, 28, 15, 570, DateTimeKind.Utc).AddTicks(6530),
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9837),
                             Description = "Casaco de inverno",
                             Reference = "P-1003",
                             UnitPrice = 59.990000000000002
@@ -242,7 +242,7 @@ namespace OrderManagement.Persistence.Migrations
                         new
                         {
                             Id = 4L,
-                            CreatedDate = new DateTime(2025, 11, 12, 23, 28, 15, 570, DateTimeKind.Utc).AddTicks(6532),
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9839),
                             Description = "T-shirt básica",
                             Reference = "P-1004",
                             UnitPrice = 9.9900000000000002
