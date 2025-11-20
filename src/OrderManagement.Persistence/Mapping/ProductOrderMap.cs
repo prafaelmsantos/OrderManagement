@@ -40,7 +40,7 @@
                 .IsRequired();
 
             entity.Property(x => x.NineMonths)
-                .HasColumnName("thirty_six_months")
+                .HasColumnName("nine_months")
                 .IsRequired();
 
             entity.Property(x => x.TwelveMonths)
