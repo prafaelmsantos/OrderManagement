@@ -39,6 +39,10 @@
                 .HasColumnName("six_months")
                 .IsRequired();
 
+            entity.Property(x => x.NineMonths)
+                .HasColumnName("thirty_six_months")
+                .IsRequired();
+
             entity.Property(x => x.TwelveMonths)
                 .HasColumnName("twelve_months")
                 .IsRequired();
@@ -49,10 +53,6 @@
 
             entity.Property(x => x.TwentyFourMonths)
                 .HasColumnName("twenty_four_months")
-                .IsRequired();
-
-            entity.Property(x => x.ThirtySixMonths)
-                .HasColumnName("thirty_six_months")
                 .IsRequired();
 
             entity.Property(x => x.OneYear)

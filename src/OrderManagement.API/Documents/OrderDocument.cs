@@ -214,10 +214,10 @@
                     table.Cell().AlignCenter().Element(CellStyle).Text(item.OneMonth > 0 ? item.OneMonth.ToString() : string.Empty).Style(cellStyle);
                     table.Cell().AlignCenter().Element(CellStyle).Text(item.ThreeMonths > 0 ? item.ThreeMonths.ToString() : string.Empty).Style(cellStyle);
                     table.Cell().AlignCenter().Element(CellStyle).Text(item.SixMonths > 0 ? item.SixMonths.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.NineMonths > 0 ? item.NineMonths.ToString() : string.Empty).Style(cellStyle);
                     table.Cell().AlignCenter().Element(CellStyle).Text(item.TwelveMonths > 0 ? item.TwelveMonths.ToString() : string.Empty).Style(cellStyle);
                     table.Cell().AlignCenter().Element(CellStyle).Text(item.EighteenMonths > 0 ? item.EighteenMonths.ToString() : string.Empty).Style(cellStyle);
                     table.Cell().AlignCenter().Element(CellStyle).Text(item.TwentyFourMonths > 0 ? item.TwentyFourMonths.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ThirtySixMonths > 0 ? item.ThirtySixMonths.ToString() : string.Empty).Style(cellStyle);
                     table.Cell().AlignCenter().Element(CellStyle).Text(item.OneYear > 0 ? item.OneYear.ToString() : string.Empty).Style(cellStyle);
                     table.Cell().AlignCenter().Element(CellStyle).Text(item.TwoYears > 0 ? item.TwoYears.ToString() : string.Empty).Style(cellStyle);
                     table.Cell().AlignCenter().Element(CellStyle).Text(item.ThreeYears > 0 ? item.ThreeYears.ToString() : string.Empty).Style(cellStyle);

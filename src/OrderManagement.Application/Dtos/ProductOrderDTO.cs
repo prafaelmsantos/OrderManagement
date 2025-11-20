@@ -19,10 +19,10 @@
         public int OneMonth { get; set; }
         public int ThreeMonths { get; set; }
         public int SixMonths { get; set; }
+        public int NineMonths { get; set; }
         public int TwelveMonths { get; set; }
         public int EighteenMonths { get; set; }
         public int TwentyFourMonths { get; set; }
-        public int ThirtySixMonths { get; set; }
 
         public int OneYear { get; set; }
         public int TwoYears { get; set; }

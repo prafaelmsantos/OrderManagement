@@ -15,10 +15,10 @@
         public int OneMonth { get; private set; }
         public int ThreeMonths { get; private set; }
         public int SixMonths { get; private set; }
+        public int NineMonths { get; private set; }
         public int TwelveMonths { get; private set; }
         public int EighteenMonths { get; private set; }
         public int TwentyFourMonths { get; private set; }
-        public int ThirtySixMonths { get; private set; }
 
         public int OneYear { get; private set; }
         public int TwoYears { get; private set; }
@@ -42,10 +42,10 @@
             int oneMonth,
             int threeMonths,
             int sixMonths,
+            int nineMonths,
             int twelveMonths,
             int eighteenMonths,
             int twentyFourMonths,
-            int thirtySixMonths,
             int oneYear,
             int twoYears,
             int threeYears,
@@ -62,10 +62,11 @@
                 .When(oneMonth < 0, "A quantidade de 1 mês não pode ser menor que 0.")
                 .When(threeMonths < 0, "A quantidade de 3 meses não pode ser menor que 0.")
                 .When(sixMonths < 0, "A quantidade de 6 meses não pode ser menor que 0.")
+                .When(nineMonths < 0, "A quantidade de 9 meses não pode ser menor que 0.")
                 .When(twelveMonths < 0, "A quantidade de 12 meses não pode ser menor que 0.")
                 .When(eighteenMonths < 0, "A quantidade de 18 meses não pode ser menor que 0.")
                 .When(twentyFourMonths < 0, "A quantidade de 24 meses não pode ser menor que 0.")
-                .When(thirtySixMonths < 0, "A quantidade de 36 meses não pode ser menor que 0.")
+
                 .When(oneYear < 0, "A quantidade de 1 ano não pode ser menor que 0.")
                 .When(twoYears < 0, "A quantidade de 2 anos não pode ser menor que 0.")
                 .When(threeYears < 0, "A quantidade de 3 anos não pode ser menor que 0.")
@@ -84,10 +85,10 @@
             OneMonth = oneMonth;
             ThreeMonths = threeMonths;
             SixMonths = sixMonths;
+            NineMonths = nineMonths;
             TwelveMonths = twelveMonths;
             EighteenMonths = eighteenMonths;
             TwentyFourMonths = twentyFourMonths;
-            ThirtySixMonths = thirtySixMonths;
 
             OneYear = oneYear;
             TwoYears = twoYears;
@@ -111,10 +112,10 @@
             int oneMonth = 0,
             int threeMonths = 0,
             int sixMonths = 0,
+            int nineMonths = 0,
             int twelveMonths = 0,
             int eighteenMonths = 0,
             int twentyFourMonths = 0,
-            int thirtySixMonths = 0,
             int oneYear = 0,
             int twoYears = 0,
             int threeYears = 0,
@@ -133,10 +134,11 @@
                 .When(oneMonth < 0, "A quantidade de 1 mês não pode ser menor que 0.")
                 .When(threeMonths < 0, "A quantidade de 3 meses não pode ser menor que 0.")
                 .When(sixMonths < 0, "A quantidade de 6 meses não pode ser menor que 0.")
+                .When(nineMonths < 0, "A quantidade de 9 meses não pode ser menor que 0.")
                 .When(twelveMonths < 0, "A quantidade de 12 meses não pode ser menor que 0.")
                 .When(eighteenMonths < 0, "A quantidade de 18 meses não pode ser menor que 0.")
                 .When(twentyFourMonths < 0, "A quantidade de 24 meses não pode ser menor que 0.")
-                .When(thirtySixMonths < 0, "A quantidade de 36 meses não pode ser menor que 0.")
+
                 .When(oneYear < 0, "A quantidade de 1 ano não pode ser menor que 0.")
                 .When(twoYears < 0, "A quantidade de 2 anos não pode ser menor que 0.")
                 .When(threeYears < 0, "A quantidade de 3 anos não pode ser menor que 0.")
@@ -160,7 +162,6 @@
             TwelveMonths = twelveMonths;
             EighteenMonths = eighteenMonths;
             TwentyFourMonths = twentyFourMonths;
-            ThirtySixMonths = thirtySixMonths;
 
             OneYear = oneYear;
             TwoYears = twoYears;
@@ -176,10 +177,9 @@
 
         private void UpdateTotals()
         {
-            TotalQuantity = ZeroMonths + OneMonth + ThreeMonths + SixMonths + TwelveMonths +
-                            EighteenMonths + TwentyFourMonths + ThirtySixMonths +
-                            OneYear + TwoYears + ThreeYears + FourYears +
-                            SixYears + EightYears + TenYears + TwelveYears;
+            TotalQuantity = ZeroMonths + OneMonth + ThreeMonths + SixMonths + NineMonths +
+                TwelveMonths + EighteenMonths + TwentyFourMonths + OneYear + TwoYears +
+                ThreeYears + FourYears + SixYears + EightYears + TenYears + TwelveYears;
 
             TotalPrice = TotalQuantity * UnitPrice;
         }
