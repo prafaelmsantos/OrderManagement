@@ -15,15 +15,11 @@
                 Directory.CreateDirectory(dbFolder);
             }
 
-
             string dbPath = Path.Combine(dbFolder, "OrderManagement.db");
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseLazyLoadingProxies()
                        .UseSqlite($"Data Source={dbPath}"));
-
-
-
 
             return services;
         }
