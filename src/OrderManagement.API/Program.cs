@@ -58,15 +58,15 @@
         private static void ConfigureApp(WebApplication app)
         {
             string host = "/ordermanagement";
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<AppDbContext>();
-                Console.WriteLine("Update database started");
-                context.Database.SetCommandTimeout(TimeSpan.FromHours(2));
-                context.Database.Migrate();
-                Console.WriteLine("Update database ended");
-            }
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
+            //    var context = services.GetRequiredService<AppDbContext>();
+            //    Console.WriteLine("Update database started");
+            //    context.Database.SetCommandTimeout(TimeSpan.FromHours(2));
+            //    context.Database.Migrate();
+            //    Console.WriteLine("Update database ended");
+            //}
 
             app.UsePathBase(host);
             app.UseCors(CustomPolicy);
