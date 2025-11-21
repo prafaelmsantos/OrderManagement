@@ -39,9 +39,9 @@
                 .HasColumnName("six_months")
                 .IsRequired();
 
-            //entity.Property(x => x.NineMonths)
-            //    .HasColumnName("nine_months")
-            //    .IsRequired();
+            entity.Property(x => x.NineMonths)
+                .HasColumnName("nine_months")
+                .IsRequired();
 
             entity.Property(x => x.TwelveMonths)
                 .HasColumnName("twelve_months")
