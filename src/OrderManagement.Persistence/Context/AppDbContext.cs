@@ -17,8 +17,6 @@
             modelBuilder.AddConfiguration(new ProductMap());
             modelBuilder.AddConfiguration(new OrderMap());
             modelBuilder.AddConfiguration(new ProductOrderMap());
-
-            modelBuilder.AddInitialSeed();
         }
     }
 }
