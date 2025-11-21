@@ -15,7 +15,7 @@
         public int OneMonth { get; private set; }
         public int ThreeMonths { get; private set; }
         public int SixMonths { get; private set; }
-        public int NineMonths { get; private set; }
+        //public int NineMonths { get; private set; }
         public int TwelveMonths { get; private set; }
         public int EighteenMonths { get; private set; }
         public int TwentyFourMonths { get; private set; }
@@ -85,7 +85,7 @@
             OneMonth = oneMonth;
             ThreeMonths = threeMonths;
             SixMonths = sixMonths;
-            NineMonths = nineMonths;
+            //NineMonths = nineMonths;
             TwelveMonths = twelveMonths;
             EighteenMonths = eighteenMonths;
             TwentyFourMonths = twentyFourMonths;
@@ -177,7 +177,7 @@
 
         private void UpdateTotals()
         {
-            TotalQuantity = ZeroMonths + OneMonth + ThreeMonths + SixMonths + NineMonths +
+            TotalQuantity = ZeroMonths + OneMonth + ThreeMonths + SixMonths + 0 +
                 TwelveMonths + EighteenMonths + TwentyFourMonths + OneYear + TwoYears +
                 ThreeYears + FourYears + SixYears + EightYears + TenYears + TwelveYears;
 

@@ -64,7 +64,7 @@
                 var context = services.GetRequiredService<AppDbContext>();
                 Console.WriteLine("Update database started");
                 context.Database.SetCommandTimeout(TimeSpan.FromHours(2));
-                context.Database.EnsureCreated();
+                context.Database.Migrate();
                 Console.WriteLine("Update database ended");
             }
 
