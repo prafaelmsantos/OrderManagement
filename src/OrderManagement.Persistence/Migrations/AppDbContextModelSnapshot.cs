@@ -68,6 +68,52 @@ namespace OrderManagement.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("customers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Address = "Rua das Flores 10",
+                            City = "Lisboa",
+                            Contact = "912345678",
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9670),
+                            FullName = "João Silva",
+                            PostalCode = "1000-001",
+                            TaxIdentificationNumber = "123456789"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Address = "Avenida Central 25",
+                            City = "Porto",
+                            Contact = "913456789",
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9675),
+                            FullName = "Maria Santos",
+                            PostalCode = "4000-123",
+                            TaxIdentificationNumber = "987654321"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Address = "Rua da Liberdade 8",
+                            City = "Coimbra",
+                            Contact = "914567890",
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9678),
+                            FullName = "António Santos",
+                            PostalCode = "3000-045",
+                            TaxIdentificationNumber = "192837465"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Address = "Travessa do Sol 12",
+                            City = "Leiria",
+                            Contact = "915678901",
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9680),
+                            FullName = "José Santos",
+                            PostalCode = "2400-002",
+                            TaxIdentificationNumber = "564738291"
+                        });
                 });
 
             modelBuilder.Entity("OrderManagement.Domain.Entities.Order", b =>
@@ -101,6 +147,40 @@ namespace OrderManagement.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("orders", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9865),
+                            CustomerId = 1L,
+                            Observations = "Este documento não serve de fatura.",
+                            PaymentMethod = "A pronto pagamento."
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9866),
+                            CustomerId = 2L,
+                            Observations = "Este documento não serve de fatura.",
+                            PaymentMethod = "A pronto pagamento."
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9868),
+                            CustomerId = 3L,
+                            Observations = "Este documento não serve de fatura.",
+                            PaymentMethod = "A pronto pagamento."
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9869),
+                            CustomerId = 4L,
+                            Observations = "Este documento não serve de fatura.",
+                            PaymentMethod = "A pronto pagamento."
+                        });
                 });
 
             modelBuilder.Entity("OrderManagement.Domain.Entities.Product", b =>
@@ -133,6 +213,40 @@ namespace OrderManagement.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("products", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9833),
+                            Description = "Camisola de algodão",
+                            Reference = "P-1001",
+                            UnitPrice = 19.989999999999998
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9835),
+                            Description = "Calças de ganga",
+                            Reference = "P-1002",
+                            UnitPrice = 39.990000000000002
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9837),
+                            Description = "Casaco de inverno",
+                            Reference = "P-1003",
+                            UnitPrice = 59.990000000000002
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CreatedDate = new DateTime(2025, 11, 17, 13, 56, 1, 240, DateTimeKind.Utc).AddTicks(9839),
+                            Description = "T-shirt básica",
+                            Reference = "P-1004",
+                            UnitPrice = 9.9900000000000002
+                        });
                 });
 
             modelBuilder.Entity("OrderManagement.Domain.Entities.ProductOrder", b =>
@@ -157,10 +271,6 @@ namespace OrderManagement.Persistence.Migrations
                     b.Property<int>("FourYears")
                         .HasColumnType("INTEGER")
                         .HasColumnName("four_years");
-
-                    b.Property<int>("NineMonths")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("nine_months");
 
                     b.Property<int>("OneMonth")
                         .HasColumnType("INTEGER")
@@ -189,6 +299,10 @@ namespace OrderManagement.Persistence.Migrations
                     b.Property<int>("TenYears")
                         .HasColumnType("INTEGER")
                         .HasColumnName("ten_years");
+
+                    b.Property<int>("ThirtySixMonths")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("thirty_six_months");
 
                     b.Property<int>("ThreeMonths")
                         .HasColumnType("INTEGER")
@@ -240,6 +354,164 @@ namespace OrderManagement.Persistence.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("product_order", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Color = "Verde",
+                            EightYears = 0,
+                            EighteenMonths = 0,
+                            FourYears = 0,
+                            OneMonth = 2,
+                            OneYear = 0,
+                            OrderId = 1L,
+                            ProductId = 1L,
+                            SixMonths = 0,
+                            SixYears = 0,
+                            TenYears = 0,
+                            ThirtySixMonths = 0,
+                            ThreeMonths = 1,
+                            ThreeYears = 0,
+                            TotalPrice = 59.969999999999999,
+                            TotalQuantity = 3,
+                            TwelveMonths = 0,
+                            TwelveYears = 0,
+                            TwentyFourMonths = 0,
+                            TwoYears = 0,
+                            UnitPrice = 19.989999999999998,
+                            ZeroMonths = 0
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Color = "Azul",
+                            EightYears = 0,
+                            EighteenMonths = 0,
+                            FourYears = 0,
+                            OneMonth = 0,
+                            OneYear = 0,
+                            OrderId = 1L,
+                            ProductId = 2L,
+                            SixMonths = 1,
+                            SixYears = 0,
+                            TenYears = 0,
+                            ThirtySixMonths = 0,
+                            ThreeMonths = 0,
+                            ThreeYears = 0,
+                            TotalPrice = 119.97,
+                            TotalQuantity = 3,
+                            TwelveMonths = 2,
+                            TwelveYears = 0,
+                            TwentyFourMonths = 0,
+                            TwoYears = 0,
+                            UnitPrice = 39.990000000000002,
+                            ZeroMonths = 0
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Color = "Vermelho",
+                            EightYears = 0,
+                            EighteenMonths = 0,
+                            FourYears = 0,
+                            OneMonth = 0,
+                            OneYear = 0,
+                            OrderId = 2L,
+                            ProductId = 3L,
+                            SixMonths = 0,
+                            SixYears = 0,
+                            TenYears = 0,
+                            ThirtySixMonths = 0,
+                            ThreeMonths = 0,
+                            ThreeYears = 0,
+                            TotalPrice = 0.0,
+                            TotalQuantity = 0,
+                            TwelveMonths = 0,
+                            TwelveYears = 0,
+                            TwentyFourMonths = 0,
+                            TwoYears = 0,
+                            UnitPrice = 59.990000000000002,
+                            ZeroMonths = 0
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Color = "Preto",
+                            EightYears = 0,
+                            EighteenMonths = 0,
+                            FourYears = 0,
+                            OneMonth = 0,
+                            OneYear = 0,
+                            OrderId = 2L,
+                            ProductId = 4L,
+                            SixMonths = 0,
+                            SixYears = 0,
+                            TenYears = 0,
+                            ThirtySixMonths = 0,
+                            ThreeMonths = 0,
+                            ThreeYears = 0,
+                            TotalPrice = 0.0,
+                            TotalQuantity = 0,
+                            TwelveMonths = 0,
+                            TwelveYears = 0,
+                            TwentyFourMonths = 0,
+                            TwoYears = 0,
+                            UnitPrice = 9.9900000000000002,
+                            ZeroMonths = 0
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Color = "Branco",
+                            EightYears = 0,
+                            EighteenMonths = 0,
+                            FourYears = 0,
+                            OneMonth = 0,
+                            OneYear = 0,
+                            OrderId = 3L,
+                            ProductId = 3L,
+                            SixMonths = 0,
+                            SixYears = 0,
+                            TenYears = 0,
+                            ThirtySixMonths = 0,
+                            ThreeMonths = 0,
+                            ThreeYears = 0,
+                            TotalPrice = 0.0,
+                            TotalQuantity = 0,
+                            TwelveMonths = 0,
+                            TwelveYears = 0,
+                            TwentyFourMonths = 0,
+                            TwoYears = 0,
+                            UnitPrice = 59.990000000000002,
+                            ZeroMonths = 0
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Color = "Cinza",
+                            EightYears = 0,
+                            EighteenMonths = 0,
+                            FourYears = 0,
+                            OneMonth = 0,
+                            OneYear = 0,
+                            OrderId = 4L,
+                            ProductId = 4L,
+                            SixMonths = 0,
+                            SixYears = 0,
+                            TenYears = 0,
+                            ThirtySixMonths = 0,
+                            ThreeMonths = 0,
+                            ThreeYears = 0,
+                            TotalPrice = 0.0,
+                            TotalQuantity = 0,
+                            TwelveMonths = 0,
+                            TwelveYears = 0,
+                            TwentyFourMonths = 0,
+                            TwoYears = 0,
+                            UnitPrice = 9.9900000000000002,
+                            ZeroMonths = 0
+                        });
                 });
 
             modelBuilder.Entity("OrderManagement.Domain.Entities.Order", b =>
