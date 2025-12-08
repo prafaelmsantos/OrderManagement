@@ -8,20 +8,15 @@
         public ProductReportsDocument(ProductReportDTO productReportDTO)
         {
             _productReportDTO = productReportDTO;
+
             string path = Path.Combine(AppContext.BaseDirectory, "logo.png");
-            if (File.Exists(path))
-            {
-                _logoImage = Image.FromFile(path);
-            }
-            else
-            {
-                _logoImage = null;
-            }
+
+            _logoImage = File.Exists(path) ? Image.FromFile(path) : null;
         }
 
         public DocumentMetadata GetMetadata() => new()
         {
-            Title = $"Relatório de Produtos: {_productReportDTO.Product.Reference}"
+            Title = $"Relatório de Vendas: Produto {_productReportDTO.Product.Reference}"
         };
 
         public void Compose(IDocumentContainer container)
@@ -46,19 +41,17 @@
         {
             container.Row(row =>
             {
-                // ─────────────── Logotipo ───────────────
                 if (_logoImage is not null)
                 {
                     row.ConstantItem(80).AlignLeft().AlignMiddle().Image(_logoImage);
                 }
 
-                // ─────────────── Informação da Empresa ───────────────
                 row.RelativeItem(7).Column(column =>
                 {
                     column.Item().PaddingLeft(10).Text("Raith – Exportação de Têxteis, S.A.")
-                        .FontSize(12).SemiBold();
+                        .FontSize(12).Bold();
 
-                    column.Item().PaddingLeft(10).Text("NIF: 123456789");
+                    column.Item().PaddingLeft(10).Text("NIF: 501380523");
                     column.Item().PaddingLeft(10).Text("Rua Um da Zona Industrial, 205");
                     column.Item().PaddingLeft(10).Text("4630-488 Marco de Canaveses");
                     column.Item().PaddingLeft(10).Text("Tel: 255 534 211 / 939 587 886");
@@ -67,10 +60,10 @@
 
                 row.RelativeItem(5).Column(column =>
                 {
-                    column.Item().Text("Report").FontSize(20).SemiBold();
+                    column.Item().Text("Relatório de vendas").FontSize(18).Bold();
 
                     column.Item().Text($"Produto {_productReportDTO.Product.Reference}")
-                        .FontSize(16).SemiBold();
+                        .FontSize(14).SemiBold();
 
                     column.Item().Text($"Descrição: {_productReportDTO.Product.Description}");
                     column.Spacing(5);
@@ -98,15 +91,15 @@
             {
                 table.ColumnsDefinition(columns =>
                 {
-                    columns.RelativeColumn(4);        // Cor
+                    columns.RelativeColumn(16);       // Cor
                     columns.RelativeColumn(2);        // 0M
                     columns.RelativeColumn(2);        // 1M
                     columns.RelativeColumn(2);        // 3M
                     columns.RelativeColumn(2);        // 6M
+                    columns.RelativeColumn(2);        // 9M
                     columns.RelativeColumn(2);        // 12M
                     columns.RelativeColumn(2);        // 18M
                     columns.RelativeColumn(2);        // 24M
-                    columns.RelativeColumn(2);        // 36M
                     columns.RelativeColumn(2);        // 1Y
                     columns.RelativeColumn(2);        // 2Y
                     columns.RelativeColumn(2);        // 3Y
@@ -115,10 +108,9 @@
                     columns.RelativeColumn(2);        // 8Y
                     columns.RelativeColumn(2);        // 10Y
                     columns.RelativeColumn(2);        // 12Y
-                    columns.RelativeColumn(2);        //Qt Total
+                    columns.RelativeColumn(10);       //Qt Total
                 });
 
-                // Cabeçalho
                 table.Header(header =>
                 {
                     header.Cell().AlignLeft().Text("Cor").Style(headerStyle);
@@ -126,10 +118,10 @@
                     header.Cell().AlignCenter().Text("01 M").Style(headerStyle);
                     header.Cell().AlignCenter().Text("03 M").Style(headerStyle);
                     header.Cell().AlignCenter().Text("06 M").Style(headerStyle);
+                    header.Cell().AlignCenter().Text("09 M").Style(headerStyle);
                     header.Cell().AlignCenter().Text("12 M").Style(headerStyle);
                     header.Cell().AlignCenter().Text("18 M").Style(headerStyle);
                     header.Cell().AlignCenter().Text("24 M").Style(headerStyle);
-                    header.Cell().AlignCenter().Text("36 M").Style(headerStyle);
                     header.Cell().AlignCenter().Text("01 Y").Style(headerStyle);
                     header.Cell().AlignCenter().Text("02 Y").Style(headerStyle);
                     header.Cell().AlignCenter().Text("03 Y").Style(headerStyle);
@@ -151,14 +143,17 @@
 
                     foreach (var sizeValue in size.Values)
                     {
-                        table.Cell().AlignCenter().Element(CellStyle).Text(sizeValue.TotalQuantity > 0 ? sizeValue.TotalQuantity.ToString() : string.Empty).Style(cellStyle);
+                        table.Cell().AlignCenter().Element(CellStyle).Text(sizeValue.TotalQuantity > 0 ? sizeValue.TotalQuantity.ToString() : "-").Style(cellStyle);
                     }
 
-                    table.Cell().AlignRight().Element(CellStyle).Text(size.TotalQuantity > 0 ? size.TotalQuantity.ToString() : string.Empty).Style(cellStyle);
+                    table.Cell().AlignRight().Element(CellStyle).Text(size.TotalQuantity.ToString()).Style(cellStyle);
 
                     static IContainer CellStyle(IContainer container) =>
                         container.PaddingVertical(5);
                 }
+
+                table.Cell().ColumnSpan(17).AlignRight().PaddingTop(15).Text("Total:").Style(headerStyle);
+                table.Cell().AlignRight().PaddingTop(15).Text(_productReportDTO.TotalQuantity > 0 ? _productReportDTO.TotalQuantity.ToString() : string.Empty).Style(headerStyle);
             });
         }
     }

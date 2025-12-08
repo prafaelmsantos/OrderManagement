@@ -57,14 +57,14 @@
             await ExistsAsync(customerDTO);
 
             Customer customer = new Customer(
-                customerDTO.FullName,
-                customerDTO.StoreName,
-                customerDTO.PaymentMethod,
-                customerDTO.TaxIdentificationNumber,
-                customerDTO.Contact,
-                customerDTO.Address,
-                customerDTO.PostalCode,
-                customerDTO.City
+                fullName: customerDTO.FullName,
+                storeName: string.IsNullOrWhiteSpace(customerDTO.StoreName) ? null : customerDTO.StoreName,
+                paymentMethod: string.IsNullOrWhiteSpace(customerDTO.PaymentMethod) ? null : customerDTO.PaymentMethod,
+                taxIdentificationNumber: string.IsNullOrWhiteSpace(customerDTO.TaxIdentificationNumber) ? null : customerDTO.TaxIdentificationNumber,
+                contact: string.IsNullOrWhiteSpace(customerDTO.Contact) ? null : customerDTO.Contact,
+                address: string.IsNullOrWhiteSpace(customerDTO.Address) ? null : customerDTO.Address,
+                postalCode: string.IsNullOrWhiteSpace(customerDTO.PostalCode) ? null : customerDTO.PostalCode,
+                city: string.IsNullOrWhiteSpace(customerDTO.City) ? null : customerDTO.City
             );
 
             customer = await _customerRepository.AddAsync(customer);
@@ -83,18 +83,35 @@
             await ExistsAsync(customerDTO);
 
             customer!.Update(
-                customerDTO.FullName,
-                customerDTO.StoreName,
-                customerDTO.PaymentMethod,
-                customerDTO.TaxIdentificationNumber,
-                customerDTO.Contact,
-                customerDTO.Address,
-                customerDTO.PostalCode,
-                customerDTO.City);
+                fullName: customerDTO.FullName,
+                storeName: string.IsNullOrWhiteSpace(customerDTO.StoreName) ? null : customerDTO.StoreName,
+                paymentMethod: string.IsNullOrWhiteSpace(customerDTO.PaymentMethod) ? null : customerDTO.PaymentMethod,
+                taxIdentificationNumber: string.IsNullOrWhiteSpace(customerDTO.TaxIdentificationNumber) ? null : customerDTO.TaxIdentificationNumber,
+                contact: string.IsNullOrWhiteSpace(customerDTO.Contact) ? null : customerDTO.Contact,
+                address: string.IsNullOrWhiteSpace(customerDTO.Address) ? null : customerDTO.Address,
+                postalCode: string.IsNullOrWhiteSpace(customerDTO.PostalCode) ? null : customerDTO.PostalCode,
+                city: string.IsNullOrWhiteSpace(customerDTO.City) ? null : customerDTO.City
+            );
 
             customer = await _customerRepository.UpdateAsync(customer);
 
             return customer.ToCustomerDTO();
+        }
+        [Obsolete("Apagar depois")]
+        public async Task UpdatePaymentMethodAsync()
+        {
+            IEnumerable<Customer> customers = await _customerRepository.GetAllAsync(CancellationToken.None);
+
+            foreach (var customer in customers.ToList())
+            {
+                string? paymentMethod = customer.Orders.FirstOrDefault()?.PaymentMethod;
+                if (paymentMethod is not null)
+                {
+                    customer.UpdatePaymentMethod(paymentMethod);
+                    await _customerRepository.UpdateAsync(customer);
+                }
+
+            }
         }
 
         public async Task<List<BaseResponseDTO>> DeleteCustomersAsync(List<long> customersIds)

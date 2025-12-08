@@ -65,5 +65,10 @@
             PostalCode = postalCode;
             City = city;
         }
+
+        public void UpdatePaymentMethod(string? paymentMethod)
+        {
+            PaymentMethod = paymentMethod;
+        }
     }
 }
