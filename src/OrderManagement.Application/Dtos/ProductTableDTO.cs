@@ -1,6 +1,6 @@
 ﻿namespace OrderManagement.Application.Dtos
 {
-    public record class ProductTableDTO
+    public sealed record ProductTableDTO
     {
         public long Id { get; set; }
         public string Reference { get; set; } = null!;

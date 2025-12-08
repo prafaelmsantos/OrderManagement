@@ -74,7 +74,12 @@
                     column.Item().Text($"Nota de Encomenda Nº {_order.Id}")
                         .FontSize(20).SemiBold();
                     column.Spacing(5);
-                    column.Item().Text($"Método de Pagamento: {_order.PaymentMethod}");
+
+                    string paymentMethod = string.IsNullOrWhiteSpace(_order.Customer?.PaymentMethod)
+                    ? "-"
+                    : _order.Customer.PaymentMethod;
+
+                    column.Item().Text($"Método de Pagamento: {paymentMethod}");
                     column.Item().Text($"Data: {_order.CreatedDate:G}").FontSize(9);
                 });
             });

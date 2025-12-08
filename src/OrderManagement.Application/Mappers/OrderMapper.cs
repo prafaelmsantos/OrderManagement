@@ -10,7 +10,6 @@
                 CustomerId = order.CustomerId,
                 Customer = order.Customer.ToCustomerDTO(),
                 Observations = order.Observations,
-                PaymentMethod = order.PaymentMethod,
                 CreatedDate = order.CreatedDate,
                 TotalQuantity = order.ProductsOrders.Select(x => x.TotalQuantity).Sum(),
                 TotalPrice = order.ProductsOrders.Select(x => x.TotalPrice).Sum(),

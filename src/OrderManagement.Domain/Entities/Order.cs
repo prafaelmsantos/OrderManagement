@@ -13,42 +13,25 @@
 
         protected Order() { }
 
-        public Order(long id, string? observations, string? paymentMethod, long customerId)
+        public Order(string? observations, long customerId)
         {
             Validator.New()
-                .When(id <= 0, "O id do pedido é inválido.")
                 .When(customerId <= 0, "O id do cliente associado ao pedido é inválido.")
                 .TriggerBadRequestExceptionIfExist();
 
-            Id = id;
             Observations = observations;
-            PaymentMethod = paymentMethod;
             CustomerId = customerId;
 
             CreatedDate = DateTime.UtcNow;
         }
 
-        public Order(string? observations, string? paymentMethod, long customerId)
+        public void Update(string? observations, long customerId)
         {
             Validator.New()
                 .When(customerId <= 0, "O id do cliente associado ao pedido é inválido.")
                 .TriggerBadRequestExceptionIfExist();
 
             Observations = observations;
-            PaymentMethod = paymentMethod;
-            CustomerId = customerId;
-
-            CreatedDate = DateTime.UtcNow;
-        }
-
-        public void Update(string? observations, string? paymentMethod, long customerId)
-        {
-            Validator.New()
-                .When(customerId <= 0, "O id do cliente associado ao pedido é inválido.")
-                .TriggerBadRequestExceptionIfExist();
-
-            Observations = observations;
-            PaymentMethod = paymentMethod;
             CustomerId = customerId;
         }
 

@@ -9,7 +9,7 @@
 
         public long CustomerId { get; set; }
         public string CustomerFullName { get; set; } = null!;
-        public string CustomerTaxIdentificationNumber { get; set; } = null!;
+        public string? CustomerTaxIdentificationNumber { get; set; }
 
         public string CreatedDate { get; set; } = null!;
     }

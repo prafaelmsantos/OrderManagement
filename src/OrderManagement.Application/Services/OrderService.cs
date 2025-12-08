@@ -60,7 +60,7 @@
         {
             List<ProductOrder> productsOrders = GetProducts(orderDTO.ProductsOrders);
 
-            Order order = new(orderDTO.Observations, orderDTO.PaymentMethod, orderDTO.CustomerId);
+            Order order = new(orderDTO.Observations, orderDTO.CustomerId);
 
             order.SetProductsOrders(productsOrders);
 
@@ -80,7 +80,7 @@
 
             List<ProductOrder> productsOrders = GetProducts(orderDTO.ProductsOrders);
 
-            order!.Update(orderDTO.Observations, orderDTO.PaymentMethod, orderDTO.CustomerId);
+            order!.Update(orderDTO.Observations, orderDTO.CustomerId);
 
             order.SetProductsOrders(productsOrders);
 

@@ -58,6 +58,8 @@
 
             Customer customer = new Customer(
                 customerDTO.FullName,
+                customerDTO.StoreName,
+                customerDTO.PaymentMethod,
                 customerDTO.TaxIdentificationNumber,
                 customerDTO.Contact,
                 customerDTO.Address,
@@ -82,6 +84,8 @@
 
             customer!.Update(
                 customerDTO.FullName,
+                customerDTO.StoreName,
+                customerDTO.PaymentMethod,
                 customerDTO.TaxIdentificationNumber,
                 customerDTO.Contact,
                 customerDTO.Address,
@@ -105,11 +109,10 @@
             bool exists = await _customerRepository
                 .GetAllQueryable()
                 .AsNoTracking()
-                .AnyAsync(x => x.Id != customerDTO.Id &&
-                    x.TaxIdentificationNumber.Trim() == customerDTO.TaxIdentificationNumber.Trim());
+                .AnyAsync(x => x.Id != customerDTO.Id && x.FullName.Trim() == customerDTO.FullName.Trim());
 
             Validator.New()
-                .When(exists, "Um cliente o mesmo NIF já existe.")
+                .When(exists, "Um cliente com o mesmo nome já existe.")
                 .TriggerBadRequestExceptionIfExist();
         }
 
