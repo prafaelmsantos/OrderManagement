@@ -56,7 +56,7 @@
                 CustomerTaxIdentificationNumber = order.Customer.TaxIdentificationNumber,
                 CreatedDate = order.CreatedDate.ToString("dd-MM-yyyy HH:mm:ss"),
                 TotalQuantity = order.ProductsOrders.Select(x => x.TotalQuantity).Sum(),
-                TotalPrice = Math.Round(order.ProductsOrders.Select(x => x.TotalPrice).Sum(), 2)
+                TotalPrice = Math.Round(order.ProductsOrders.Select(x => x.TotalPrice).Sum(), 2).ToString("F2")
             };
         }
     }

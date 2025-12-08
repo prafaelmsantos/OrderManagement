@@ -26,7 +26,7 @@
                 Id = product.Id,
                 Reference = product.Reference,
                 Description = product.Description,
-                UnitPrice = Math.Round(product.UnitPrice, 2),
+                UnitPrice = Math.Round(product.UnitPrice, 2).ToString("F2"),
                 TotalOrders = product.ProductsOrders.Select(x => x.TotalQuantity).Sum(),
                 CreatedDate = product.CreatedDate.ToString("dd-MM-yyyy HH:mm:ss")
             };

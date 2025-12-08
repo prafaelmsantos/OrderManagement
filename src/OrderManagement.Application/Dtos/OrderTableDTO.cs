@@ -5,7 +5,7 @@
         public long Id { get; set; }
 
         public int TotalQuantity { get; set; }
-        public double TotalPrice { get; set; }
+        public string TotalPrice { get; set; } = null!;
 
         public long CustomerId { get; set; }
         public string CustomerFullName { get; set; } = null!;

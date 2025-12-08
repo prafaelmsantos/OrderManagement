@@ -49,7 +49,7 @@
                 Contact = customer.Contact,
                 FullAddress = GetFullAddress(customer),
                 TotalOrders = customer.Orders.Count,
-                CreatedDate = customer.CreatedDate.ToString("dd/MM/yyyy")
+                CreatedDate = customer.CreatedDate.ToString("dd-MM-yyyy HH:mm:ss")
             };
         }
 
