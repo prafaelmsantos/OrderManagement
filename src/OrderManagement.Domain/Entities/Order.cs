@@ -3,7 +3,6 @@
     public class Order : BaseEntity
     {
         public string? Observations { get; private set; }
-        public string? PaymentMethod { get; private set; }
         public DateTime CreatedDate { get; private set; }
 
         public long CustomerId { get; private set; }

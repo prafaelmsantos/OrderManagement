@@ -11,9 +11,6 @@
             entity.Property(x => x.Observations)
                 .HasColumnName("observations");
 
-            entity.Property(x => x.PaymentMethod)
-                .HasColumnName("payment_method");
-
             entity.Property(x => x.CreatedDate)
                 .HasColumnName("created_date")
                 .IsRequired();
