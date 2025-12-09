@@ -23,16 +23,22 @@
         {
             container.Page(page =>
             {
-                page.Margin(25);
+                page.Margin(40);
 
                 page.Header().Element(ComposeHeader);
                 page.Content().Element(ComposeContent);
 
-                page.Footer().AlignCenter().Text(text =>
+                page.Footer().Column(column =>
                 {
-                    text.CurrentPageNumber();
-                    text.Span(" / ");
-                    text.TotalPages();
+                    column.Item().AlignCenter().Text(text =>
+                    {
+                        text.CurrentPageNumber();
+                        text.Span(" / ");
+                        text.TotalPages();
+                    });
+
+                    column.Item().AlignRight().Text("Gerado por Raith – Order Management System")
+                       .FontSize(6).FontColor(Colors.Grey.Darken2);
                 });
             });
         }
@@ -141,9 +147,9 @@
                     });
                 });
 
-                column.Item().PaddingTop(20).Element(ComposeObservations);
+                column.Item().PaddingBottom(20).Element(ComposeObservations);
 
-                column.Item().PaddingTop(30).Element(ComposeTable);
+                column.Item().PaddingTop(20).Element(ComposeTable);
             });
         }
 

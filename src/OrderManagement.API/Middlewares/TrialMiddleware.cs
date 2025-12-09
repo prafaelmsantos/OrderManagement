@@ -3,7 +3,7 @@
     public class TrialMiddleware
     {
         private readonly RequestDelegate _next;
-        private static readonly DateTime trialStart = new(2025, 11, 10); // início do trial
+        private static readonly DateTime trialStart = new(2025, 11, 20);
         private const int TrialDays = 30;
 
         public TrialMiddleware(RequestDelegate next)
@@ -18,7 +18,7 @@
             if (daysUsed > TrialDays)
             {
                 context.Response.StatusCode = 403;
-                await context.Response.WriteAsync("Trial expirado");
+                await context.Response.WriteAsync("Trial expirado.");
                 return;
             }
 

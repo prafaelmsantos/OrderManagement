@@ -28,11 +28,17 @@
                 page.Header().Element(ComposeHeader);
                 page.Content().Element(ComposeContent);
 
-                page.Footer().AlignCenter().Text(text =>
+                page.Footer().Column(column =>
                 {
-                    text.CurrentPageNumber();
-                    text.Span(" / ");
-                    text.TotalPages();
+                    column.Item().AlignCenter().Text(text =>
+                    {
+                        text.CurrentPageNumber();
+                        text.Span(" / ");
+                        text.TotalPages();
+                    });
+
+                    column.Item().AlignRight().Text("Gerado por Raith – Order Management System")
+                       .FontSize(6).FontColor(Colors.Grey.Darken2);
                 });
             });
         }
