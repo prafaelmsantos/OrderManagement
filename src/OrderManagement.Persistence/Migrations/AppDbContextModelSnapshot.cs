@@ -29,17 +29,14 @@ namespace OrderManagement.Persistence.Migrations
                         .HasColumnName("id");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("address");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("city");
 
                     b.Property<string>("Contact")
-                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("contact");
 
@@ -52,13 +49,19 @@ namespace OrderManagement.Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("full_name");
 
+                    b.Property<string>("PaymentMethod")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("payment_method");
+
                     b.Property<string>("PostalCode")
-                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("postal_code");
 
+                    b.Property<string>("StoreName")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("store_name");
+
                     b.Property<string>("TaxIdentificationNumber")
-                        .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("tax_identification_number");
 
