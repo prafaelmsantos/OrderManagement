@@ -67,7 +67,7 @@
 
                     column.Item().Text($"Descrição: {_productReportDTO.Product.Description}");
                     column.Spacing(5);
-                    column.Item().Text($"Data: {DateTime.UtcNow:G}")
+                    column.Item().Text($"Data/Hora: {DateTime.UtcNow:G}")
                         .FontSize(9).SemiBold();
                 });
             });

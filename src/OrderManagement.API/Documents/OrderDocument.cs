@@ -39,8 +39,7 @@
 
         void ComposeHeader(IContainer container)
         {
-
-            container.Row(row =>
+            container.PaddingBottom(30).Row(row =>
             {
                 if (_logoImage is not null)
                 {
@@ -66,15 +65,14 @@
 
                     column.Spacing(5);
 
-                    column.Item().Text($"Método de Pagamento: {_order.Customer?.PaymentMethod ?? "-"}");
-                    column.Item().Text($"Data: {_order.CreatedDate:G}").FontSize(9);
+                    column.Item().Text($"Data/Hora: {_order.CreatedDate:G}").FontSize(9);
                 });
             });
         }
 
         void ComposeContent(IContainer container)
         {
-            container.PaddingTop(40).Column(column =>
+            container.Column(column =>
             {
                 column.Spacing(30);
 
@@ -86,46 +84,58 @@
                         cc.Spacing(10);
                         cc.Item().Row(row =>
                         {
-                            row.RelativeItem(8).Text(text =>
+                            row.RelativeItem(6).Text(text =>
                             {
                                 text.Span("Nome: ").Bold();
                                 text.Span(_order.Customer?.FullName ?? "-");
                             });
 
-                            row.RelativeItem(4).Text(text =>
+                            row.RelativeItem(6).Text(text =>
                             {
-                                text.Span("NIF: ").Bold();
-                                text.Span(_order.Customer?.TaxIdentificationNumber ?? "-");
+                                text.Span("Nome da Loja: ").Bold();
+                                text.Span(_order.Customer?.StoreName ?? "-");
                             });
                         });
                         cc.Spacing(10);
                         cc.Item().Row(row =>
                         {
-                            row.RelativeItem(8).Text(text =>
+                            row.RelativeItem(6).Text(text =>
+                            {
+                                text.Span("Método de Pagamento: ").Bold();
+                                text.Span(_order.Customer?.PaymentMethod ?? "-");
+                            });
+
+                            row.RelativeItem(3).Text(text =>
+                            {
+                                text.Span("NIF: ").Bold();
+                                text.Span(_order.Customer?.TaxIdentificationNumber ?? "-");
+                            });
+
+                            row.RelativeItem(3).Text(text =>
+                            {
+                                text.Span("Contacto: ").Bold();
+                                text.Span(_order.Customer?.Contact ?? "-");
+                            });
+                        });
+                        cc.Spacing(10);
+                        cc.Item().Row(row =>
+                        {
+                            row.RelativeItem(6).Text(text =>
                             {
                                 text.Span("Morada: ").Bold();
                                 text.Span(_order.Customer?.Address ?? "-");
                             });
 
-                            row.RelativeItem(4).Text(text =>
+                            row.RelativeItem(3).Text(text =>
                             {
-                                text.Span("Código-Postal: ").Bold();
+                                text.Span("Código Postal: ").Bold();
                                 text.Span(_order.Customer?.PostalCode ?? "-");
                             });
-                        });
-                        cc.Spacing(10);
-                        cc.Item().Row(row =>
-                        {
-                            row.RelativeItem(8).Text(text =>
+
+                            row.RelativeItem(3).Text(text =>
                             {
                                 text.Span("Cidade: ").Bold();
                                 text.Span(_order.Customer?.City ?? "-");
-                            });
-
-                            row.RelativeItem(4).Text(text =>
-                            {
-                                text.Span("Contacto: ").Bold();
-                                text.Span(_order.Customer?.Contact ?? "-");
                             });
                         });
                     });

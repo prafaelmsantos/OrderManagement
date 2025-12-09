@@ -78,7 +78,7 @@
                         };
                     }).OrderBy(x => x.Size)];
 
-                    return new ProductSalesBySizeDTO
+                    return new ProductSalesBySizeDTO()
                     {
                         Color = g.Key,
                         TotalQuantity = productSalesBySizeValues.Sum(x=> x.TotalQuantity),
