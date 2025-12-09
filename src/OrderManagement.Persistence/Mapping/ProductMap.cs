@@ -20,8 +20,8 @@
                 .IsRequired();
 
             entity.Property(x => x.CreatedDate)
-               .HasColumnName("created_date")
-               .IsRequired();
+                .HasColumnName("created_date")
+                .IsRequired();
 
             entity.HasMany(p => p.ProductsOrders)
                 .WithOne(pto => pto.Product)

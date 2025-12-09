@@ -57,12 +57,14 @@
             await ExistsAsync(customerDTO);
 
             Customer customer = new Customer(
-                customerDTO.FullName,
-                customerDTO.TaxIdentificationNumber,
-                customerDTO.Contact,
-                customerDTO.Address,
-                customerDTO.PostalCode,
-                customerDTO.City
+                fullName: customerDTO.FullName,
+                storeName: string.IsNullOrWhiteSpace(customerDTO.StoreName) ? null : customerDTO.StoreName,
+                paymentMethod: string.IsNullOrWhiteSpace(customerDTO.PaymentMethod) ? null : customerDTO.PaymentMethod,
+                taxIdentificationNumber: string.IsNullOrWhiteSpace(customerDTO.TaxIdentificationNumber) ? null : customerDTO.TaxIdentificationNumber,
+                contact: string.IsNullOrWhiteSpace(customerDTO.Contact) ? null : customerDTO.Contact,
+                address: string.IsNullOrWhiteSpace(customerDTO.Address) ? null : customerDTO.Address,
+                postalCode: string.IsNullOrWhiteSpace(customerDTO.PostalCode) ? null : customerDTO.PostalCode,
+                city: string.IsNullOrWhiteSpace(customerDTO.City) ? null : customerDTO.City
             );
 
             customer = await _customerRepository.AddAsync(customer);
@@ -81,12 +83,15 @@
             await ExistsAsync(customerDTO);
 
             customer!.Update(
-                customerDTO.FullName,
-                customerDTO.TaxIdentificationNumber,
-                customerDTO.Contact,
-                customerDTO.Address,
-                customerDTO.PostalCode,
-                customerDTO.City);
+                fullName: customerDTO.FullName,
+                storeName: string.IsNullOrWhiteSpace(customerDTO.StoreName) ? null : customerDTO.StoreName,
+                paymentMethod: string.IsNullOrWhiteSpace(customerDTO.PaymentMethod) ? null : customerDTO.PaymentMethod,
+                taxIdentificationNumber: string.IsNullOrWhiteSpace(customerDTO.TaxIdentificationNumber) ? null : customerDTO.TaxIdentificationNumber,
+                contact: string.IsNullOrWhiteSpace(customerDTO.Contact) ? null : customerDTO.Contact,
+                address: string.IsNullOrWhiteSpace(customerDTO.Address) ? null : customerDTO.Address,
+                postalCode: string.IsNullOrWhiteSpace(customerDTO.PostalCode) ? null : customerDTO.PostalCode,
+                city: string.IsNullOrWhiteSpace(customerDTO.City) ? null : customerDTO.City
+            );
 
             customer = await _customerRepository.UpdateAsync(customer);
 
@@ -105,11 +110,10 @@
             bool exists = await _customerRepository
                 .GetAllQueryable()
                 .AsNoTracking()
-                .AnyAsync(x => x.Id != customerDTO.Id &&
-                    x.TaxIdentificationNumber.Trim() == customerDTO.TaxIdentificationNumber.Trim());
+                .AnyAsync(x => x.Id != customerDTO.Id && x.FullName.Trim() == customerDTO.FullName.Trim());
 
             Validator.New()
-                .When(exists, "Um cliente o mesmo NIF já existe.")
+                .When(exists, "Um cliente com o mesmo nome já existe.")
                 .TriggerBadRequestExceptionIfExist();
         }
 

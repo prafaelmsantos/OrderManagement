@@ -10,17 +10,16 @@
                 CustomerId = order.CustomerId,
                 Customer = order.Customer.ToCustomerDTO(),
                 Observations = order.Observations,
-                PaymentMethod = order.PaymentMethod,
                 CreatedDate = order.CreatedDate,
                 TotalQuantity = order.ProductsOrders.Select(x => x.TotalQuantity).Sum(),
-                TotalPrice = order.ProductsOrders.Select(x => x.TotalPrice).Sum(),
+                TotalPrice = Math.Round(order.ProductsOrders.Select(x => x.TotalPrice).Sum(), 2),
                 ProductsOrders = [.. order.ProductsOrders.Select(productOrder => new ProductOrderDTO()
                 {
                     Id = productOrder.Id,
                     OrderId = productOrder.OrderId,
                     ProductId = productOrder.ProductId,
                     Product = productOrder.Product.ToProductDTO(),
-                    UnitPrice = productOrder.UnitPrice,
+                    UnitPrice = Math.Round(productOrder.UnitPrice,2),
                     Color = productOrder.Color,
 
                     ZeroMonths = productOrder.ZeroMonths,
@@ -57,7 +56,7 @@
                 CustomerTaxIdentificationNumber = order.Customer.TaxIdentificationNumber,
                 CreatedDate = order.CreatedDate.ToString("dd-MM-yyyy HH:mm:ss"),
                 TotalQuantity = order.ProductsOrders.Select(x => x.TotalQuantity).Sum(),
-                TotalPrice = order.ProductsOrders.Select(x => x.TotalPrice).Sum()
+                TotalPrice = Math.Round(order.ProductsOrders.Select(x => x.TotalPrice).Sum(), 2).ToString("F2")
             };
         }
     }

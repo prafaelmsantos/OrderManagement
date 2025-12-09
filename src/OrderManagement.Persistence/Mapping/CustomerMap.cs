@@ -12,29 +12,30 @@
                 .HasColumnName("full_name")
                 .IsRequired();
 
+            entity.Property(x => x.StoreName)
+                .HasColumnName("store_name");
+
+            entity.Property(x => x.PaymentMethod)
+                .HasColumnName("payment_method");
+
             entity.Property(x => x.TaxIdentificationNumber)
-                .HasColumnName("tax_identification_number")
-                .IsRequired();
+                .HasColumnName("tax_identification_number");
 
             entity.Property(x => x.Contact)
-                .HasColumnName("contact")
-                .IsRequired();
+                .HasColumnName("contact");
 
             entity.Property(x => x.Address)
-                .HasColumnName("address")
-                .IsRequired();
+                .HasColumnName("address");
 
             entity.Property(x => x.PostalCode)
-                .HasColumnName("postal_code")
-                .IsRequired();
+                .HasColumnName("postal_code");
 
             entity.Property(x => x.City)
-                .HasColumnName("city")
-                .IsRequired();
+                .HasColumnName("city");
 
             entity.Property(x => x.CreatedDate)
-               .HasColumnName("created_date")
-               .IsRequired();
+                .HasColumnName("created_date")
+                .IsRequired();
 
             entity.HasMany(x => x.Orders)
                 .WithOne(x => x.Customer)

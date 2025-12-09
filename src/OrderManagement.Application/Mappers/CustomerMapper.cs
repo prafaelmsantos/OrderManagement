@@ -13,6 +13,8 @@
             {
                 Id = customer.Id,
                 FullName = customer.FullName,
+                StoreName = customer.StoreName,
+                PaymentMethod = customer.PaymentMethod,
                 TaxIdentificationNumber = customer.TaxIdentificationNumber,
                 Contact = customer.Contact,
                 Address = customer.Address,
@@ -45,10 +47,28 @@
                 FullName = customer.FullName,
                 TaxIdentificationNumber = customer.TaxIdentificationNumber,
                 Contact = customer.Contact,
-                FullAddress = $"{customer.Address}, {customer.PostalCode} {customer.City}",
+                FullAddress = GetFullAddress(customer),
                 TotalOrders = customer.Orders.Count,
-                CreatedDate = customer.CreatedDate.ToString("dd/MM/yyyy")
+                CreatedDate = customer.CreatedDate.ToString("dd-MM-yyyy HH:mm:ss")
             };
+        }
+
+        private static string? GetFullAddress(Customer customer)
+        {
+            var parts = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(customer.Address))
+            {
+                parts.Add(customer.Address);
+            }
+
+            string postalCity = $"{customer.PostalCode} {customer.City}".Trim();
+            if (!string.IsNullOrWhiteSpace(postalCity))
+            {
+                parts.Add(postalCity);
+            }
+
+            return parts.Count == 0 ? null : string.Join(", ", parts);
         }
     }
 }

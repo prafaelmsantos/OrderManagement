@@ -11,78 +11,74 @@
             _order = orderDTO;
             string path = Path.Combine(AppContext.BaseDirectory, "logo.png");
 
-            if (File.Exists(path))
-            {
-                _logoImage = Image.FromFile(path);
-            }
-            else
-            {
-                _logoImage = null;
-            }
+            _logoImage = File.Exists(path) ? Image.FromFile(path) : null;
         }
 
         public DocumentMetadata GetMetadata() => new()
         {
-            Title = $"Nota de Encomenda Nº {_order.Customer?.Id ?? 0}"
+            Title = $"Nota de Encomenda Nº{_order.Id}"
         };
 
         public void Compose(IDocumentContainer container)
         {
             container.Page(page =>
             {
-                page.Margin(25);
+                page.Margin(40);
 
                 page.Header().Element(ComposeHeader);
                 page.Content().Element(ComposeContent);
 
-                page.Footer().AlignCenter().Text(text =>
+                page.Footer().Column(column =>
                 {
-                    text.CurrentPageNumber();
-                    text.Span(" / ");
-                    text.TotalPages();
+                    column.Item().AlignCenter().Text(text =>
+                    {
+                        text.CurrentPageNumber();
+                        text.Span(" / ");
+                        text.TotalPages();
+                    });
+
+                    column.Item().AlignRight().Text("Gerado por Raith – Order Management System")
+                       .FontSize(6).FontColor(Colors.Grey.Darken2);
                 });
             });
         }
 
         void ComposeHeader(IContainer container)
         {
-
-            container.Row(row =>
+            container.PaddingBottom(30).Row(row =>
             {
-                // ─────────────── Logotipo ───────────────
                 if (_logoImage is not null)
                 {
                     row.ConstantItem(80).AlignLeft().AlignMiddle().Image(_logoImage);
                 }
 
-                // ─────────────── Informação da Empresa ───────────────
                 row.RelativeItem(7).Column(column =>
                 {
                     column.Item().PaddingLeft(10).Text("Raith – Exportação de Têxteis, S.A.")
-                        .FontSize(12).SemiBold();
+                        .FontSize(12).Bold();
 
-                    column.Item().PaddingLeft(10).Text("NIF: 123456789");
+                    column.Item().PaddingLeft(10).Text("NIF: 501380523");
                     column.Item().PaddingLeft(10).Text("Rua Um da Zona Industrial, 205");
                     column.Item().PaddingLeft(10).Text("4630-488 Marco de Canaveses");
                     column.Item().PaddingLeft(10).Text("Tel: 255 534 211 / 939 587 886");
                     column.Item().PaddingLeft(10).Text("Email: geral@raithsa.com");
                 });
 
-                // ─────────────── Informações da Encomenda ───────────────
                 row.RelativeItem(5).Column(column =>
                 {
-                    column.Item().Text($"Nota de Encomenda Nº {_order.Id}")
-                        .FontSize(20).SemiBold();
+                    column.Item().Text($"Nota de Encomenda Nº{_order.Id}")
+                        .FontSize(20).Bold();
+
                     column.Spacing(5);
-                    column.Item().Text($"Método de Pagamento: {_order.PaymentMethod}");
-                    column.Item().Text($"Data: {_order.CreatedDate:G}").FontSize(9);
+
+                    column.Item().Text($"Data/Hora: {_order.CreatedDate:G}").FontSize(9);
                 });
             });
         }
 
         void ComposeContent(IContainer container)
         {
-            container.PaddingTop(40).Column(column =>
+            container.Column(column =>
             {
                 column.Spacing(30);
 
@@ -94,52 +90,64 @@
                         cc.Spacing(10);
                         cc.Item().Row(row =>
                         {
-                            row.RelativeItem(8).Text(text =>
+                            row.RelativeItem(6).Text(text =>
                             {
                                 text.Span("Nome: ").Bold();
-                                text.Span(_order.Customer?.FullName ?? string.Empty);
+                                text.Span(_order.Customer?.FullName ?? "-");
                             });
 
-                            row.RelativeItem(4).Text(text =>
+                            row.RelativeItem(6).Text(text =>
+                            {
+                                text.Span("Nome da Loja: ").Bold();
+                                text.Span(_order.Customer?.StoreName ?? "-");
+                            });
+                        });
+                        cc.Spacing(10);
+                        cc.Item().Row(row =>
+                        {
+                            row.RelativeItem(6).Text(text =>
+                            {
+                                text.Span("Método de Pagamento: ").Bold();
+                                text.Span(_order.Customer?.PaymentMethod ?? "-");
+                            });
+
+                            row.RelativeItem(3).Text(text =>
                             {
                                 text.Span("NIF: ").Bold();
-                                text.Span(_order.Customer?.TaxIdentificationNumber ?? string.Empty);
-                            });
-                        });
-                        cc.Spacing(10);
-                        cc.Item().Row(row =>
-                        {
-                            row.RelativeItem(8).Text(text =>
-                            {
-                                text.Span("Morada: ").Bold();
-                                text.Span(_order.Customer?.Address ?? string.Empty);
+                                text.Span(_order.Customer?.TaxIdentificationNumber ?? "-");
                             });
 
-                            row.RelativeItem(4).Text(text =>
-                            {
-                                text.Span("Código-Postal: ").Bold();
-                                text.Span(_order.Customer?.PostalCode ?? string.Empty);
-                            });
-                        });
-                        cc.Spacing(10);
-                        cc.Item().Row(row =>
-                        {
-                            row.RelativeItem(8).Text(text =>
-                            {
-                                text.Span("Cidade: ").Bold();
-                                text.Span(_order.Customer?.City ?? string.Empty);
-                            });
-
-                            row.RelativeItem(4).Text(text =>
+                            row.RelativeItem(3).Text(text =>
                             {
                                 text.Span("Contacto: ").Bold();
-                                text.Span(_order.Customer?.Contact ?? string.Empty);
+                                text.Span(_order.Customer?.Contact ?? "-");
+                            });
+                        });
+                        cc.Spacing(10);
+                        cc.Item().Row(row =>
+                        {
+                            row.RelativeItem(6).Text(text =>
+                            {
+                                text.Span("Morada: ").Bold();
+                                text.Span(_order.Customer?.Address ?? "-");
+                            });
+
+                            row.RelativeItem(3).Text(text =>
+                            {
+                                text.Span("Código Postal: ").Bold();
+                                text.Span(_order.Customer?.PostalCode ?? "-");
+                            });
+
+                            row.RelativeItem(3).Text(text =>
+                            {
+                                text.Span("Cidade: ").Bold();
+                                text.Span(_order.Customer?.City ?? "-");
                             });
                         });
                     });
                 });
 
-                column.Item().PaddingTop(20).Element(ComposeObservations);
+                column.Item().PaddingBottom(20).Element(ComposeObservations);
 
                 column.Item().PaddingTop(20).Element(ComposeTable);
             });
@@ -153,9 +161,9 @@
             {
                 table.ColumnsDefinition(columns =>
                 {
-                    columns.RelativeColumn(6);       // Produto
-                    columns.RelativeColumn(18);       // Descrição
-                    columns.RelativeColumn(5);       // Cor
+                    columns.RelativeColumn(6);        // Produto
+                    columns.RelativeColumn(16);       // Descrição
+                    columns.RelativeColumn(5);        // Cor
                     columns.RelativeColumn(2);        // 0M
                     columns.RelativeColumn(2);        // 1M
                     columns.RelativeColumn(2);        // 3M
@@ -172,11 +180,9 @@
                     columns.RelativeColumn(2);        // 8Y
                     columns.RelativeColumn(2);        // 10Y
                     columns.RelativeColumn(2);        // 12Y
-                    columns.RelativeColumn(4);
-
+                    columns.RelativeColumn(6);
                 });
 
-                // Cabeçalho
                 table.Header(header =>
                 {
                     header.Cell().AlignLeft().Text("Ref.").Style(headerStyle);
@@ -198,7 +204,7 @@
                     header.Cell().AlignCenter().Text("08 Y").Style(headerStyle);
                     header.Cell().AlignCenter().Text("10 Y").Style(headerStyle);
                     header.Cell().AlignCenter().Text("12 Y").Style(headerStyle);
-                    header.Cell().AlignRight().Text("Preço Unit. €").Style(headerStyle);
+                    header.Cell().AlignRight().Text("Preço Unit.").Style(headerStyle);
 
                     header.Cell().ColumnSpan(20).PaddingTop(3).BorderColor(Colors.Black);
                 });
@@ -207,26 +213,27 @@
 
                 foreach (var item in _order.ProductsOrders)
                 {
-                    table.Cell().AlignLeft().Element(CellStyle).Text(item.Product?.Reference ?? string.Empty).Style(cellStyle);
-                    table.Cell().AlignLeft().Element(CellStyle).Text(item.Product?.Description ?? string.Empty).Style(cellStyle);
+                    table.Cell().AlignLeft().Element(CellStyle).Text(item.Product?.Reference ?? "-").Style(cellStyle);
+                    table.Cell().AlignLeft().Element(CellStyle).Text(item.Product?.Description ?? "-").Style(cellStyle);
                     table.Cell().AlignLeft().Element(CellStyle).Text(item.Color).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ZeroMonths > 0 ? item.ZeroMonths.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.OneMonth > 0 ? item.OneMonth.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ThreeMonths > 0 ? item.ThreeMonths.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.SixMonths > 0 ? item.SixMonths.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.NineMonths > 0 ? item.NineMonths.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwelveMonths > 0 ? item.TwelveMonths.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.EighteenMonths > 0 ? item.EighteenMonths.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwentyFourMonths > 0 ? item.TwentyFourMonths.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.OneYear > 0 ? item.OneYear.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwoYears > 0 ? item.TwoYears.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ThreeYears > 0 ? item.ThreeYears.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.FourYears > 0 ? item.FourYears.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.SixYears > 0 ? item.SixYears.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.EightYears > 0 ? item.EightYears.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TenYears > 0 ? item.TenYears.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwelveYears > 0 ? item.TwelveYears.ToString() : string.Empty).Style(cellStyle);
-                    table.Cell().AlignRight().Element(CellStyle).Text(item.UnitPrice.ToString()).Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ZeroMonths > 0 ? item.ZeroMonths.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.OneMonth > 0 ? item.OneMonth.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ThreeMonths > 0 ? item.ThreeMonths.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.SixMonths > 0 ? item.SixMonths.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.NineMonths > 0 ? item.NineMonths.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwelveMonths > 0 ? item.TwelveMonths.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.EighteenMonths > 0 ? item.EighteenMonths.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwentyFourMonths > 0 ? item.TwentyFourMonths.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.OneYear > 0 ? item.OneYear.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwoYears > 0 ? item.TwoYears.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.ThreeYears > 0 ? item.ThreeYears.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.FourYears > 0 ? item.FourYears.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.SixYears > 0 ? item.SixYears.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.EightYears > 0 ? item.EightYears.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TenYears > 0 ? item.TenYears.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignCenter().Element(CellStyle).Text(item.TwelveYears > 0 ? item.TwelveYears.ToString() : "-").Style(cellStyle);
+                    table.Cell().AlignRight().Element(CellStyle).Text($"€ {item.UnitPrice:F2}").Style(cellStyle.Bold());
+
 
                     static IContainer CellStyle(IContainer container) =>
                         container.PaddingVertical(5);

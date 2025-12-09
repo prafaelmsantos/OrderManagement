@@ -30,13 +30,13 @@
         public async Task<OrderDTO> GetOrderByIdAsync(long orderId)
         {
             Order? order = await _orderRepository
-               .GetAllQueryable()
-               .AsNoTracking()
-               .Where(x => x.Id == orderId)
-               .Include(x => x.ProductsOrders)
-               .ThenInclude(x => x.Product)
-               .Include(x => x.Customer)
-               .FirstOrDefaultAsync();
+                .GetAllQueryable()
+                .AsNoTracking()
+                .Where(x => x.Id == orderId)
+                .Include(x => x.ProductsOrders)
+                .ThenInclude(x => x.Product)
+                .Include(x => x.Customer)
+                .FirstOrDefaultAsync();
 
             Validator.New()
                 .When(order is null, "Encomenda não encontrada.")
@@ -48,19 +48,22 @@
         public async Task<List<OrderTableDTO>> GetAllByCustomerIdAsync(long customerId)
         {
             List<Order> orders = await _orderRepository
-               .GetAllQueryable()
-               .AsNoTracking()
-               .Where(x => x.CustomerId == customerId)
-               .ToListAsync();
+                .GetAllQueryable()
+                .AsNoTracking()
+                .Where(x => x.CustomerId == customerId)
+                .ToListAsync();
 
             return [.. orders.Select(x => x.ToOrderTableDTO())];
         }
 
         public async Task<OrderDTO> AddOrderAsync(OrderDTO orderDTO)
         {
-            List<ProductOrder> productsOrders = GetProducts(orderDTO.ProductsOrders);
+            Order order = new(
+                observations: string.IsNullOrWhiteSpace(orderDTO.Observations) ? null : orderDTO.Observations,
+                customerId: orderDTO.CustomerId
+            );
 
-            Order order = new(orderDTO.Observations, orderDTO.PaymentMethod, orderDTO.CustomerId);
+            List<ProductOrder> productsOrders = GetProducts(orderDTO.ProductsOrders);
 
             order.SetProductsOrders(productsOrders);
 
@@ -69,18 +72,20 @@
             return order.ToOrderDTO();
         }
 
-
         public async Task<OrderDTO> UpdateOrderAsync(OrderDTO orderDTO)
         {
             Order? order = await _orderRepository.GetByIdAsync(orderDTO.Id);
 
             Validator.New()
-               .When(order is null, "Encomenda não encontrada.")
-               .TriggerBadRequestExceptionIfExist();
+                .When(order is null, "Encomenda não encontrada.")
+                .TriggerBadRequestExceptionIfExist();
+
+            order!.Update(
+                observations: string.IsNullOrWhiteSpace(orderDTO.Observations) ? null : orderDTO.Observations,
+                customerId: orderDTO.CustomerId
+            );
 
             List<ProductOrder> productsOrders = GetProducts(orderDTO.ProductsOrders);
-
-            order!.Update(orderDTO.Observations, orderDTO.PaymentMethod, orderDTO.CustomerId);
 
             order.SetProductsOrders(productsOrders);
 
@@ -106,7 +111,7 @@
 
             List<ProductOrder> productOrders = [.. productOrderDTOs.Select(productOrderDTO => new ProductOrder(
                 productOrderDTO.ProductId,
-                productOrderDTO.Color,
+                string.IsNullOrWhiteSpace(productOrderDTO.Color) ? null : productOrderDTO.Color,
                 productOrderDTO.UnitPrice,
                 productOrderDTO.ZeroMonths,
                 productOrderDTO.OneMonth,

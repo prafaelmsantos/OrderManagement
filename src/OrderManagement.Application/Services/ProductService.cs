@@ -78,7 +78,7 @@
                         };
                     }).OrderBy(x => x.Size)];
 
-                    return new ProductSalesBySizeDTO
+                    return new ProductSalesBySizeDTO()
                     {
                         Color = g.Key,
                         TotalQuantity = productSalesBySizeValues.Sum(x=> x.TotalQuantity),
@@ -90,7 +90,8 @@
             {
                 ProductId = product.Id,
                 Product = product.ToProductDTO(),
-                ProductSalesBySizes = productSalesBySizes
+                TotalQuantity = productSalesBySizes.Sum(x => x.TotalQuantity),
+                ProductSalesBySizes = productSalesBySizes,
             };
 
             return productReportDTO;
@@ -100,7 +101,11 @@
         {
             await ExistsAsync(productDTO);
 
-            Product product = new(productDTO.Reference, productDTO.Description, productDTO.UnitPrice);
+            Product product = new(
+                reference: productDTO.Reference,
+                description: string.IsNullOrWhiteSpace(productDTO.Description) ? null : productDTO.Description,
+                unitPrice: productDTO.UnitPrice
+            );
 
             product = await _productRepository.AddAsync(product);
 
@@ -117,7 +122,11 @@
 
             await ExistsAsync(productDTO);
 
-            product!.Update(productDTO.Reference, productDTO.Description, productDTO.UnitPrice);
+            product!.Update(
+                reference: productDTO.Reference,
+                description: string.IsNullOrWhiteSpace(productDTO.Description) ? null : productDTO.Description,
+                unitPrice: productDTO.UnitPrice
+            );
 
             product = await _productRepository.UpdateAsync(product);
 
