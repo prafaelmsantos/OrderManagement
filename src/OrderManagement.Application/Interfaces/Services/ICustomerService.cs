@@ -7,7 +7,6 @@
         Task<CustomerDTO> GetCustomerByIdAsync(long customerId);
         Task<CustomerDTO> AddCustomerAsync(CustomerDTO customerDTO);
         Task<CustomerDTO> UpdateCustomerAsync(CustomerDTO customerDTO);
-        Task UpdatePaymentMethodAsync();
         Task<List<BaseResponseDTO>> DeleteCustomersAsync(List<long> customersIds);
     }
 }

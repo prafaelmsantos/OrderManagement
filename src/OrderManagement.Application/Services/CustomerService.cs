@@ -97,22 +97,6 @@
 
             return customer.ToCustomerDTO();
         }
-        [Obsolete("Apagar depois")]
-        public async Task UpdatePaymentMethodAsync()
-        {
-            IEnumerable<Customer> customers = await _customerRepository.GetAllAsync(CancellationToken.None);
-
-            foreach (var customer in customers.ToList())
-            {
-                string? paymentMethod = customer.Orders.FirstOrDefault()?.PaymentMethod;
-                if (paymentMethod is not null)
-                {
-                    customer.UpdatePaymentMethod(paymentMethod);
-                    await _customerRepository.UpdateAsync(customer);
-                }
-
-            }
-        }
 
         public async Task<List<BaseResponseDTO>> DeleteCustomersAsync(List<long> customersIds)
         {

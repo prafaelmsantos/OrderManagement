@@ -61,13 +61,11 @@
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                ICustomerService customerService = services.GetRequiredService<ICustomerService>();
-                customerService.UpdatePaymentMethodAsync();
-                //var context = services.GetRequiredService<AppDbContext>();
-                //Console.WriteLine("Update database started");
-                //context.Database.SetCommandTimeout(TimeSpan.FromHours(2));
-                //context.Database.Migrate();
-                //Console.WriteLine("Update database ended");
+                var context = services.GetRequiredService<AppDbContext>();
+                Console.WriteLine("Update database started");
+                context.Database.SetCommandTimeout(TimeSpan.FromHours(2));
+                context.Database.Migrate();
+                Console.WriteLine("Update database ended");
             }
 
             app.UsePathBase(host);
@@ -85,10 +83,9 @@
             app.MapControllers();
             app.MapFallbackToFile("index.html");
 
-            // Abre o navegador automaticamente (opcional)
             try
             {
-                var psi = new System.Diagnostics.ProcessStartInfo
+                System.Diagnostics.ProcessStartInfo psi = new()
                 {
                     FileName = "http://localhost:5006",
                     UseShellExecute = true
