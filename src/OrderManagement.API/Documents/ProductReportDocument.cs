@@ -66,7 +66,7 @@
 
                 row.RelativeItem(5).Column(column =>
                 {
-                    column.Item().Text("Relatório de vendas").FontSize(18).Bold();
+                    column.Item().Text("Relatório de vendas").FontSize(16).Bold();
 
                     column.Item().Text($"Produto {_productReportDTO.Product.Reference}")
                         .FontSize(14).SemiBold();
@@ -91,7 +91,7 @@
 
         void ComposeTable(IContainer container)
         {
-            TextStyle headerStyle = TextStyle.Default.ExtraBold().FontSize(9);
+            TextStyle headerStyle = TextStyle.Default.ExtraBold().FontSize(10);
 
             container.PaddingTop(10).Table(table =>
             {
@@ -141,7 +141,7 @@
                     header.Cell().ColumnSpan(18).PaddingTop(3).BorderColor(Colors.Black);
                 });
 
-                TextStyle cellStyle = TextStyle.Default.FontSize(9);
+                TextStyle cellStyle = TextStyle.Default.FontSize(10);
 
                 foreach (var size in _productReportDTO.ProductSalesBySizes)
                 {

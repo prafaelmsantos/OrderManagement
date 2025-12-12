@@ -67,7 +67,7 @@
                 row.RelativeItem(5).Column(column =>
                 {
                     column.Item().Text($"Nota de Encomenda Nº{_order.Id}")
-                        .FontSize(20).Bold();
+                        .FontSize(16).Bold();
 
                     column.Spacing(5);
 
@@ -86,20 +86,20 @@
                 {
                     c.Column(cc =>
                     {
-                        cc.Item().Text("Dados do cliente:").Bold();
+                        cc.Item().Text("Dados do cliente:").FontSize(11).Bold();
                         cc.Spacing(10);
                         cc.Item().Row(row =>
                         {
                             row.RelativeItem(6).Text(text =>
                             {
-                                text.Span("Nome: ").Bold();
-                                text.Span(_order.Customer?.FullName ?? "-");
+                                text.Span("Nome: ").FontSize(10).Bold();
+                                text.Span(_order.Customer?.FullName ?? "-").FontSize(10);
                             });
 
                             row.RelativeItem(6).Text(text =>
                             {
-                                text.Span("Nome da Loja: ").Bold();
-                                text.Span(_order.Customer?.StoreName ?? "-");
+                                text.Span("Nome da Loja: ").FontSize(10).Bold();
+                                text.Span(_order.Customer?.StoreName ?? "-").FontSize(10);
                             });
                         });
                         cc.Spacing(10);
@@ -107,20 +107,20 @@
                         {
                             row.RelativeItem(6).Text(text =>
                             {
-                                text.Span("Método de Pagamento: ").Bold();
-                                text.Span(_order.Customer?.PaymentMethod ?? "-");
+                                text.Span("Método de Pagamento: ").FontSize(10).Bold();
+                                text.Span(_order.Customer?.PaymentMethod ?? "-").FontSize(10);
                             });
 
                             row.RelativeItem(3).Text(text =>
                             {
-                                text.Span("NIF: ").Bold();
-                                text.Span(_order.Customer?.TaxIdentificationNumber ?? "-");
+                                text.Span("NIF: ").FontSize(10).Bold();
+                                text.Span(_order.Customer?.TaxIdentificationNumber ?? "-").FontSize(10);
                             });
 
                             row.RelativeItem(3).Text(text =>
                             {
-                                text.Span("Contacto: ").Bold();
-                                text.Span(_order.Customer?.Contact ?? "-");
+                                text.Span("Contacto: ").FontSize(10).Bold();
+                                text.Span(_order.Customer?.Contact ?? "-").FontSize(10);
                             });
                         });
                         cc.Spacing(10);
@@ -128,20 +128,20 @@
                         {
                             row.RelativeItem(6).Text(text =>
                             {
-                                text.Span("Morada: ").Bold();
-                                text.Span(_order.Customer?.Address ?? "-");
+                                text.Span("Morada: ").FontSize(10).Bold();
+                                text.Span(_order.Customer?.Address ?? "-").FontSize(10);
                             });
 
                             row.RelativeItem(3).Text(text =>
                             {
-                                text.Span("Código Postal: ").Bold();
-                                text.Span(_order.Customer?.PostalCode ?? "-");
+                                text.Span("Código Postal: ").FontSize(10).Bold();
+                                text.Span(_order.Customer?.PostalCode ?? "-").FontSize(10);
                             });
 
                             row.RelativeItem(3).Text(text =>
                             {
-                                text.Span("Cidade: ").Bold();
-                                text.Span(_order.Customer?.City ?? "-");
+                                text.Span("Cidade: ").FontSize(10).Bold();
+                                text.Span(_order.Customer?.City ?? "-").FontSize(10);
                             });
                         });
                     });
@@ -162,8 +162,8 @@
                 table.ColumnsDefinition(columns =>
                 {
                     columns.RelativeColumn(6);        // Produto
-                    columns.RelativeColumn(16);       // Descrição
-                    columns.RelativeColumn(5);        // Cor
+                    columns.RelativeColumn(12);       // Descrição
+                    columns.RelativeColumn(8);        // Cor
                     columns.RelativeColumn(2);        // 0M
                     columns.RelativeColumn(2);        // 1M
                     columns.RelativeColumn(2);        // 3M
@@ -245,8 +245,8 @@
         {
             container.ShowEntire().Column(column =>
             {
-                column.Item().Text("Observações: ").FontSize(12).Bold();
-                column.Item().Text(_order.Observations);
+                column.Item().Text("Observações: ").FontSize(11).Bold();
+                column.Item().Text(_order.Observations).FontSize(10);
             });
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace OrderManagement.Application.Services
+﻿using System.Text.RegularExpressions;
+
+namespace OrderManagement.Application.Services
 {
     public sealed class ProductService : IProductService
     {
@@ -148,10 +150,14 @@
                 .AnyAsync(x => x.Id != productDTO.Id &&
                     x.Reference.Trim().ToLower() == productDTO.Reference.Trim().ToLower());
 
+            Regex regex = new(@"[\\/:*?""<>|]");
+
             Validator.New()
                .When(exists, "Produto com a mesma referência já existe.")
+               .When(regex.IsMatch(productDTO.Reference), "O produto tem uma referência com caracteres inválidos.")
                .TriggerBadRequestExceptionIfExist();
         }
+
 
         private async Task<List<BaseResponseDTO>> DeleteAsync(List<long> productsIds)
         {
