@@ -10,7 +10,7 @@
                 .AddEndpointsApiExplorer()
                 .AddApiVersioning(opt =>
                 {
-                    opt.DefaultApiVersion = new ApiVersion(majorVersion, 0);
+                    opt.DefaultApiVersion = new ApiVersion(minorVersion: 0, majorVersion: majorVersion);
                     opt.AssumeDefaultVersionWhenUnspecified = true;
                     opt.ReportApiVersions = true;
                     opt.ApiVersionReader = ApiVersionReader.Combine(

@@ -75,7 +75,6 @@
             app.UseStaticFiles();
 
             app.AddErrorHandlerMiddleware();
-            app.UseMiddleware<TrialMiddleware>();
             app.UseSwaggerDocs(host);
 
             // app.UseHttpsRedirection();
@@ -85,13 +84,13 @@
 
             try
             {
-                System.Diagnostics.ProcessStartInfo psi = new()
+                ProcessStartInfo psi = new()
                 {
                     FileName = "http://localhost:5006",
                     UseShellExecute = true
                 };
 
-                System.Diagnostics.Process.Start(psi);
+                Process.Start(psi);
             }
             catch (Exception ex)
             {
