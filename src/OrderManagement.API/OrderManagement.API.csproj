@@ -7,9 +7,18 @@
     <SpaRoot>..\order-management-app</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>http://localhost:5010</SpaProxyServerUrl>
+    
+    <AssemblyName>OrderManagement</AssemblyName>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <Company>Raith</Company>
+    <Product>Order Management System</Product>
+    <Authors>Raith</Authors>
+    <Description>Order Management System for the company Raith</Description>
+    <FileVersion>1.0.0.5</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="icon.ico" />
     <Content Include="logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
