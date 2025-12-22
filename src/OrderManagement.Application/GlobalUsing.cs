@@ -12,3 +12,4 @@ global using OrderManagement.Domain.Entities;
 global using OrderManagement.Domain.Entities.Base;
 global using OrderManagement.Domain.Entities.Enums;
 global using OrderManagement.Domain.Validators;
+global using System.Text.RegularExpressions;

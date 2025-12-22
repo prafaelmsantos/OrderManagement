@@ -108,7 +108,7 @@
                 TwelveMonths + EighteenMonths + TwentyFourMonths + OneYear + TwoYears +
                 ThreeYears + FourYears + SixYears + EightYears + TenYears + TwelveYears;
 
-            TotalPrice = TotalQuantity * UnitPrice;
+            TotalPrice = Math.Round(TotalQuantity * UnitPrice, 2);
         }
     }
 }

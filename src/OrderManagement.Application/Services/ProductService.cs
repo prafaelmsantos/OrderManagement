@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace OrderManagement.Application.Services
+﻿namespace OrderManagement.Application.Services
 {
     public sealed class ProductService : IProductService
     {
@@ -106,7 +104,7 @@ namespace OrderManagement.Application.Services
             Product product = new(
                 reference: productDTO.Reference,
                 description: string.IsNullOrWhiteSpace(productDTO.Description) ? null : productDTO.Description,
-                unitPrice: productDTO.UnitPrice
+                unitPrice: Math.Round(productDTO.UnitPrice, 2)
             );
 
             product = await _productRepository.AddAsync(product);
@@ -127,7 +125,7 @@ namespace OrderManagement.Application.Services
             product!.Update(
                 reference: productDTO.Reference,
                 description: string.IsNullOrWhiteSpace(productDTO.Description) ? null : productDTO.Description,
-                unitPrice: productDTO.UnitPrice
+                unitPrice: Math.Round(productDTO.UnitPrice, 2)
             );
 
             product = await _productRepository.UpdateAsync(product);

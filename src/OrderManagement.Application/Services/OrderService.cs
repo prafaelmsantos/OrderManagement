@@ -112,7 +112,7 @@
             List<ProductOrder> productOrders = [.. productOrderDTOs.Select(productOrderDTO => new ProductOrder(
                 productOrderDTO.ProductId,
                 string.IsNullOrWhiteSpace(productOrderDTO.Color) ? null : productOrderDTO.Color,
-                productOrderDTO.UnitPrice,
+                Math.Round(productOrderDTO.UnitPrice, 2),
                 productOrderDTO.ZeroMonths,
                 productOrderDTO.OneMonth,
                 productOrderDTO.ThreeMonths,
