@@ -14,7 +14,7 @@
     <Product>Order Management System</Product>
     <Authors>Raith</Authors>
     <Description>Order Management System for the company Raith</Description>
-    <FileVersion>1.0.0.6</FileVersion>
+    <FileVersion>1.0.0.7</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
